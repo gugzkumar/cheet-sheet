@@ -1,1 +1,17 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 /* You can add global styles to this file, and also import other style files */
+$background-color: rgb(246, 246, 246);
+$foreground-color: rgb(255, 255, 255);
+$foreground-text-color: #45474c;
+
+body {
+    background-color: $background-color;
+    margin: 0px;
+    padding: 0px;
+    color: $foreground-text-color;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    padding: 0px;
+    margin: 0px;
+}
