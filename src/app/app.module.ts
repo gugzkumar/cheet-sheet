@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
@@ -31,6 +32,7 @@ import { IndexCardComponent } from './index-card/index-card.component';
     BrowserAnimationsModule,
     AppRoutingModule,
     CoreModule,
+    FormsModule,
     // Angular Material imports
     MatButtonModule,
     MatCardModule,

@@ -1,4 +1,6 @@
-<div class="index-card">
+<div class="index-card"
+    [class.editable]="canEditValue"
+>
   <mat-card
     [class.mat-elevation-z8]="enableElevation"
     (mouseover)="enableElevation=true"

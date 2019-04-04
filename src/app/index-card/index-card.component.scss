@@ -1,3 +1,6 @@
 .index-card {
     cursor: pointer;
+    &.editable {
+        cursor: move;
+    }
 }

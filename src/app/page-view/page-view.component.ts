@@ -23,12 +23,17 @@ export class PageViewComponent implements OnInit {
     'Walk dog'
   ];
 
+  public canEditPage = false;
+
   constructor() { }
 
   ngOnInit() {
   }
 
   drop(event: CdkDragDrop<string[]>) {
+    if (!this.canEditPage) {
+      return;
+    }
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
