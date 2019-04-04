@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
-  MatCardModule
+  MatCardModule,
+  MatCheckbox
 } from '@angular/material';
 
 import {
@@ -12,9 +13,10 @@ import {
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CoreModule } from './core/core.module';
+
 import { HeaderComponent } from './header/header.component';
 import { PageViewComponent } from './page-view/page-view.component';
-import { PageEditComponent } from './page-edit/page-edit.component';
 import { IndexCardComponent } from './index-card/index-card.component';
 
 @NgModule({
@@ -22,13 +24,13 @@ import { IndexCardComponent } from './index-card/index-card.component';
     AppComponent,
     HeaderComponent,
     PageViewComponent,
-    PageEditComponent,
     IndexCardComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    CoreModule,
     // Angular Material imports
     MatButtonModule,
     MatCardModule,

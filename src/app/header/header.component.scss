@@ -1,6 +1,7 @@
 @import 'styles';
-.cheat-sheet-header {
-    background-color: $foreground-color;
+.cheat-sheet-header-top {
+    background-color: $header-top-color;
+    color: $header-top-text-color;
     padding-top: 10px;
     padding-bottom: 5px;
     padding-left: 15px;
@@ -9,4 +10,16 @@
     // box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     font-family: 'Indie Flower', cursive;
     font-size: 20px;
+}
+
+.cheat-sheet-header-bottom {
+    background-color: $foreground-color;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+
+    width: 100%;
+    // box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    font-size: 12px;
+
 }
