@@ -4,8 +4,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
   MatCardModule
-
 } from '@angular/material';
+
+import {
+  DragDropModule
+} from '@angular/cdk/drag-drop'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,7 +31,9 @@ import { IndexCardComponent } from './index-card/index-card.component';
     AppRoutingModule,
     // Angular Material imports
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    // CDK modules
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

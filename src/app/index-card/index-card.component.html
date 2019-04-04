@@ -3,9 +3,10 @@
     [class.mat-elevation-z8]="enableElevation"
     (mouseover)="enableElevation=true"
     (mouseout)="enableElevation=false"
+    (click)="copyToClipBoard($event)"
   >
     <mat-card-header>
-      dads
+      {{name}}
     </mat-card-header>
     <mat-card-content>
       index-card works!

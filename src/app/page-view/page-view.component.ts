@@ -6,7 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page-view.component.scss']
 })
 export class PageViewComponent implements OnInit {
+  // index Cards on Left side of the Page
+  public indexCardsLeft = [
 
+  ];
+  // index Cards on RIGHT side of the page
+  public indexCardsRight = [
+
+  ];
   constructor() { }
 
   ngOnInit() {
