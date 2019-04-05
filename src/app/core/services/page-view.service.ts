@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class PageViewService {
 
   // CanEdit property, which can be two way binded
-  public editModeOnValue:boolean;
+  private editModeOnValue:boolean;
   get editModeOn(): boolean{
     return this.editModeOnValue;
   }

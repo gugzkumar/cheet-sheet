@@ -1,19 +1,20 @@
-<div class="page-container" cdkDropListGroup>
+<div *ngIf ="pageContent" class="page-container" cdkDropListGroup>
   <!-- LEFT COLUMN  -->
   <div
     class="page-column"
     cdkDropList
-    [cdkDropListData]="indexCardsLeft"
+    [cdkDropListData]="pageContent.indexCardsLeft"
     (cdkDropListDropped)="drop($event)"
   >
     <div class="index-card-container"
-      *ngFor="let item of indexCardsLeft"
+      *ngFor="let cardContent of pageContent.indexCardsLeft"
       cdkDrag
       [cdkDragDisabled]="!pageViewService.editModeOn"
     >
       <app-index-card
-        [name] = item
-        [(canEdit)] = pageViewService.editModeOn
+        *ngIf ="cardContent"
+        [indexCardContent] = "cardContent"
+        [(canEdit)] = "pageViewService.editModeOn"
       >
       </app-index-card>
     </div>
@@ -23,20 +24,20 @@
   <div
     class="page-column"
     cdkDropList
-    [cdkDropListData]="indexCardsRight"
+    [cdkDropListData]="pageContent.indexCardsRight"
     (cdkDropListDropped)="drop($event)"
   >
-    <div class="index-card-container"
-      *ngFor="let item of indexCardsRight"
+    <!-- <div class="index-card-container"
+      *ngFor="let cardContent of pageContent.indexCardsRight"
       cdkDrag
       [cdkDragDisabled]="!pageViewService.editModeOn"
     >
       <app-index-card
-        [name] = item
+        [indexCardContent] = cardContent
         [(canEdit)] = pageViewService.editModeOn
       >
       </app-index-card>
-    </div>
+    </div> -->
   </div>
 
 </div>

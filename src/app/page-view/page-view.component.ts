@@ -5,6 +5,8 @@ import {
   transferArrayItem
 } from '@angular/cdk/drag-drop';
 import { PageViewService } from '../core/services/page-view.service';
+import BaseIndexCardModel from '../models/base-index-card.model';
+import PageModel from '../models/page.model';
 
 @Component({
   selector: 'app-page-view',
@@ -12,21 +14,29 @@ import { PageViewService } from '../core/services/page-view.service';
   styleUrls: ['./page-view.component.scss']
 })
 export class PageViewComponent implements OnInit {
-  // index Cards on Left side of the Page
-  public indexCardsLeft = [
-    'Get to work',
-    'Pick up groceries',
-    'Go home',
-    'Fall asleep'
-  ];
-  // index Cards on RIGHT side of the page
-  public indexCardsRight = [
-    'Get up',
-    'Brush teeth',
-    'Take a shower',
-    'Check e-mail',
-    'Walk dog'
-  ];
+  public pageContent = new PageModel(
+    [
+      new BaseIndexCardModel(
+        'asds-a',
+        'A function in javascript',
+`function name(parameter) {
+    throw new Error("Not implemented yet");
+}
+`,
+        'javascript'
+      )
+    ],
+    [
+      new BaseIndexCardModel(
+        'pad',
+        'A function in python',
+`def name(parameter):
+    raise Exception('Not implemented yet')
+`,
+        'python'
+      )
+    ]
+  );
 
   constructor(private pageViewService: PageViewService) {
     pageViewService.editModeOn = false;
@@ -36,9 +46,12 @@ export class PageViewComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
+    // If the Cheat Sheet Page is in edit mode Prevent Drag and Drop Behavior
     if (!this.pageViewService.editModeOn) {
       return;
     }
+
+    // Logic to rearrange data in Drag and Drop
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {

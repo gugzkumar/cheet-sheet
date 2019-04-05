@@ -9,11 +9,11 @@
   >
     <mat-card-header>
       <mat-icon mat-card-avatar>file_copy</mat-icon>
-      <mat-card-title>{{name}}</mat-card-title>
+      <mat-card-title>{{indexCardContent.codeSnippetTitle}}</mat-card-title>
 
     </mat-card-header>
     <mat-card-content>
-      index-card works!
+      <div class="index-card-editor" [id]="indexCardContent.uniqueId"></div>
     </mat-card-content>
   </mat-card>
 </div>

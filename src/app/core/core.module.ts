@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PageViewService } from './services/page-view.service';
+import { AceEditorService } from './services/ace-editor.service';
 
 @NgModule({
   declarations: [],
@@ -8,7 +9,8 @@ import { PageViewService } from './services/page-view.service';
     CommonModule
   ],
   providers: [
-    PageViewService
+    PageViewService,
+    AceEditorService
   ]
 })
 export class CoreModule { }
