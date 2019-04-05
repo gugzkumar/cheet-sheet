@@ -1,7 +1,3 @@
-<div>
-  <label>Edit Mode</label>
-  <input type="checkbox" [(ngModel)]="canEditPage"/>
-</div>
 <div class="page-container" cdkDropListGroup>
   <!-- LEFT COLUMN  -->
   <div
@@ -13,11 +9,11 @@
     <div class="index-card-container"
       *ngFor="let item of indexCardsLeft"
       cdkDrag
-      [cdkDragDisabled]="!canEditPage"
+      [cdkDragDisabled]="!pageViewService.editModeOn"
     >
       <app-index-card
         [name] = item
-        [(canEdit)] = canEditPage
+        [(canEdit)] = pageViewService.editModeOn
       >
       </app-index-card>
     </div>
@@ -33,11 +29,11 @@
     <div class="index-card-container"
       *ngFor="let item of indexCardsRight"
       cdkDrag
-      [cdkDragDisabled]="!canEditPage"
+      [cdkDragDisabled]="!pageViewService.editModeOn"
     >
       <app-index-card
         [name] = item
-        [(canEdit)] = canEditPage
+        [(canEdit)] = pageViewService.editModeOn
       >
       </app-index-card>
     </div>

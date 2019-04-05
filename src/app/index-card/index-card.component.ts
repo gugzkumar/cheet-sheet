@@ -30,7 +30,7 @@ export class IndexCardComponent implements OnInit {
   }
 
   copyToClipBoard(event: Event) {
-    if (!this.canEdit) {
+    if (this.canEditValue) {
         return;
     }
 

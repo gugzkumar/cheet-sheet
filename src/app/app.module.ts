@@ -5,7 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
   MatCardModule,
-  MatCheckbox
+  MatCheckboxModule,
+  MatIconModule
 } from '@angular/material';
 
 import {
@@ -36,6 +37,8 @@ import { IndexCardComponent } from './index-card/index-card.component';
     // Angular Material imports
     MatButtonModule,
     MatCardModule,
+    MatCheckboxModule,
+    MatIconModule,
     // CDK modules
     DragDropModule
   ],

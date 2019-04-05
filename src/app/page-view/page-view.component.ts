@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem
+} from '@angular/cdk/drag-drop';
+import { PageViewService } from '../core/services/page-view.service';
 
 @Component({
   selector: 'app-page-view',
@@ -23,15 +28,15 @@ export class PageViewComponent implements OnInit {
     'Walk dog'
   ];
 
-  public canEditPage = false;
-
-  constructor() { }
+  constructor(private pageViewService: PageViewService) {
+    pageViewService.editModeOn = false;
+  }
 
   ngOnInit() {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    if (!this.canEditPage) {
+    if (!this.pageViewService.editModeOn) {
       return;
     }
     if (event.previousContainer === event.container) {
