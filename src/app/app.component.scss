@@ -1,0 +1,33 @@
+@import 'styles';
+.app-container {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+.header-container {
+    flex: 0 1 auto;
+    z-index: 100;
+}
+
+.main-page-container {
+    flex: 1 1 auto;
+    overflow: scroll;
+}
+
+.main-page {
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.main-page-body {
+    max-height: 100%;
+    background-color: $background-color;
+    transition: .2s;
+    &.editmode {
+      background-color: $background-color-editmode;
+    }
+}

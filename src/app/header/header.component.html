@@ -1,9 +1,68 @@
-<div class="cheat-sheet-header-top">
-  <h1>
-    CH33T $H33T
-  </h1>
+<!-- Top Header Panel-->
+<div
+  class="cheat-sheet-header-top"
+  [class.editmode]="pageViewService.editModeOn"
+>
+  <!-- Logo -->
+  <span class="cheat-sheet-header-bottom-left-content">
+    <h1 class="header-logo">
+      CH33T $H33T
+    </h1>
+  </span>
+
+  <!-- Login and Logout Options  -->
+  <span class="cheat-sheet-header-bottom-right-content">
+    <button mat-button>
+      <mat-icon>
+        person_outline
+      </mat-icon>
+      Gagan
+    </button>
+    <button mat-raised-button>
+      Login
+    </button>
+    <button mat-raised-button>
+      Logout
+    </button>
+    <button mat-raised-button>
+      Sign Up
+    </button>
+    <button mat-icon-button>
+      <mat-icon>help_outline</mat-icon>
+    </button>
+  </span>
+
 </div>
-<div class="cheat-sheet-header-bottom mat-elevation-z2">
-  <label>Rearrange Mode</label>
-  <input type="checkbox" [(ngModel)]="pageViewService.editModeOn"/>
+
+<!-- Bottom Header Panel-->
+<div
+  class="cheat-sheet-header-bottom mat-elevation-z5"
+  [class.editmode]="pageViewService.editModeOn"
+>
+  <span class="cheat-sheet-header-bottom-left-content">
+    <button mat-icon-button (click)="pageViewService.openLanguagesMenu($event)">
+      <mat-icon>list</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>refresh</mat-icon>
+    </button>
+    <mat-checkbox [(ngModel)]="pageViewService.editModeOn">
+      Edit Mode
+    </mat-checkbox>
+    <button mat-icon-button>
+      <mat-icon>save</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>note_add</mat-icon>
+    </button>
+  </span>
+  <span class="cheat-sheet-header-bottom-right-content">
+    <mat-form-field
+      style="text-align: right"
+      class="search-bar-form-field"
+      [class.editmode]="pageViewService.editModeOn"
+    >
+      <input class="search-bar-form-field-input" type="text" placeholder="Search for index card" matInput/>
+    </mat-form-field>
+  </span>
 </div>

@@ -1,25 +1,68 @@
 @import 'styles';
 .cheat-sheet-header-top {
+    z-index: 100;
+    box-sizing: border-box;
     background-color: $header-top-color;
     color: $header-top-text-color;
     padding-top: 10px;
     padding-bottom: 5px;
-    padding-left: 15px;
-
+    transition: .3s;
     width: 100%;
-    // box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     font-family: 'Indie Flower', cursive;
-    font-size: 20px;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    span * {
+      margin-left: 10px;
+      margin-right: 10px;
+      mat-icon {
+          margin: 0px;
+      }
+    }
+
+    &.editmode {
+      background-color: $foreground-color;
+      color: $header-top-color;
+    }
 }
 
 .cheat-sheet-header-bottom {
+    z-index: 100;
+    box-sizing: border-box;
     background-color: $foreground-color;
-    padding-top: 10px;
-    padding-bottom: 5px;
-    padding-left: 15px;
-
+    padding-top: 5px;
+    padding-bottom: 9px;
+    transition: .5s;
     width: 100%;
-    // box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    &.editmode {
+        background-color: $header-top-color;
+        color: $header-top-text-color;
+    }
+
+    mat-checkbox {
+      margin-right: 8px;
+      margin-left: 15px;
+    }
+
+    .cheat-sheet-header-bottom-left-content {
+        align-items: flex-end;
+    }
+
+    .cheat-sheet-header-bottom-right-content {
+      margin-right: 15px;
+      .search-bar {
+          box-sizing: border-box;
+          text-align: right;
+          &.editmode {
+              color: $foreground-color;
+          }
+      }
+    }
 
 }

@@ -17,9 +17,65 @@ export class PageViewComponent implements OnInit {
   public pageContent = new PageModel(
     [
       new BaseIndexCardModel(
-        'asds-a',
         'A function in javascript',
 `function name(parameter) {
+    throw new Error("Not implemented yet");
+}
+`,
+        'javascript'
+      ),
+      new BaseIndexCardModel(
+        'A function in javascript 0',
+`function name(parameter) {
+    throw new Error("Not implemented yet");
+}
+`,
+        'javascript'
+      ),
+      new BaseIndexCardModel(
+        'A function in javascript 6',
+`function name(parameter) {
+    throw new Error("Not implemented yet");
+}
+`,
+        'javascript'
+      ),
+      new BaseIndexCardModel(
+        'A function in javascript 2',
+`function name(parameter) {
+    throw new Error("Not implemented yet");
+}
+`,
+        'javascript'
+      ),
+      new BaseIndexCardModel(
+        'A function in javascript 4',
+`function name(parameter) {
+    throw new Error("Not implemented yet");
+}
+`,
+        'javascript'
+      ),
+      new BaseIndexCardModel(
+        'A function in javascript 3',
+`function name(parameter) {
+    throw new Error("Not implemented yet");
+}
+`,
+        'javascript'
+      ),
+      new BaseIndexCardModel(
+        'A function in javascript 13',
+`function name(parameter) {
+    throw new Error("Not implemented yet");
+}
+function name(parameter) {
+    throw new Error("Not implemented yet");
+}
+function name(parameter) {
+    throw new Error("Not implemented yet");
+}
+function name(parameter) {
     throw new Error("Not implemented yet");
 }
 `,
@@ -28,8 +84,7 @@ export class PageViewComponent implements OnInit {
     ],
     [
       new BaseIndexCardModel(
-        'pad',
-        'A function in python',
+        'A function in python 9',
 `def name(parameter):
     raise Exception('Not implemented yet')
 `,

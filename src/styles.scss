@@ -1,10 +1,15 @@
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 /* You can add global styles to this file, and also import other style files */
 $background-color: rgb(246, 246, 246);
+$background-color-editmode: rgb(169, 169, 169);
 $foreground-color: rgb(255, 255, 255);
 $foreground-text-color: #45474c;
 $header-top-color: #45474c;
 $header-top-text-color: rgb(255, 255, 255);
+
+html {
+    height: 100%;
+}
 
 body {
     background-color: $background-color;
@@ -12,9 +17,47 @@ body {
     padding: 0px;
     color: $foreground-text-color;
     font-family: Roboto,"Helvetica Neue",sans-serif;
+    height: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
     padding: 0px;
     margin: 0px;
+}
+
+.search-bar-form-field {
+    .mat-form-field-wrapper {
+        padding-bottom: 0px;
+    }
+    .mat-form-field-underline {
+        bottom: 0px;
+    }
+}
+
+.search-bar-form-field.editmode {
+    .mat-form-field-ripple {
+        background-color: $foreground-color;
+    }
+    .mat-form-field-label {
+        color: $foreground-color;
+    }
+    .mat-form-field-underline {
+        background-color: $foreground-color
+    }
+    &.mat-focused {
+      .mat-form-field-ripple {
+          background-color: rgb(255, 215, 64);
+      }
+      .mat-form-field-label {
+          color: rgb(255, 215, 64);
+      }
+      input {
+          caret-color: rgb(255, 215, 64);
+      }
+    }
+
+    // background-color: orange;
+    .mat-form-field-appearance-legacy .mat-form-field-underline {
+
+    }
 }

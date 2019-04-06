@@ -1,6 +1,23 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<app-header>
-</app-header>
+<!-- <app-header>
+</app-header> -->
+<div class="app-container">
+    <div class="header-container">
+        <app-header>
+        </app-header>
+    </div>
 
+    <div class="main-page-container" >
+        <mat-sidenav-container class="main-page">
 
-<router-outlet></router-outlet>
+            <mat-sidenav class="sidenav-body" mode="side" [opened]="pageViewService.showLanguageMenuValue">
+                <app-language-menu>
+                </app-language-menu>
+            </mat-sidenav>
+
+            <mat-sidenav-content class="main-page-body" [class.editmode]="pageViewService.editModeOn">
+                <router-outlet></router-outlet>
+            </mat-sidenav-content>
+
+        </mat-sidenav-container>
+    </div>
+</div>
