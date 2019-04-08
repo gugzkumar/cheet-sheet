@@ -49,11 +49,14 @@
     <mat-checkbox [(ngModel)]="pageViewService.editModeOn">
       Edit Mode
     </mat-checkbox>
-    <button mat-icon-button>
+    <button *ngIf="pageViewService.editModeOn" mat-icon-button>
       <mat-icon>save</mat-icon>
     </button>
-    <button mat-icon-button>
+    <button *ngIf="pageViewService.editModeOn" mat-icon-button>
       <mat-icon>note_add</mat-icon>
+    </button>
+    <button *ngIf="!pageViewService.editModeOn" mat-flat-button color="warn">
+      DELETE LANGUAGE
     </button>
   </span>
   <span class="cheat-sheet-header-bottom-right-content">
@@ -62,7 +65,12 @@
       class="search-bar-form-field"
       [class.editmode]="pageViewService.editModeOn"
     >
-      <input class="search-bar-form-field-input" type="text" placeholder="Search for index card" matInput/>
+      <input
+        class="search-bar-form-field-input"
+        type="text"
+        [placeholder]="'Search for ' + pageViewService.currentLanguage +' index card'"
+        matInput
+      />
     </mat-form-field>
   </span>
 </div>

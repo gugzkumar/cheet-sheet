@@ -12,6 +12,7 @@ import {
 } from '@angular/material';
 
 import { AceEditorService } from '../core/services/ace-editor.service';
+import { PageViewService } from '../core/services/page-view.service';
 import BaseIndexCardModel from '../models/base-index-card.model';
 
 @Component({
@@ -35,8 +36,10 @@ export class IndexCardComponent implements OnDestroy, OnInit, OnChanges {
 
   constructor(
     private aceEditorService: AceEditorService,
+    private pageViewService: PageViewService,
     private snackBar: MatSnackBar,
-    private container: ElementRef) {
+    private container: ElementRef
+  ) {
       console.log('One')
   }
 

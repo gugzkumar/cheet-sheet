@@ -50,8 +50,13 @@
       margin-left: 15px;
     }
 
+    .mat-flat-button {
+      margin-left: 12px;
+    }
+
     .cheat-sheet-header-bottom-left-content {
         align-items: flex-end;
+        margin-left: 10px;
     }
 
     .cheat-sheet-header-bottom-right-content {
@@ -62,6 +67,8 @@
           &.editmode {
               color: $foreground-color;
           }
+
+
       }
     }
 

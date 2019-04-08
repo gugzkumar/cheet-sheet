@@ -1,0 +1,28 @@
+@import 'styles';
+.languages-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.languages-menu-item {
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  transition: .1s;
+  &:hover {
+    background-color: #dddddd;
+    padding-top: 8px;
+    padding-top: 8px;
+  }
+  &.languages-menu-item-selected {
+    background-color: $foreground-text-color;
+    color: $foreground-color;
+  }
+}
+
+.add-language-button {
+  margin-top: 20px;
+}

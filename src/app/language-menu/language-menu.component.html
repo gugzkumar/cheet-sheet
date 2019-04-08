@@ -1,4 +1,11 @@
-<ul>
-<li>Java</li>
-<li>Python</li>
+<ul class="languages-menu">
+  <li
+    class="languages-menu-item"
+    *ngFor="let l of pageViewService.languages"
+    [class.languages-menu-item-selected]="l == pageViewService.currentLanguage"
+    (click)="pageViewService.changeLanguage(l)"
+  >
+    {{l}}
+  </li>
 </ul>
+<button class="add-language-button" mat-button>ADD LANGUAGE</button>
