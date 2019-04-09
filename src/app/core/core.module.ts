@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { PageViewService } from './services/page-view.service';
 import { AceEditorService } from './services/ace-editor.service';
 import {
-  OnEditModeDirective,
-  OnViewModeDirective,
+  IfEditModeDirective,
+  IfViewModeDirective,
   AddClassOnEditModeDirective
 } from './directives/edit-mode.directive';
 import {
@@ -16,8 +16,8 @@ import { EditorDirective } from './directives/editor.directive';
 
 @NgModule({
   declarations: [
-    OnEditModeDirective,
-    OnViewModeDirective,
+    IfEditModeDirective,
+    IfViewModeDirective,
     AddClassOnEditModeDirective,
     IfLoggedInDirective,
     IfLoggedOutDirective,
@@ -31,8 +31,8 @@ import { EditorDirective } from './directives/editor.directive';
     AceEditorService
   ],
   exports: [
-    OnEditModeDirective,
-    OnViewModeDirective,
+    IfEditModeDirective,
+    IfViewModeDirective,
     AddClassOnEditModeDirective,
     IfLoggedInDirective,
     IfLoggedOutDirective,

@@ -9,9 +9,9 @@ import { PageViewService } from '../services/page-view.service';
 
 
 @Directive({
-  selector: '[onEditMode]'
+  selector: '[ifEditMode]'
 })
-export class OnEditModeDirective {
+export class IfEditModeDirective {
 
   constructor(
     private viewContainerRef: ViewContainerRef,
@@ -31,9 +31,9 @@ export class OnEditModeDirective {
 }
 
 @Directive({
-  selector: '[onViewMode]'
+  selector: '[ifViewMode]'
 })
-export class OnViewModeDirective {
+export class IfViewModeDirective {
 
   constructor(
     private viewContainerRef: ViewContainerRef,

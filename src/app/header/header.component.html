@@ -50,13 +50,13 @@
       <mat-checkbox [(ngModel)]="pageViewService.editModeOn">
         Edit Mode
       </mat-checkbox>
-      <button *onEditMode mat-icon-button>
+      <button *ifEditMode mat-icon-button>
         <mat-icon>save</mat-icon>
       </button>
-      <button *onEditMode mat-icon-button>
+      <button *ifEditMode mat-icon-button>
         <mat-icon>note_add</mat-icon>
       </button>
-      <button *onViewMode mat-flat-button color="warn">
+      <button *ifViewMode mat-flat-button color="warn">
         DELETE LANGUAGE
     </button>
     </ng-container>
