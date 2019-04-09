@@ -6,11 +6,11 @@ import {
   IfEditModeDirective,
   IfViewModeDirective,
   AddClassOnEditModeDirective
-} from './directives/edit-mode.directive';
+} from './directives/edit-mode.directives';
 import {
   IfLoggedInDirective,
   IfLoggedOutDirective
-} from './directives/auth.directive';
+} from './directives/auth.directives';
 import { EditorDirective } from './directives/editor.directive';
 
 
