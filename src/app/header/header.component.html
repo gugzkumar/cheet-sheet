@@ -1,7 +1,7 @@
 <!-- Top Header Panel-->
 <div
   class="cheat-sheet-header-top"
-  [class.editmode]="pageViewService.editModeOn"
+  addClassOnEditMode
 >
   <!-- Logo -->
   <span class="cheat-sheet-header-bottom-left-content">
@@ -12,19 +12,19 @@
 
   <!-- Login and Logout Options  -->
   <span class="cheat-sheet-header-bottom-right-content">
-    <button mat-button>
+    <button *ifLoggedIn mat-button>
       <mat-icon>
         person_outline
       </mat-icon>
       Gagan
     </button>
-    <button mat-raised-button>
+    <button *ifLoggedOut mat-raised-button (click)="authService.login()">
       Login
     </button>
-    <button mat-raised-button>
+    <button *ifLoggedIn mat-raised-button (click)="authService.logout()">
       Logout
     </button>
-    <button mat-raised-button>
+    <button *ifLoggedOut mat-raised-button>
       Sign Up
     </button>
     <button mat-icon-button>
@@ -37,7 +37,7 @@
 <!-- Bottom Header Panel-->
 <div
   class="cheat-sheet-header-bottom mat-elevation-z5"
-  [class.editmode]="pageViewService.editModeOn"
+  addClassOnEditMode
 >
   <span class="cheat-sheet-header-bottom-left-content">
     <button mat-icon-button (click)="pageViewService.openLanguagesMenu($event)">
@@ -46,24 +46,26 @@
     <button mat-icon-button>
       <mat-icon>refresh</mat-icon>
     </button>
-    <mat-checkbox [(ngModel)]="pageViewService.editModeOn">
-      Edit Mode
-    </mat-checkbox>
-    <button *ngIf="pageViewService.editModeOn" mat-icon-button>
-      <mat-icon>save</mat-icon>
+    <ng-container *ifLoggedIn>
+      <mat-checkbox [(ngModel)]="pageViewService.editModeOn">
+        Edit Mode
+      </mat-checkbox>
+      <button *onEditMode mat-icon-button>
+        <mat-icon>save</mat-icon>
+      </button>
+      <button *onEditMode mat-icon-button>
+        <mat-icon>note_add</mat-icon>
+      </button>
+      <button *onViewMode mat-flat-button color="warn">
+        DELETE LANGUAGE
     </button>
-    <button *ngIf="pageViewService.editModeOn" mat-icon-button>
-      <mat-icon>note_add</mat-icon>
-    </button>
-    <button *ngIf="!pageViewService.editModeOn" mat-flat-button color="warn">
-      DELETE LANGUAGE
-    </button>
+    </ng-container>
   </span>
   <span class="cheat-sheet-header-bottom-right-content">
     <mat-form-field
       style="text-align: right"
       class="search-bar-form-field"
-      [class.editmode]="pageViewService.editModeOn"
+      addClassOnEditMode
     >
       <input
         class="search-bar-form-field-input"

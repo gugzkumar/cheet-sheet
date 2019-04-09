@@ -20,7 +20,7 @@ import BaseIndexCardModel from '../models/base-index-card.model';
   templateUrl: './index-card.component.html',
   styleUrls: ['./index-card.component.scss']
 })
-export class IndexCardComponent implements OnDestroy, OnInit, OnChanges {
+export class IndexCardComponent implements OnInit, OnChanges {
   @Input() indexCardContent: BaseIndexCardModel;
   public enableElevation:boolean = false;
 
@@ -36,40 +36,28 @@ export class IndexCardComponent implements OnDestroy, OnInit, OnChanges {
 
   constructor(
     private aceEditorService: AceEditorService,
-    private pageViewService: PageViewService,
     private snackBar: MatSnackBar,
     private container: ElementRef
   ) {
-      console.log('One')
   }
 
   ngOnInit() {
-    this.container.nativeElement.lastElementChild.lastElementChild.children[2].lastElementChild.id =
-      this.indexCardContent.codeSnippetTitle.replace(/\s/gi, '-');
-    // console.log(
-    //   this.container.nativeElement,
-    //   this.container.nativeElement.lastElementChild,
-    //   this.container.nativeElement.lastElementChild.lastElementChild,
-    //   this.container.nativeElement.lastElementChild.lastElementChild.lastElementChild
-    // )
-    try {
-
-      this.aceEditorService.setReadOnlyEditor(
-        this.indexCardContent.codeSnippetTitle.replace(/\s/gi, '-'),
-        this.indexCardContent.codeSnippetFileType,
-        this.indexCardContent.codeSnippetText
-      );
-
-    }
-    catch(e) {
-      console.log(e);
-    }
+    // const editorDiv = this.container.nativeElement.lastElementChild.lastElementChild.children[2].lastElementChild;
+    // editorDiv.id = this.indexCardContent.codeSnippetTitle.replace(/\s/gi, '-');
+    // console.log(typeof(editorDiv));
+    // editorDiv.onclose(() => {
+    //   console.log('hello');
+    // })
+    // this.renderEditor();
   }
 
   ngOnChanges() {
-    this.container.nativeElement.lastElementChild.lastElementChild.children[2].lastElementChild.id =
-      this.indexCardContent.codeSnippetTitle.replace(/\s/gi, '-');
+    // this.container.nativeElement.lastElementChild.lastElementChild.children[2].lastElementChild.id =
+    //   this.indexCardContent.codeSnippetTitle.replace(/\s/gi, '-');
+    // this.renderEditor();
+  }
 
+  renderEditor() {
     try {
       this.aceEditorService.setReadOnlyEditor(
         this.indexCardContent.codeSnippetTitle.replace(/\s/gi, '-'),
@@ -79,14 +67,9 @@ export class IndexCardComponent implements OnDestroy, OnInit, OnChanges {
 
     }
     catch(e) {
-      console.log(e);
+      console.error(e);
     }
   }
-
-  ngOnDestroy() {
-    // console.log(this.indexCardContent)
-  }
-
 
   copyToClipBoard() {
     if (this.canEditValue) {
@@ -96,14 +79,17 @@ export class IndexCardComponent implements OnDestroy, OnInit, OnChanges {
     let navigatorVariable: any;
     navigatorVariable = window.navigator;
     navigatorVariable.clipboard.writeText(this.indexCardContent.codeSnippetText).then(
-      function() {
+      () => {
+        this.snackBar.open('Code snippet copied to your clipboard', '', {
+            duration: 800,
+        });
       },
-      function() {
-        /* clipboard write Failed */
+      () => {
+        this.snackBar.open('ERROR: Unable to copy snippet to your clipboard', '', {
+            duration: 800,
+        });
     });
-    this.snackBar.open('Code snippet copied to your clipboard', '', {
-        duration: 800,
-    });
+
   }
 
 }

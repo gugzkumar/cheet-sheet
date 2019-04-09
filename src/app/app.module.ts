@@ -7,6 +7,7 @@ import {
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
+  MatDialogModule,
   MatIconModule,
   MatInputModule,
   MatSidenavModule,
@@ -32,7 +33,7 @@ import { LanguageMenuComponent } from './language-menu/language-menu.component';
     HeaderComponent,
     PageViewComponent,
     IndexCardComponent,
-    LanguageMenuComponent
+    LanguageMenuComponent,
   ],
   imports: [
     BrowserModule,

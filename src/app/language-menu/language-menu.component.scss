@@ -4,6 +4,7 @@
   padding: 0;
   margin: 0;
   width: 100%;
+  min-width: 200px;
 }
 .languages-menu-item {
   cursor: pointer;
@@ -25,4 +26,5 @@
 
 .add-language-button {
   margin-top: 20px;
+  width: 100%;
 }

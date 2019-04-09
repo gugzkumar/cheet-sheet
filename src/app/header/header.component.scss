@@ -22,7 +22,7 @@
       }
     }
 
-    &.editmode {
+    &.edit-mode {
       background-color: $foreground-color;
       color: $header-top-color;
     }
@@ -40,7 +40,7 @@
     justify-content: space-between;
     align-items: flex-end;
 
-    &.editmode {
+    &.edit-mode {
         background-color: $header-top-color;
         color: $header-top-text-color;
     }
@@ -64,7 +64,7 @@
       .search-bar {
           box-sizing: border-box;
           text-align: right;
-          &.editmode {
+          &.edit-mode {
               color: $foreground-color;
           }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageViewService } from '../core/services/page-view.service';
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,10 @@ import { PageViewService } from '../core/services/page-view.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private pageViewService: PageViewService) {
+  constructor(
+    private pageViewService: PageViewService,
+    private authService: AuthService
+  ) {
   }
 
   ngOnInit() {
