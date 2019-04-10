@@ -5,7 +5,7 @@
     (mouseout)="enableElevation=false"
     (click)="copyToClipBoard($event)"
   >
-    <div class="overlay" [class.editable]="canEditValue">
+    <div class="overlay" addClassOnEditMode>
     </div>
     <mat-card-header>
       <mat-icon mat-card-avatar>file_copy</mat-icon>
@@ -13,13 +13,18 @@
 
     </mat-card-header>
     <mat-card-content>
-      <div [editor]="indexCardContent.codeSnippetTitle" class="index-card-editor">
-          <!-- ID for this element is set in the Component's typescript definition -->
+      <div
+        editor
+        [language]="indexCardContent.codeSnippetFileType"
+        [code]="indexCardContent.codeSnippetText"
+        class="index-card-editor"
+      >
+          <!-- Ace Editor Created inside this div with editor directive -->
       </div>
     </mat-card-content>
     <mat-card-actions *ifEditMode style="z-index: 200;">
-      <button mat-flat-button>EDIT</button>
-      <button mat-flat-button color="warn">DELETE</button>
+      <button mat-raised-button (click)="clickEdit($event)">EDIT</button>
+      <button mat-raised-button color="warn">DELETE</button>
     </mat-card-actions>
   </mat-card>
 </div>

@@ -17,7 +17,7 @@ export class PageViewComponent implements OnInit {
   public pageContent = new PageModel(
     [
       new BaseIndexCardModel(
-        'A function in javascript',
+        'Ajavascript',
 `function name(parameter) {
     throw new Error("Not implemented yet");
 }
@@ -25,7 +25,7 @@ export class PageViewComponent implements OnInit {
         'javascript'
       ),
       new BaseIndexCardModel(
-        'A function in javascript 0',
+        'Ajavascript0',
 `function name(parameter) {
     throw new Error("Not implemented yet");
 }
@@ -33,7 +33,7 @@ export class PageViewComponent implements OnInit {
         'javascript'
       ),
       new BaseIndexCardModel(
-        'A function in javascript 6',
+        'Ajavascript6',
 `function name(parameter) {
     throw new Error("Not implemented yet");
 }
@@ -41,7 +41,7 @@ export class PageViewComponent implements OnInit {
         'javascript'
       ),
       new BaseIndexCardModel(
-        'A function in javascript 2',
+        'Ajavascript2',
 `function name(parameter) {
     throw new Error("Not implemented yet");
 }
@@ -49,7 +49,7 @@ export class PageViewComponent implements OnInit {
         'javascript'
       ),
       new BaseIndexCardModel(
-        'A function in javascript 4',
+        'Ajavascript4',
 `function name(parameter) {
     throw new Error("Not implemented yet");
 }
@@ -57,7 +57,7 @@ export class PageViewComponent implements OnInit {
         'javascript'
       ),
       new BaseIndexCardModel(
-        'A function in javascript 3',
+        'Ajavascript3',
 `function name(parameter) {
     throw new Error("Not implemented yet");
 }
@@ -65,7 +65,7 @@ export class PageViewComponent implements OnInit {
         'javascript'
       ),
       new BaseIndexCardModel(
-        'A function in javascript 13',
+        'Ajavascript13',
 `function name(parameter) {
     throw new Error("Not implemented yet");
 }
@@ -84,7 +84,7 @@ function name(parameter) {
     ],
     [
       new BaseIndexCardModel(
-        'A function in python 9',
+        'Apython9',
 `def name(parameter):
     raise Exception('Not implemented yet')
 `,
@@ -94,7 +94,7 @@ function name(parameter) {
   );
 
   constructor(private pageViewService: PageViewService) {
-    pageViewService.editModeOn = false;
+    pageViewService.editModeOn = true;
   }
 
   ngOnInit() {

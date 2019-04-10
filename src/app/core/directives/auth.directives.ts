@@ -17,6 +17,7 @@ export class IfLoggedInDirective {
   ) {
     this.authService.$isLoggedIn.subscribe((isLoggedIn) => {
       if(isLoggedIn) {
+        this.viewContainerRef.clear();
         this.viewContainerRef.createEmbeddedView(this.templateRef);
       } else {
         this.viewContainerRef.clear();
@@ -37,6 +38,7 @@ export class IfLoggedOutDirective {
   ) {
     this.authService.$isLoggedIn.subscribe((isLoggedIn) => {
       if(!isLoggedIn) {
+        this.viewContainerRef.clear();
         this.viewContainerRef.createEmbeddedView(this.templateRef);
       } else {
         this.viewContainerRef.clear();

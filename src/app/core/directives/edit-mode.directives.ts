@@ -21,6 +21,7 @@ export class IfEditModeDirective {
   ) {
     this.pageViewService.$editModeOn.subscribe((isEditMode) => {
       if(isEditMode) {
+        this.viewContainerRef.clear();
         this.viewContainerRef.createEmbeddedView(this.templateRef);
       } else {
         this.viewContainerRef.clear();

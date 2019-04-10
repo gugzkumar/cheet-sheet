@@ -26,6 +26,8 @@ import { HeaderComponent } from './header/header.component';
 import { PageViewComponent } from './page-view/page-view.component';
 import { IndexCardComponent } from './index-card/index-card.component';
 import { LanguageMenuComponent } from './language-menu/language-menu.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { EditIndexCardDialogueComponent } from './edit-index-card-dialogue/edit-index-card-dialogue.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { LanguageMenuComponent } from './language-menu/language-menu.component';
     PageViewComponent,
     IndexCardComponent,
     LanguageMenuComponent,
+    ConfirmationDialogComponent,
+    EditIndexCardDialogueComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +50,7 @@ import { LanguageMenuComponent } from './language-menu/language-menu.component';
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
+    MatDialogModule,
     MatIconModule,
     MatInputModule,
     MatSidenavModule,
@@ -54,6 +59,10 @@ import { LanguageMenuComponent } from './language-menu/language-menu.component';
     DragDropModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ConfirmationDialogComponent,
+    EditIndexCardDialogueComponent
+  ]
 })
 export class AppModule { }

@@ -1,31 +1,29 @@
 import {
   Component,
-  ElementRef,
   Input,
-  OnInit,
-  OnChanges,
-  OnDestroy
 } from '@angular/core';
 
 import {
+  MatDialog,
   MatSnackBar
 } from '@angular/material';
 
-import { AceEditorService } from '../core/services/ace-editor.service';
-import { PageViewService } from '../core/services/page-view.service';
 import BaseIndexCardModel from '../models/base-index-card.model';
+import { EditIndexCardDialogueComponent } from '../edit-index-card-dialogue/edit-index-card-dialogue.component';
 
 @Component({
   selector: 'app-index-card',
   templateUrl: './index-card.component.html',
   styleUrls: ['./index-card.component.scss']
 })
-export class IndexCardComponent implements OnInit, OnChanges {
+export class IndexCardComponent {
   @Input() indexCardContent: BaseIndexCardModel;
   public enableElevation:boolean = false;
 
-  // Two Way Bindable canEdit property
+  // Two Way Bindable canEdit property. If can edit, clipboard functionality is
+  // blocked
   public canEditValue:boolean;
+
   @Input()
   get canEdit(): boolean{
     return this.canEditValue;
@@ -35,41 +33,27 @@ export class IndexCardComponent implements OnInit, OnChanges {
   }
 
   constructor(
-    private aceEditorService: AceEditorService,
     private snackBar: MatSnackBar,
-    private container: ElementRef
+    private dialog: MatDialog
   ) {
   }
 
-  ngOnInit() {
-    // const editorDiv = this.container.nativeElement.lastElementChild.lastElementChild.children[2].lastElementChild;
-    // editorDiv.id = this.indexCardContent.codeSnippetTitle.replace(/\s/gi, '-');
-    // console.log(typeof(editorDiv));
-    // editorDiv.onclose(() => {
-    //   console.log('hello');
-    // })
-    // this.renderEditor();
+
+  clickEdit() {
+    this.dialog.open(EditIndexCardDialogueComponent, {
+        'data': {
+          'message': `Are you sure you would like to delete` +
+            `This will remove all index cards associated language.`,
+          'onConfirm': () => {}
+        },
+        'disableClose': true
+      }
+    );
   }
 
-  ngOnChanges() {
-    // this.container.nativeElement.lastElementChild.lastElementChild.children[2].lastElementChild.id =
-    //   this.indexCardContent.codeSnippetTitle.replace(/\s/gi, '-');
-    // this.renderEditor();
+  clickDelete() {
   }
 
-  renderEditor() {
-    try {
-      this.aceEditorService.setReadOnlyEditor(
-        this.indexCardContent.codeSnippetTitle.replace(/\s/gi, '-'),
-        this.indexCardContent.codeSnippetFileType,
-        this.indexCardContent.codeSnippetText
-      );
-
-    }
-    catch(e) {
-      console.error(e);
-    }
-  }
 
   copyToClipBoard() {
     if (this.canEditValue) {

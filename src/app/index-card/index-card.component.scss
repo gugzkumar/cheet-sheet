@@ -15,7 +15,7 @@
         cursor: pointer;
         transition: 0.5s;
         opacity: 0;
-        &.editable {
+        &.edit-mode {
             cursor: move;
         }
         border-radius: 4px;

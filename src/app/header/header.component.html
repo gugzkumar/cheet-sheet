@@ -56,7 +56,12 @@
       <button *ifEditMode mat-icon-button>
         <mat-icon>note_add</mat-icon>
       </button>
-      <button *ifViewMode mat-flat-button color="warn">
+      <button
+        *ifViewMode
+        mat-flat-button
+        color="warn"
+        (click)="showConfirmation($event)"
+      >
         DELETE LANGUAGE
     </button>
     </ng-container>

@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>
+  Edit
+</h1>
+<div
+  class="index-card-editor-container"
+>
+  <div
+    mat-dialogue-content
+    class="index-card-editor"
+    editor
+    [readOnly]="false"
+    [maxLines]="10000000"
+  >
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onClickYes($event)">SAVE</button>
+  <button mat-raised-button color="warn" (click)="onClickYes($event)">CANCEL</button>
+</div>

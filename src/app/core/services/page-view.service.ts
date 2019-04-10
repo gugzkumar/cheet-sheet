@@ -18,7 +18,7 @@ export class PageViewService {
   // The following variable is a flag for when the page is in Edit mode.
   // With Edit Mode, one can rearrange, delete and edit index cards.
   // This property is two way binded and initially set to False
-  private editModeOnValue: boolean = false;
+  private editModeOnValue: boolean = true;
   public $editModeOn: BehaviorSubject<boolean> = new BehaviorSubject(this.editModeOnValue);
   get editModeOn(): boolean{
     return this.editModeOnValue;
