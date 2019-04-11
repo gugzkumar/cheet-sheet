@@ -25,7 +25,7 @@ import { CoreModule } from './core/core.module';
 import { HeaderComponent } from './header/header.component';
 import { PageViewComponent } from './page-view/page-view.component';
 import { IndexCardComponent } from './index-card/index-card.component';
-import { LanguageMenuComponent } from './language-menu/language-menu.component';
+import { SheetMenuComponent } from './sheet-menu/sheet-menu.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { EditIndexCardDialogueComponent } from './edit-index-card-dialogue/edit-index-card-dialogue.component';
 
@@ -35,7 +35,7 @@ import { EditIndexCardDialogueComponent } from './edit-index-card-dialogue/edit-
     HeaderComponent,
     PageViewComponent,
     IndexCardComponent,
-    LanguageMenuComponent,
+    SheetMenuComponent,
     ConfirmationDialogComponent,
     EditIndexCardDialogueComponent,
   ],

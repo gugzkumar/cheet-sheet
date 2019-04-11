@@ -1,12 +1,19 @@
 @import 'styles';
-.languages-menu {
+.sheet-menu-header {
+  text-align: center;
+  margin-top: 10px;
+  margin-top: 15px;
+  cursor: default;
+}
+
+.sheet-menu {
   list-style: none;
   padding: 0;
   margin: 0;
   width: 100%;
   min-width: 200px;
 }
-.languages-menu-item {
+.sheet-menu-item {
   cursor: pointer;
   width: 100%;
   text-align: center;
@@ -18,13 +25,14 @@
     padding-top: 8px;
     padding-top: 8px;
   }
-  &.languages-menu-item-selected {
+  &.sheet-menu-item-selected {
     background-color: $foreground-text-color;
     color: $foreground-color;
+    
   }
 }
 
-.add-language-button {
+.add-sheet-button {
   margin-top: 20px;
   width: 100%;
 }

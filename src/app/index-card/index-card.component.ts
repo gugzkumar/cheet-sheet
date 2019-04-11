@@ -8,6 +8,7 @@ import {
   MatSnackBar
 } from '@angular/material';
 
+import BaseIndexCard from '../models/base-index-card';
 import BaseIndexCardModel from '../models/base-index-card.model';
 import { EditIndexCardDialogueComponent } from '../edit-index-card-dialogue/edit-index-card-dialogue.component';
 
@@ -17,7 +18,8 @@ import { EditIndexCardDialogueComponent } from '../edit-index-card-dialogue/edit
   styleUrls: ['./index-card.component.scss']
 })
 export class IndexCardComponent {
-  @Input() indexCardContent: BaseIndexCardModel;
+  @Input() indexCard: BaseIndexCard;
+  // @Input() indexCardContent: BaseIndexCardModel;
   public enableElevation:boolean = false;
 
   // Two Way Bindable canEdit property. If can edit, clipboard functionality is
@@ -62,7 +64,7 @@ export class IndexCardComponent {
 
     let navigatorVariable: any;
     navigatorVariable = window.navigator;
-    navigatorVariable.clipboard.writeText(this.indexCardContent.codeSnippetText).then(
+    navigatorVariable.clipboard.writeText(this.indexCard.fileContent).then(
       () => {
         this.snackBar.open('Code snippet copied to your clipboard', '', {
             duration: 800,

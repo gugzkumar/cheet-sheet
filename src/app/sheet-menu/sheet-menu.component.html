@@ -1,0 +1,14 @@
+<h3 mat-header class="sheet-menu-header">
+  Available Sheets
+</h3>
+<ul class="sheet-menu">
+  <li
+    class="sheet-menu-item"
+    *ngFor="let sheet of pageViewService.availableSheets"
+    [class.sheet-menu-item-selected]="sheet == pageViewService.currentSheetName"
+    (click)="pageViewService.changeToNewSheet(sheet)"
+  >
+    {{sheet}}
+  </li>
+</ul>
+<button *ifLoggedIn class="add-sheet-button" mat-button>ADD NEW SHEET</button>

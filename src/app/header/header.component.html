@@ -40,7 +40,7 @@
   addClassOnEditMode
 >
   <span class="cheat-sheet-header-bottom-left-content">
-    <button mat-icon-button (click)="pageViewService.openLanguagesMenu($event)">
+    <button mat-icon-button (click)="pageViewService.openSheetMenu($event)">
       <mat-icon>list</mat-icon>
     </button>
     <button mat-icon-button>
@@ -62,7 +62,7 @@
         color="warn"
         (click)="showConfirmation($event)"
       >
-        DELETE LANGUAGE
+        DELETE SHEET
     </button>
     </ng-container>
   </span>
@@ -75,7 +75,7 @@
       <input
         class="search-bar-form-field-input"
         type="text"
-        [placeholder]="'Search for ' + pageViewService.currentLanguage +' index card'"
+        [placeholder]="'Search for ' + pageViewService.currentSheetName +' index cards'"
         matInput
       />
     </mat-form-field>

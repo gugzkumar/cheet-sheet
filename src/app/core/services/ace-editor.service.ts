@@ -25,7 +25,7 @@ export class AceEditorService {
       useWorker: false,
       behavioursEnabled: true,
       autoScrollEditorIntoView: true,
-      minLines: 2
+      minLines: 1
 
     });
     // editor.commands.addCommand(

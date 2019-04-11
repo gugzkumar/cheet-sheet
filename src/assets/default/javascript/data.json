@@ -1,0 +1,33 @@
+{
+    "defaultFileType": "python",
+    "dateCreated": "5/10/2018",
+    "dateUpdated": "5/10/2018",
+    "leftIndexCards": [
+        {
+            "indexCardType": "BaseIndexCard",
+            "indexCardTitle": "Set Variable",
+            "fileType": "python",
+            "fileContent": "x = 5",
+            "dateCreated": "5/10/2018",
+            "dateUpdated": "5/10/2018"
+        },
+        {
+            "indexCardType": "BaseIndexCard",
+            "indexCardTitle": "Print Statement",
+            "fileType": "python",
+            "fileContent": "print('Hello World')",
+            "dateCreated": "5/10/2018",
+            "dateUpdated": "5/10/2018"
+        }
+    ],
+    "rightIndexCards": [
+        {
+            "indexCardType": "BaseIndexCard",
+            "indexCardTitle": "Create List",
+            "fileType": "python",
+            "fileContent": "arr = [2, 4, 23, 8, 1, 90]",
+            "dateCreated": "5/10/2018",
+            "dateUpdated": "5/10/2018"
+        }
+    ]
+}

@@ -1,41 +1,43 @@
-<div class="page-container" cdkDropListGroup>
-  <!-- RIGHT COLUMN  -->
+<div *ngIf=pageViewService.currentSheetValue class="page-container" cdkDropListGroup>
+
+  <!-- LEFT COLUMN  -->
   <div
     class="page-column"
     cdkDropList
-    [cdkDropListData]="pageContent.indexCardsRight"
+    [cdkDropListData]="pageViewService.currentSheetValue.leftIndexCards"
     (cdkDropListDropped)="drop($event)"
   >
     <div class="index-card-container"
-      *ngFor="let cardContent of pageContent.indexCardsRight"
+      *ngFor="let card of pageViewService.currentSheetValue.leftIndexCards"
       cdkDrag
       [cdkDragDisabled]="!pageViewService.editModeOn"
     >
       <app-index-card
-        [indexCardContent] = "cardContent"
+        [indexCard] = "card"
         [(canEdit)] = "pageViewService.editModeOn"
       >
       </app-index-card>
     </div>
   </div>
 
-  <!-- LEFT COLUMN  -->
+  <!-- RIGHT COLUMN  -->
   <div
     class="page-column"
     cdkDropList
-    [cdkDropListData]="pageContent.indexCardsLeft"
+    [cdkDropListData]="pageViewService.currentSheetValue.rightIndexCards"
     (cdkDropListDropped)="drop($event)"
   >
     <div class="index-card-container"
-      *ngFor="let cardContent of pageContent.indexCardsLeft"
+      *ngFor="let card of pageViewService.currentSheetValue.rightIndexCards"
       cdkDrag
       [cdkDragDisabled]="!pageViewService.editModeOn"
     >
       <app-index-card
-        [indexCardContent] = "cardContent"
+        [indexCard] = "card"
         [(canEdit)] = "pageViewService.editModeOn"
       >
       </app-index-card>
     </div>
   </div>
+
 </div>

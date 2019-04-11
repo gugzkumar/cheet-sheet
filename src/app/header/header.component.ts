@@ -22,11 +22,10 @@ export class HeaderComponent implements OnInit {
   }
 
   showConfirmation() {
-    console.log('HERE');
     this.dialog.open(ConfirmationDialogComponent, {
         'data': {
-          'message': `Are you sure you would like to delete ${this.pageViewService.currentLanguage}?\n` +
-            `This will remove all index cards associated language.`,
+          'message': `Are you sure you would like to delete ${this.pageViewService.currentSheetName}?\n` +
+            `This will remove all index cards associated sheet.`,
           'onConfirm': () => {}
         },
         'disableClose': false,
