@@ -10,12 +10,12 @@
     z-index: 100;
 }
 
-.main-page-container {
+.main-sheet-container {
     flex: 1 1 auto;
     overflow: scroll;
 }
 
-.main-page {
+.main-sheet {
   height: 100%;
   top: 0;
   bottom: 0;
@@ -23,7 +23,7 @@
   right: 0;
 }
 
-.main-page-body {
+.main-sheet-body {
     max-height: 100%;
     background-color: $background-color;
     transition: .2s;

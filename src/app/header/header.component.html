@@ -40,14 +40,14 @@
   addClassOnEditMode
 >
   <span class="cheat-sheet-header-bottom-left-content">
-    <button mat-icon-button (click)="pageViewService.openSheetMenu($event)">
+    <button mat-icon-button (click)="sheetService.openSheetMenu($event)">
       <mat-icon>list</mat-icon>
     </button>
     <button mat-icon-button>
       <mat-icon>refresh</mat-icon>
     </button>
     <ng-container *ifLoggedIn>
-      <mat-checkbox [(ngModel)]="pageViewService.editModeOn">
+      <mat-checkbox [(ngModel)]="sheetService.editModeOn">
         Edit Mode
       </mat-checkbox>
       <button *ifEditMode mat-icon-button>
@@ -75,7 +75,7 @@
       <input
         class="search-bar-form-field-input"
         type="text"
-        [placeholder]="'Search for ' + pageViewService.currentSheetName +' index cards'"
+        [placeholder]="'Search for ' + sheetService.currentSheetName +' index cards'"
         matInput
       />
     </mat-form-field>

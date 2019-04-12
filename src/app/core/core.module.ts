@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PageViewService } from './services/page-view.service';
+import { SheetService } from './services/sheet.service';
 import { AceEditorService } from './services/ace-editor.service';
 import {
   IfEditModeDirective,
@@ -27,7 +27,7 @@ import { EditorDirective } from './directives/editor.directive';
     CommonModule
   ],
   providers: [
-    PageViewService,
+    SheetService,
     AceEditorService
   ],
   exports: [

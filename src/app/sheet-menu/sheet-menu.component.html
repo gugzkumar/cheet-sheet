@@ -4,9 +4,9 @@
 <ul class="sheet-menu">
   <li
     class="sheet-menu-item"
-    *ngFor="let sheet of pageViewService.availableSheets"
-    [class.sheet-menu-item-selected]="sheet == pageViewService.currentSheetName"
-    (click)="pageViewService.changeToNewSheet(sheet)"
+    *ngFor="let sheet of sheetService.availableSheets"
+    [class.sheet-menu-item-selected]="sheet == sheetService.currentSheetName"
+    (click)="sheetService.changeToNewSheet(sheet)"
   >
     {{sheet}}
   </li>

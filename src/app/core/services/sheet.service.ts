@@ -20,7 +20,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class PageViewService {
+export class SheetService {
     // -------------------------------------------------------------------------
     // Attributes
     // -------------------------------------------------------------------------

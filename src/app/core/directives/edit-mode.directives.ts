@@ -5,7 +5,7 @@ import {
   ElementRef,
   Renderer2
 } from '@angular/core';
-import { PageViewService } from '../services/page-view.service';
+import { SheetService } from '../services/sheet.service';
 
 
 @Directive({
@@ -16,10 +16,10 @@ export class IfEditModeDirective {
   constructor(
     private viewContainerRef: ViewContainerRef,
     private templateRef: TemplateRef<any>,
-    private pageViewService: PageViewService
+    private sheetService: SheetService
 
   ) {
-    this.pageViewService.$editModeOn.subscribe((isEditMode) => {
+    this.sheetService.$editModeOn.subscribe((isEditMode) => {
       if(isEditMode) {
         this.viewContainerRef.clear();
         this.viewContainerRef.createEmbeddedView(this.templateRef);
@@ -39,9 +39,9 @@ export class IfViewModeDirective {
   constructor(
     private viewContainerRef: ViewContainerRef,
     private templateRef: TemplateRef<any>,
-    private pageViewService: PageViewService
+    private sheetService: SheetService
   ) {
-    this.pageViewService.$editModeOn.subscribe((isEditMode) => {
+    this.sheetService.$editModeOn.subscribe((isEditMode) => {
       if(!isEditMode) {
         this.viewContainerRef.clear();
         this.viewContainerRef.createEmbeddedView(this.templateRef);
@@ -61,9 +61,9 @@ export class AddClassOnEditModeDirective {
   constructor(
     private renderer: Renderer2,
     private hostElement: ElementRef,
-    private pageViewService: PageViewService
+    private sheetService: SheetService
   ) {
-    this.pageViewService.$editModeOn.subscribe((isEditMode) => {
+    this.sheetService.$editModeOn.subscribe((isEditMode) => {
       if(isEditMode) {
         this.renderer.addClass(this.hostElement.nativeElement, 'edit-mode');
       } else {

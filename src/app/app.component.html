@@ -6,15 +6,15 @@
         </app-header>
     </div>
 
-    <div class="main-page-container" >
-        <mat-sidenav-container class="main-page">
+    <div class="main-sheet-container" >
+        <mat-sidenav-container class="main-sheet">
 
-            <mat-sidenav class="sidenav-body" mode="side" [opened]="pageViewService.showSheetMenuValue">
+            <mat-sidenav class="sidenav-body" mode="side" [opened]="sheetService.showSheetMenuValue">
                 <app-sheet-menu>
                 </app-sheet-menu>
             </mat-sidenav>
 
-            <mat-sidenav-content class="main-page-body" [class.editmode]="pageViewService.editModeOn">
+            <mat-sidenav-content class="main-sheet-body" [class.editmode]="sheetService.editModeOn">
                 <router-outlet></router-outlet>
             </mat-sidenav-content>
 

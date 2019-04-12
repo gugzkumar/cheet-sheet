@@ -23,7 +23,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 
 import { HeaderComponent } from './header/header.component';
-import { PageViewComponent } from './page-view/page-view.component';
+import { SheetComponent } from './sheet/sheet.component';
 import { IndexCardComponent } from './index-card/index-card.component';
 import { SheetMenuComponent } from './sheet-menu/sheet-menu.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
@@ -33,7 +33,7 @@ import { EditIndexCardDialogueComponent } from './edit-index-card-dialogue/edit-
   declarations: [
     AppComponent,
     HeaderComponent,
-    PageViewComponent,
+    SheetComponent,
     IndexCardComponent,
     SheetMenuComponent,
     ConfirmationDialogComponent,

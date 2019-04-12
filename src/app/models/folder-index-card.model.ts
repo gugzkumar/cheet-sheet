@@ -1,5 +1,5 @@
-import BaseIndexCardModel from './base-index-card.model'
+import BaseIndexCard from './base-index-card'
 
-export default class FolderIndexCardModel extends BaseIndexCardModel{
+export default class FolderIndexCardModel extends BaseIndexCard {
 
 }

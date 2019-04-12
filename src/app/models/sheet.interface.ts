@@ -1,4 +1,4 @@
-import BaseIndexCard from './base-index-card.model';
+import BaseIndexCard from './base-index-card';
 
 export default class Sheet {
     public defaultFileType: string;

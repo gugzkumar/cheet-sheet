@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PageViewService } from '../core/services/page-view.service';
+import { SheetService } from '../core/services/sheet.service';
 
 @Component({
   selector: 'app-sheet-menu',
@@ -8,7 +8,7 @@ import { PageViewService } from '../core/services/page-view.service';
 })
 export class SheetMenuComponent implements OnInit {
 
-  constructor(private pageViewService: PageViewService) { }
+  constructor(private sheetService: SheetService) { }
 
   ngOnInit() {
   }

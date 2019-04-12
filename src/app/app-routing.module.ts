@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PageViewComponent } from './page-view/page-view.component'
+import { SheetComponent } from './sheet/sheet.component'
 
 const routes: Routes = [
     {
         path: '',
-        component: PageViewComponent
+        component: SheetComponent
     }
 ];
 

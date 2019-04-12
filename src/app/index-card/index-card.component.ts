@@ -9,7 +9,6 @@ import {
 } from '@angular/material';
 
 import BaseIndexCard from '../models/base-index-card';
-import BaseIndexCardModel from '../models/base-index-card.model';
 import { EditIndexCardDialogueComponent } from '../edit-index-card-dialogue/edit-index-card-dialogue.component';
 
 @Component({
