@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { SheetService } from '../services/sheet.service';
 
-
 @Directive({
   selector: '[ifEditMode]'
 })

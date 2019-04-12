@@ -7,3 +7,24 @@
   max-height: 70vh;
   overflow: scroll;
 }
+
+.toolbar {
+  width: 100%;
+  display: flex;
+  mat-form-field {
+      width: 100%;
+      font-size: 20px;
+  }
+}
+
+.toolbar-icon {
+  padding: 0 14px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.toolbar-input {
+  // margin-top: 15px;
+}

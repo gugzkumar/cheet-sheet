@@ -6,7 +6,7 @@
     class="sheet-menu-item"
     *ngFor="let sheet of sheetService.availableSheets"
     [class.sheet-menu-item-selected]="sheet == sheetService.currentSheetName"
-    (click)="sheetService.changeToNewSheet(sheet)"
+    (click)="sheetService.changeCurrentSheet(sheet)"
   >
     {{sheet}}
   </li>

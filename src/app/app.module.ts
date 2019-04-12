@@ -10,18 +10,22 @@ import {
   MatDialogModule,
   MatIconModule,
   MatInputModule,
+  MatSelectModule,
   MatSidenavModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatToolbarModule
 } from '@angular/material';
-
 import {
   DragDropModule
 } from '@angular/cdk/drag-drop'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
+// Module with all Services, Directives and Gaurds
 import { CoreModule } from './core/core.module';
 
+// App Components that live on the main page
 import { HeaderComponent } from './header/header.component';
 import { SheetComponent } from './sheet/sheet.component';
 import { IndexCardComponent } from './index-card/index-card.component';
@@ -59,8 +63,10 @@ import { CreateIndexCardDialogComponent } from './create-index-card-dialog/creat
     MatDialogModule,
     MatIconModule,
     MatInputModule,
+    MatSelectModule,
     MatSidenavModule,
     MatSnackBarModule,
+    MatToolbarModule,
     // CDK modules
     DragDropModule
   ],

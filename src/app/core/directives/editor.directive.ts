@@ -15,6 +15,7 @@ export class EditorDirective implements OnInit, OnChanges {
   @Input() code: string = ``;
   @Input() readOnly: boolean = true;
   @Input() maxLines: number = 50;
+  @Input() minLines: number = 1;
 
   constructor(
     private hostElement: ElementRef,
@@ -29,6 +30,7 @@ export class EditorDirective implements OnInit, OnChanges {
         this.code,
         this.readOnly,
         this.maxLines,
+        this.minLines
       );
     }
     catch(e) {
@@ -43,7 +45,8 @@ export class EditorDirective implements OnInit, OnChanges {
         this.language,
         this.code,
         this.readOnly,
-        this.maxLines
+        this.maxLines,
+        this.minLines
       );
 
     }

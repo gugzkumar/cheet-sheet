@@ -1,6 +1,18 @@
-<h1 mat-dialog-title>
-  Edit
-</h1>
+<div class="toolbar">
+    <mat-form-field appearance="fill">
+        <mat-label>
+          Card Name
+        </mat-label>
+        <input
+          class="toolbar-input"
+          type="text"
+
+          matInput
+          [(ngModel)]="sheetName"
+        />
+    </mat-form-field>
+</div>
+
 <div
   class="index-card-editor-container"
 >
@@ -9,11 +21,24 @@
     editor
     [readOnly]="false"
     [maxLines]="10000000"
+    [minLines]="20"
   >
   </div>
 </div>
 
 <div mat-dialog-actions>
-  <button mat-raised-button (click)="onClickYes($event)">SAVE</button>
-  <button mat-raised-button color="warn" (click)="onClickYes($event)">CANCEL</button>
+  <button mat-raised-button>SAVE</button>
+  <button mat-raised-button color="warn" mat-dialog-close>CANCEL</button>
+  <span class="spacer"></span>
+  <mat-form-field>
+    <mat-label>File Type</mat-label>
+    <mat-select [(ngModel)]="fileType">
+      <mat-option
+        *ngFor="let ft of sheetService.availableFileTypes"
+        [value]="ft"
+      >
+        {{ft}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>

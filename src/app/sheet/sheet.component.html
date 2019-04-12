@@ -13,6 +13,7 @@
       [cdkDragDisabled]="!sheetService.editModeOn"
     >
       <app-index-card
+        *ngIf="card.indexCardTitle.toLowerCase().includes(sheetService.searchFilter.toLowerCase())"
         [indexCard] = "card"
         [(canEdit)] = "sheetService.editModeOn"
       >
@@ -33,6 +34,7 @@
       [cdkDragDisabled]="!sheetService.editModeOn"
     >
       <app-index-card
+        *ngIf="card.indexCardTitle.toLowerCase().includes(sheetService.searchFilter.toLowerCase())"
         [indexCard] = "card"
         [(canEdit)] = "sheetService.editModeOn"
       >

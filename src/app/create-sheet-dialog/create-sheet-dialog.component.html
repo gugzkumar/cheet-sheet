@@ -11,20 +11,25 @@
           type="text"
           placeholder="Sheet Name"
           matInput
+          [(ngModel)]="sheetName"
         />
     </mat-form-field>
   </div>
-  <div class="">
+  <div>
     <mat-form-field>
-        <input
-          type="text"
-          placeholder="Default File Type"
-          matInput
-        />
+      <mat-label>Default File Type</mat-label>
+      <mat-select [(ngModel)]="defaultFileType">
+        <mat-option
+          *ngFor="let fileType of sheetService.availableFileTypes"
+          [value]="fileType"
+        >
+          {{fileType}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
   </div>
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button (click)="onClickCreate($event)">CREATE</button>
-  <button mat-raised-button color="warn" (click)="onClickCancel($event)">CANCEL</button>
+  <button mat-raised-button color="warn" mat-dialog-close>CANCEL</button>
 </div>

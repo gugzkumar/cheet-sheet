@@ -3,17 +3,24 @@ import {
 } from '@angular/core';
 import Sheet from '../../models/sheet';
 import BaseIndexCard from '../../models/base-index-card';
-import * as available_file_types from '../../../assets/json/available_file_types.json';
+import * as availableFileTypesImport from '../../../assets/json/available_file_types.json';
 import * as pythonSheetFileImport from '../../../assets/default/python/data.json';
 import * as javascriptSheetFileImport from '../../../assets/default/javascript/data.json';
 const data = {
     python: pythonSheetFileImport['default'],
     javascript: javascriptSheetFileImport['default']
 }
-
-
 import { BehaviorSubject } from 'rxjs';
 
+const dataTemplate = {
+    "defaultFileType": "",
+    "dateCreated": "5/10/2018",
+    "dateUpdated": "5/10/2018",
+    "leftIndexCards": [
+    ],
+    "rightIndexCards": [
+    ]
+}
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +32,7 @@ export class SheetService {
 
     // The following variable is a flag for when the page is in Edit mode.
     // With Edit Mode, one can rearrange, delete and edit index cards.
-    // This property is two way binded and initially set to False
+    // This property is two way bindable and initially set to False
     private editModeOnValue: boolean = true;
     public $editModeOn: BehaviorSubject<boolean> = new BehaviorSubject(this.editModeOnValue);
     get editModeOn(): boolean{
@@ -47,19 +54,20 @@ export class SheetService {
         this.showSheetMenuValue = val;
     }
 
-    // List of sheets available to switch between
-    public availableSheets: string[] = ['python', 'javascript'];
+    // The following string is the current Search filter set in the Header
+    private searchFilterValue:string = '';
+    get searchFilter(): string {
+        return this.searchFilterValue;
+    }
+    set searchFilter(val: string) {
+        this.searchFilterValue = val;
+    }
 
-    // Value of the currently selected sheet on the page
-    public currentSheetName: string = 'Python';
-    public currentSheetValue: Sheet = null;
-    public currentSheetIsDirty: boolean = false;
-    // get currentSheetName(): string{
-    //     return this.currentSheetNameValue;
-    // }
-    // set currentSheetName(val: string) {
-    //     this.currentSheetNameValue = val;
-    // }
+    public readonly availableFileTypes: string[] = availableFileTypesImport['default']; // All available file types for ACE
+    public availableSheets: string[] = ['python', 'javascript']; // List of sheets available to switch between
+    public currentSheetName: string = 'Python'; // Value of the currently active sheet on the page
+    public currentSheetValue: Sheet = null; // Sheet Object of currently active sheet
+    public currentSheetIsDirty: boolean = false; // Tells if unSaved Changes have been made
 
 
     // -------------------------------------------------------------------------
@@ -69,7 +77,7 @@ export class SheetService {
         this.showSheetMenuValue = !this.showSheetMenuValue;
     }
 
-    changeToNewSheet(sheetName: string) {
+    changeCurrentSheet(sheetName: string) {
         this.currentSheetName = sheetName;
         const rawSheetJson = data[sheetName];
         const newSheet = new Sheet();
@@ -96,19 +104,18 @@ export class SheetService {
             newIndexcard.dateUpdated = new Date(rawIndexCard.dateUpdated);
             return newIndexcard;
         });
-        console.log(newSheet);
         this.currentSheetValue = newSheet;
     }
 
     createNewSheet(sheetName: string, defaultFileType: string) {
-        const newSheet = new Sheet();
-        newSheet.defaultFileType = defaultFileType;
-        data[sheetName] = newSheet;
+        const newData = JSON.parse(JSON.stringify(dataTemplate));
+        newData.defaultFileType = defaultFileType;
+        data[sheetName] = newData;
         this.availableSheets.push(sheetName);
-        this.changeToNewSheet(sheetName);
+        this.changeCurrentSheet(sheetName);
     }
 
     constructor() {
-        this.changeToNewSheet('python');
+        this.changeCurrentSheet('python');
     }
 }

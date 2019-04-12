@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import {
   MatDialogRef
 } from '@angular/material';
+import { SheetService } from '../core/services/sheet.service';
 
 @Component({
     selector: 'app-create-sheet-dialog',
@@ -10,16 +11,17 @@ import {
     styleUrls: ['./create-sheet-dialog.component.scss']
 })
 export class CreateSheetDialogComponent {
+    public sheetName: string;
+    public defaultFileType: string;
 
     constructor(
         public dialogRef: MatDialogRef<CreateSheetDialogComponent>,
+        private sheetService: SheetService
     ) { }
 
     onClickCreate() {
-        this.dialogRef.close();
-    }
-
-    onClickCancel() {
+        console.log(this.sheetName);
+        this.sheetService.createNewSheet(this.sheetName, this.defaultFileType);
         this.dialogRef.close();
     }
 

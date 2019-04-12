@@ -14,7 +14,8 @@ export class AceEditorService {
     language: string,
     text: string,
     readOnly: boolean,
-    maxLines: number
+    maxLines: number,
+    minLines: number
   ): void {
     const editor = ace.edit(div, {
       mode: `ace/mode/${language}`,
@@ -25,8 +26,7 @@ export class AceEditorService {
       useWorker: false,
       behavioursEnabled: true,
       autoScrollEditorIntoView: true,
-      minLines: 1
-
+      minLines: minLines
     });
     // editor.commands.addCommand(
     //   {
