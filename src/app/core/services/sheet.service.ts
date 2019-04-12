@@ -1,9 +1,7 @@
 import {
-  Injectable,
-  OnInit,
-  OnChanges
+  Injectable
 } from '@angular/core';
-import Sheet from '../../models/sheet.interface';
+import Sheet from '../../models/sheet';
 import BaseIndexCard from '../../models/base-index-card';
 import * as available_file_types from '../../../assets/json/available_file_types.json';
 import * as pythonSheetFileImport from '../../../assets/default/python/data.json';
@@ -100,6 +98,14 @@ export class SheetService {
         });
         console.log(newSheet);
         this.currentSheetValue = newSheet;
+    }
+
+    createNewSheet(sheetName: string, defaultFileType: string) {
+        const newSheet = new Sheet();
+        newSheet.defaultFileType = defaultFileType;
+        data[sheetName] = newSheet;
+        this.availableSheets.push(sheetName);
+        this.changeToNewSheet(sheetName);
     }
 
     constructor() {

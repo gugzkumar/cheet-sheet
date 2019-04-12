@@ -26,8 +26,12 @@ import { HeaderComponent } from './header/header.component';
 import { SheetComponent } from './sheet/sheet.component';
 import { IndexCardComponent } from './index-card/index-card.component';
 import { SheetMenuComponent } from './sheet-menu/sheet-menu.component';
+
+// Dialog Components
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
-import { EditIndexCardDialogueComponent } from './edit-index-card-dialogue/edit-index-card-dialogue.component';
+import { EditIndexCardDialogComponent } from './edit-index-card-dialog/edit-index-card-dialog.component';
+import { CreateSheetDialogComponent } from './create-sheet-dialog/create-sheet-dialog.component';
+import { CreateIndexCardDialogComponent } from './create-index-card-dialog/create-index-card-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,9 @@ import { EditIndexCardDialogueComponent } from './edit-index-card-dialogue/edit-
     IndexCardComponent,
     SheetMenuComponent,
     ConfirmationDialogComponent,
-    EditIndexCardDialogueComponent,
+    EditIndexCardDialogComponent,
+    CreateSheetDialogComponent,
+    CreateIndexCardDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +68,9 @@ import { EditIndexCardDialogueComponent } from './edit-index-card-dialogue/edit-
   bootstrap: [AppComponent],
   entryComponents: [
     ConfirmationDialogComponent,
-    EditIndexCardDialogueComponent
+    EditIndexCardDialogComponent,
+    CreateSheetDialogComponent,
+    CreateIndexCardDialogComponent
   ]
 })
 export class AppModule { }

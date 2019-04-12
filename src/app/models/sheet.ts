@@ -4,6 +4,7 @@ export default class Sheet {
     public defaultFileType: string;
     public dateCreated: Date;
     public dateUpdated: Date;
+    public isDirty = false;
 
     // Index cards on right side of the page
     private leftIndexCardsValue: BaseIndexCard[];

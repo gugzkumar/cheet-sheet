@@ -16,7 +16,7 @@ import {
   templateUrl: './confirmation-dialog.component.html',
   styleUrls: ['./confirmation-dialog.component.scss']
 })
-export class ConfirmationDialogComponent implements OnInit {
+export class ConfirmationDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<ConfirmationDialogComponent>,
@@ -32,8 +32,5 @@ export class ConfirmationDialogComponent implements OnInit {
     this.dialogRef.close();
 
   }
-
-  ngOnInit() {
-  }
-
+  
 }

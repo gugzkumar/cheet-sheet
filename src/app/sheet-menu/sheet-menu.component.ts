@@ -1,16 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { SheetService } from '../core/services/sheet.service';
+import { MatDialog } from '@angular/material';
+import { CreateSheetDialogComponent } from '../create-sheet-dialog/create-sheet-dialog.component';
 
 @Component({
   selector: 'app-sheet-menu',
   templateUrl: './sheet-menu.component.html',
   styleUrls: ['./sheet-menu.component.scss']
 })
-export class SheetMenuComponent implements OnInit {
+export class SheetMenuComponent {
 
-  constructor(private sheetService: SheetService) { }
+  constructor(
+      private sheetService: SheetService,
+      private dialog: MatDialog
+  ) { }
 
-  ngOnInit() {
+  onClickAddNewSheet() {
+      this.dialog.open(CreateSheetDialogComponent, {
+              'data': {
+                  'onConfirm': () => {}
+              },
+              'disableClose': false,
+              'maxWidth': 500
+          }
+      );
   }
+
 
 }

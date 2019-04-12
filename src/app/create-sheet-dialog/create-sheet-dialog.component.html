@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>
+  Add New Sheet
+</h1>
+<div mat-dialog-content>
+  <p>
+    Please set a name and Default file type for your new sheet.
+  </p>
+  <div>
+    <mat-form-field>
+        <input
+          type="text"
+          placeholder="Sheet Name"
+          matInput
+        />
+    </mat-form-field>
+  </div>
+  <div class="">
+    <mat-form-field>
+        <input
+          type="text"
+          placeholder="Default File Type"
+          matInput
+        />
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onClickCreate($event)">CREATE</button>
+  <button mat-raised-button color="warn" (click)="onClickCancel($event)">CANCEL</button>
+</div>

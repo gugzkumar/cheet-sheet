@@ -11,4 +11,4 @@
     {{sheet}}
   </li>
 </ul>
-<button *ifLoggedIn class="add-sheet-button" mat-button>ADD NEW SHEET</button>
+<button (click)='onClickAddNewSheet($event)' *ifLoggedIn class="add-sheet-button" mat-button>ADD NEW SHEET</button>

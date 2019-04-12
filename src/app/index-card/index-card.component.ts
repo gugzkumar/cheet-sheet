@@ -9,7 +9,7 @@ import {
 } from '@angular/material';
 
 import BaseIndexCard from '../models/base-index-card';
-import { EditIndexCardDialogueComponent } from '../edit-index-card-dialogue/edit-index-card-dialogue.component';
+import { EditIndexCardDialogComponent } from '../edit-index-card-dialog/edit-index-card-dialog.component';
 
 @Component({
   selector: 'app-index-card',
@@ -41,7 +41,7 @@ export class IndexCardComponent {
 
 
   clickEdit() {
-    this.dialog.open(EditIndexCardDialogueComponent, {
+    this.dialog.open(EditIndexCardDialogComponent, {
         'data': {
           'message': `Are you sure you would like to delete` +
             `This will remove all index cards associated language.`,
