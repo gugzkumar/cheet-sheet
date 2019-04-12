@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ng serve --host 0.0.0.0 --disable-host-check --watch --poll 500",
+    "build": "ng build --watch --poll 500 --outputPath=../angular-output",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

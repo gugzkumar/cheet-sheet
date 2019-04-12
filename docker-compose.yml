@@ -1,0 +1,37 @@
+version: '3'
+services:
+    # --------------------------------------------------------------------------
+    # FRONTEND WRITTEN IN ANGULAR
+    # --------------------------------------------------------------------------
+    serverless-angular-client-ui:
+        build: ./client-ui
+        container_name: serverless-angular-client-ui
+        env_file:
+            .env
+        volumes:
+          - ./client-ui:/usr/src/app
+          - /usr/src/app/angular-code/node_modules
+          - /usr/src/app/node_modules
+        ports:
+          - "4200:4200"
+    # --------------------------------------------------------------------------
+    # BACKEND WRITTEN IN PYTHON 3.7 (Flask Simulates API Gateway locally)
+    # --------------------------------------------------------------------------
+    serverless-python-api:
+        build: ./api
+        container_name: serverless-python-api
+        env_file:
+            .env
+        volumes:
+          - ./api:/app/
+          - /app/cached-dependencies # Python Dependencies for Lambda functions
+        ports:
+          - "8888:8888"
+          - "10000:10000"
+        command:
+          - |
+            rm -rf ./dependencies || true
+            mkdir -p dependencies/python/lib/python3.7/site-packages
+            cp -r ./cached-dependencies/* ./dependencies/python/lib/python3.7/site-packages
+            exec start.sh jupyter notebook --NotebookApp.token='' & nodemon --exec python simple_lambda_server.py
+        entrypoint: ["dash", "-c"]

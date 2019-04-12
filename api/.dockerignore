@@ -1,0 +1,9 @@
+.ipynb
+Dockerfile
+api-construct.ts
+*.js
+*.d.ts
+.ipynb_checkpoints
+__pycache__
+.DS_Store
+cached-dependencies
