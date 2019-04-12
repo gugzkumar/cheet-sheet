@@ -1,46 +1,25 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
-
+*.js
+*.d.ts
+node_modules
 package-lock.json
-
-# compiled output
-/dist
-/tmp
-/out-tsc
-
-# dependencies
-/node_modules
-
-# profiling files
-chrome-profiler-events.json
-speed-measure-plugin.json
-
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
-
-# misc
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
-npm-debug.log
-yarn-error.log
-testem.log
-/typings
-
-# System Files
+.env
+2.env
+.ipynb_checkpoints
+SimpleServer.ipynb
+__pycache__
 .DS_Store
-Thumbs.db
+.config
+.ash_history
+.npm
+!simple-server.js
+.node_repl_history
+
+# API Ignores
+api/dependencies/*
+!api/dependencies/.gitkeep
+api/notebooks
+api/cached-dependencies
+
+# CLIENT UI Ignores
+client-ui/angular-output/*
+!client-ui/angular-output/.gitkeep
