@@ -51,7 +51,7 @@ post_lambda_event_template = {
     }
 }
 put_lambda_event_template = {
-    'httpMethod': 'POST',
+    'httpMethod': 'DELETE',
     'body': {},
     'queryStringParameters': {},
     'requestContext': {
@@ -67,7 +67,7 @@ put_lambda_event_template = {
     }
 }
 delete_lambda_event_template = {
-    'httpMethod': 'POST',
+    'httpMethod': 'DELETE',
     'body': {},
     'queryStringParameters': {},
     'requestContext': {
@@ -96,55 +96,72 @@ for path, dirs, files in os.walk(endpoint_dir):
     if f'{current_folder_name}.py' in files:
         api_resource_path = path.replace(endpoint_dir, '').replace('{', '<').replace('}', '>')
         full_path_of_py_file = os.path.abspath(path) + f'/{current_folder_name}.py'
-        
-        spec = importlib.util.spec_from_file_location("module.name", full_path_of_py_file)
-        current_lambda_module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(current_lambda_module)
-
 
         # Creating an Anonomys Class
         class LambdaApiResource(Resource):
             resource = api_resource_path
-            lambda_module = current_lambda_module
+            lambda_module_path=full_path_of_py_file
             get_lambda_event = get_lambda_event_template.copy()
             post_lambda_event = post_lambda_event_template.copy()
             put_lambda_event = put_lambda_event_template.copy()
             delete_lambda_event = delete_lambda_event_template.copy()
-            
+
             def get(self, **kwargs):
-                print(request.args)
+                # Load Lambda Function
+                spec = importlib.util.spec_from_file_location("module.name", self.lambda_module_path)
+                lambda_module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(lambda_module)
+                # Create GET Event for Lambda function
                 get_lambda_event = self.get_lambda_event.copy()
                 get_lambda_event['pathParameters'] = kwargs
                 get_lambda_event['queryStringParameters'] = {key:val for key, val in request.args.items()}
-                lambda_result = self.lambda_module.main(
+                lambda_result = lambda_module.main(
                     get_lambda_event,
                     None
                 )
                 return json.loads(lambda_result['body']), lambda_result['statusCode']
             def post(self, **kwargs):
+                # Load Lambda Function
+                spec = importlib.util.spec_from_file_location("module.name", self.lambda_module_path)
+                lambda_module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(lambda_module)
+                # Create POST Event for Lambda function
                 post_lambda_event = self.post_lambda_event.copy()
                 post_lambda_event['pathParameters'] = kwargs
                 post_lambda_event['queryStringParameters'] = {key:val for key, val in request.args.items()}
-                lambda_result = self.lambda_module.main(
+                post_lambda_event['body'] = request.get_json()
+                lambda_result = lambda_module.main(
                     post_lambda_event,
                     None
                 )
                 return json.loads(lambda_result['body']), lambda_result['statusCode']
             def put(self, **kwargs):
+                # Load Lambda Function
+                spec = importlib.util.spec_from_file_location("module.name", self.lambda_module_path)
+                lambda_module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(lambda_module)
+                # Create PUT Event for Lambda function
                 put_lambda_event = self.put_lambda_event.copy()
                 put_lambda_event['pathParameters'] = kwargs
                 put_lambda_event['queryStringParameters'] = {key:val for key, val in request.args.items()}
-                lambda_result = self.lambda_module.main(
+                put_lambda_event['body'] = request.get_json()
+                lambda_result = lambda_module.main(
                     put_lambda_event,
                     None
                 )
                 return json.loads(lambda_result['body']), lambda_result['statusCode']
             def delete(self, **kwargs):
+                # Load Lambda Function
+                spec = importlib.util.spec_from_file_location("module.name", self.lambda_module_path)
+                lambda_module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(lambda_module)
+                # Create DELETE Event for Lambda function
                 delete_lambda_event = self.delete_lambda_event.copy()
                 delete_lambda_event['pathParameters'] = kwargs
                 delete_lambda_event['queryStringParameters'] = {key:val for key, val in request.args.items()}
-                lambda_result = self.lambda_module.main(
-                    post_lambda_event,
+                delete_lambda_event['body'] = request.get_json()
+                lambda_result = lambda_module.main(
+                    delete_lambda_event,
                     None
                 )
                 return json.loads(lambda_result['body']), lambda_result['statusCode']

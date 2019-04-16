@@ -1,0 +1,7 @@
+{
+    "methods": [
+        "GET",
+        "PUT",
+        "DELETE"
+    ]
+}
