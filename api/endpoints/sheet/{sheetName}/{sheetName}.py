@@ -44,7 +44,7 @@ def get(event, context):
         return get_error_response('No sheet name was provided')
     if event["pathParameters"]["sheetName"] not in all_current_sheet_names:
         # Error sheet name does not exist
-        return get_error_response(f'Sheet name {event["pathParameters"]["sheetName"]} does not exist')
+        return get_error_response(f'No sheet with name {event["pathParameters"]["sheetName"]} exists')
 
     s3_get_sheet_response = s3_client.get_object(
         Bucket=cheetsheet_bucket_name,
@@ -69,10 +69,10 @@ def delete(event, context):
 
     if 'sheetName' not in event['pathParameters'] or event['pathParameters']['sheetName'] is None:
         # Error if no sheet name was provided
-        return get_error_response('No sheet name was provided')
+        return get_error_response('No name for sheet was provided')
     if event["pathParameters"]["sheetName"] not in all_current_sheet_names:
         # Error sheet name does not exist
-        return get_error_response(f'Sheet name {event["pathParameters"]["sheetName"]} does not exist')
+        return get_error_response(f'No sheet with name {event["pathParameters"]["sheetName"]} exists')
 
     # Delete sheet in S3 bucket
     s3_delete_sheet_response = s3_client.delete_object(

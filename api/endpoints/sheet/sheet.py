@@ -64,11 +64,11 @@ def post(event, context):
 
     if 'sheetName' not in event['body'] or event['body']['sheetName'] is None:
         # Error if no sheet name was provided
-        return get_error_response('No Sheet Name was provided')
+        return get_error_response('No name for sheet was provided')
 
     if event['body']['sheetName'] in all_current_sheet_names:
         # Error if sheet name exists
-        return get_error_response(f'Sheet Name {event["body"]["sheetName"]} Already exists')
+        return get_error_response(f'Sheet with name {event["body"]["sheetName"]} already exists')
 
     if 'defaultFileType' not in event['body'] or event['body']['sheetName'] is None:
         # Error if Default File type was not provided
