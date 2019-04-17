@@ -1,6 +1,9 @@
 import {
   Injectable
 } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+
 import Sheet from '../../models/sheet';
 import BaseIndexCard from '../../models/base-index-card';
 import * as availableFileTypesImport from '../../../assets/json/available_file_types.json';
@@ -64,7 +67,7 @@ export class SheetService {
     }
 
     public readonly availableFileTypes: string[] = availableFileTypesImport['default']; // All available file types for ACE
-    public availableSheets: string[] = ['python', 'javascript']; // List of sheets available to switch between
+    public availableSheets: string[]; // List of sheets available to switch between
     public currentSheetName: string = 'Python'; // Value of the currently active sheet on the page
     public currentSheetValue: Sheet = null; // Sheet Object of currently active sheet
     public currentSheetIsDirty: boolean = false; // Tells if unSaved Changes have been made
@@ -115,7 +118,17 @@ export class SheetService {
         this.changeCurrentSheet(sheetName);
     }
 
-    constructor() {
+    loadSheetMenu() {
         this.changeCurrentSheet('python');
+        this.http.get(`${environment.apiUrl}/sheet`).subscribe((responseBody) =>{
+            this.availableSheets = responseBody['result']['sheetNames']
+        }, () => {});
+    }
+
+    constructor(private http: HttpClient) {
+        this.changeCurrentSheet('python');
+        this.http.get(`${environment.apiUrl}/sheet`).subscribe((responseBody) =>{
+            this.availableSheets = responseBody['result']['sheetNames']
+        }, () => {});
     }
 }
