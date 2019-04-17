@@ -12,6 +12,7 @@ USER jovyan
 RUN mkdir cached-dependencies
 RUN pip install boto3 --user
 RUN pip install flask-restful==0.3.7 --user
+RUN pip install flask-cors==3.0.7
 COPY ./requirements.txt /app/
 RUN pip install -r requirements.txt --target=./cached-dependencies
 

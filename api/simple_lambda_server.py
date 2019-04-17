@@ -7,12 +7,14 @@ import json
 sys.path.append('./cached-dependencies')
 
 from flask import Flask, request
+from flask_cors import CORS
 from flask_restful import Api, Resource, reqparse
 class Test(Resource):
     def get(self):
         print(self)
         return 'SS', 200
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 
 
