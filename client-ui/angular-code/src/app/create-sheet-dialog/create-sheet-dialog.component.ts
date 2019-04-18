@@ -31,13 +31,13 @@ export class CreateSheetDialogComponent {
               this.sheetService.setSelectedSheet(this.sheetName);
               this.dialogRef.close();
               this.snackBar.open(`Empty sheet ${this.sheetName} created`, '', {
-                  duration: 800,
+                  duration: 1500,
               });
             },
             (errorResponse) => {
               // If apiRequest is unsuccessfull show red snack bar with the error message
               this.snackBar.open(errorResponse['error']['message'], '', {
-                  duration: 1200,
+                  duration: 1500,
                   panelClass: ['red-snackbar']
               });
             }
