@@ -13,7 +13,6 @@ import {
 } from './directives/auth.directives';
 import { EditorDirective } from './directives/editor.directive';
 
-
 @NgModule({
   declarations: [
     IfEditModeDirective,

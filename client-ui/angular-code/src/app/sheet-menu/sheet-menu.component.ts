@@ -13,7 +13,8 @@ export class SheetMenuComponent {
   constructor(
       private sheetService: SheetService,
       private dialog: MatDialog
-  ) { }
+  ) { 
+  }
 
   onClickAddNewSheet() {
       this.dialog.open(CreateSheetDialogComponent, {

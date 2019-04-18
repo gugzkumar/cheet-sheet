@@ -40,6 +40,7 @@ import { CreateIndexCardDialogComponent } from './create-index-card-dialog/creat
 
 @NgModule({
   declarations: [
+    // Components
     AppComponent,
     HeaderComponent,
     SheetComponent,

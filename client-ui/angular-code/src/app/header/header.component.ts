@@ -15,8 +15,7 @@ export class HeaderComponent implements OnInit {
     private sheetService: SheetService,
     private authService: AuthService,
     private dialog: MatDialog
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
   }

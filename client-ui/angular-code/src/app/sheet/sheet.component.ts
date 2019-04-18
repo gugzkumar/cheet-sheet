@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
     CdkDragDrop,
     moveItemInArray,
@@ -11,14 +11,9 @@ import { SheetService } from '../core/services/sheet.service';
     templateUrl: './sheet.component.html',
     styleUrls: ['./sheet.component.scss']
 })
-export class SheetComponent implements OnInit {
+export class SheetComponent {
 
-    constructor(private sheetService: SheetService) {
-        sheetService.editModeOn = true;
-    }
-
-    ngOnInit() {
-    }
+    constructor(private sheetService: SheetService) {}
 
     drop(event: CdkDragDrop<string[]>) {
         // If the Cheat Sheet Page is in edit mode Prevent Drag and Drop Behavior

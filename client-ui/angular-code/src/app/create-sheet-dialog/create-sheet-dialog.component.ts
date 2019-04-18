@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 
 import {
-  MatDialogRef
+  MatDialogRef,
+  MatSnackBar
 } from '@angular/material';
 import { SheetService } from '../core/services/sheet.service';
 
@@ -16,13 +17,31 @@ export class CreateSheetDialogComponent {
 
     constructor(
         public dialogRef: MatDialogRef<CreateSheetDialogComponent>,
-        private sheetService: SheetService
+        private sheetService: SheetService,
+        private snackBar: MatSnackBar
     ) { }
 
     onClickCreate() {
         console.log(this.sheetName);
-        this.sheetService.createNewSheet(this.sheetName, this.defaultFileType);
-        this.dialogRef.close();
+        this.sheetService.createSheet(this.sheetName, this.defaultFileType).subscribe(
+            () => {
+              // If apiRequest is successfull, refresh sheetMenu, and switch to newly created sheet
+              // and close the dialog
+              this.sheetService.loadSheetMenu();
+              this.sheetService.setSelectedSheet(this.sheetName);
+              this.dialogRef.close();
+              this.snackBar.open(`Empty sheet ${this.sheetName} created`, '', {
+                  duration: 800,
+              });
+            },
+            (errorResponse) => {
+              // If apiRequest is unsuccessfull show red snack bar with the error message
+              this.snackBar.open(errorResponse['error']['message'], '', {
+                  duration: 1200,
+                  panelClass: ['red-snackbar']
+              });
+            }
+        );
     }
 
 }

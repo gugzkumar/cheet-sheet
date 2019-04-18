@@ -2,19 +2,12 @@ import {
   Injectable
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { MatDialog } from '@angular/material';
 import { environment } from '../../../environments/environment';
-
 import Sheet from '../../models/sheet';
 import BaseIndexCard from '../../models/base-index-card';
+import { Observable, BehaviorSubject } from 'rxjs';
 import * as availableFileTypesImport from '../../../assets/json/available_file_types.json';
-import * as pythonSheetFileImport from '../../../assets/default/python/data.json';
-import * as javascriptSheetFileImport from '../../../assets/default/javascript/data.json';
-const data = {
-    python: pythonSheetFileImport['default'],
-    javascript: javascriptSheetFileImport['default']
-}
-import { BehaviorSubject } from 'rxjs';
-
 const dataTemplate = {
     "defaultFileType": "",
     "dateCreated": "5/10/2018",
@@ -29,14 +22,21 @@ const dataTemplate = {
   providedIn: 'root'
 })
 export class SheetService {
-    // -------------------------------------------------------------------------
-    // Attributes
-    // -------------------------------------------------------------------------
+
+    constructor(
+        private http: HttpClient,
+        private dialog: MatDialog
+    ) {
+        this.loadSheetMenu().subscribe((responseBody) => {
+            const sheets = responseBody['result']['sheetNames'];
+            this.setSelectedSheet(sheets[0]);
+        }, () => {});
+    }
 
     // The following variable is a flag for when the page is in Edit mode.
     // With Edit Mode, one can rearrange, delete and edit index cards.
     // This property is two way bindable and initially set to False
-    private editModeOnValue: boolean = true;
+    private editModeOnValue: boolean = false;
     public $editModeOn: BehaviorSubject<boolean> = new BehaviorSubject(this.editModeOnValue);
     get editModeOn(): boolean{
         return this.editModeOnValue;
@@ -45,7 +45,6 @@ export class SheetService {
         this.editModeOnValue = val;
         this.$editModeOn.next(this.editModeOnValue);
     }
-
 
     // The following variable is flag that tells whether or not the Sheet Menu
     // on the left side should be open or not.
@@ -72,17 +71,79 @@ export class SheetService {
     public currentSheetValue: Sheet = null; // Sheet Object of currently active sheet
     public currentSheetIsDirty: boolean = false; // Tells if unSaved Changes have been made
 
-
-    // -------------------------------------------------------------------------
-    // Methods
-    // -------------------------------------------------------------------------
-    openSheetMenu():void {
+    /**
+     * Toggles flag to open and close the Side Nav that allows users to switch between sheets.
+     */
+    toggleSheetMenu(): void {
         this.showSheetMenuValue = !this.showSheetMenuValue;
     }
 
-    changeCurrentSheet(sheetName: string) {
-        this.currentSheetName = sheetName;
-        const rawSheetJson = data[sheetName];
+    /**
+     * Sends a request to the API, to create a new Sheet.
+     * @param sheetName - Name of new sheet to create
+     * @param defaultFileType - Default file type of sheet's index cards
+     * @returns an Observable to the http request
+     */
+    createSheet(sheetName: string, defaultFileType: string): Observable<any> {
+        const createSheetRequest = this.http.post(`${environment.apiUrl}/sheet`,
+        {
+            'sheetName': sheetName,
+            'defaultFileType': defaultFileType
+        });
+        createSheetRequest.subscribe();
+        return createSheetRequest;
+    }
+
+    /**
+     * Sends a request to the API, to create a new Sheet.
+     *
+     * @param sheetName - Name of sheet to delete
+     * @returns an Observable to the http request
+     */
+    deleteSheet(sheetName: string): Observable<any> {
+        const deleteSheetRequest = this.http.delete(
+            `${environment.apiUrl}/sheet/${sheetName}`
+        );
+        deleteSheetRequest.subscribe();
+        return deleteSheetRequest;
+    }
+
+    /**
+     * Sends a request to the api to get all available sheets then saves it to
+     * availableSheets.
+     *
+     * @returns and Observable to the http request
+     */
+    loadSheetMenu(): Observable<any> {
+        const getAllSheetNames = this.http.get(`${environment.apiUrl}/sheet`);
+        getAllSheetNames.subscribe((responseBody) => {
+            this.availableSheets = responseBody['result']['sheetNames'];
+            return this.availableSheets;
+        }, () => {});
+        return getAllSheetNames;
+    }
+
+    /**
+     * Sends a request to the get the JsonData of a Sheet based on the User's data.
+     * If the request comes successfully back, we navigate to the new Sheet and
+     * load the sheet's index cards.
+     *
+     * @param sheetName - Name of sheet to select
+     * @returns and Observable to the http request
+     */
+    setSelectedSheet(sheetName: string): Observable<any> {
+        const getSheetData = this.http.get(`${environment.apiUrl}/sheet/${sheetName}`);
+        getSheetData.subscribe((responseBody) => {
+            const rawSheetJson = responseBody['result']['sheetData'];
+            const sheet = this.parseSheet(rawSheetJson);
+            this.currentSheetName = sheetName;
+            this.currentSheetValue = sheet;
+            return this.currentSheetValue;
+        }, () => {});
+        return getSheetData;
+    }
+
+    private parseSheet(rawSheetJson: any): Sheet {
         const newSheet = new Sheet();
         newSheet.defaultFileType = rawSheetJson.defaultFileType;
         newSheet.dateCreated = new Date(rawSheetJson.dateCreated);
@@ -107,28 +168,6 @@ export class SheetService {
             newIndexcard.dateUpdated = new Date(rawIndexCard.dateUpdated);
             return newIndexcard;
         });
-        this.currentSheetValue = newSheet;
-    }
-
-    createNewSheet(sheetName: string, defaultFileType: string) {
-        const newData = JSON.parse(JSON.stringify(dataTemplate));
-        newData.defaultFileType = defaultFileType;
-        data[sheetName] = newData;
-        this.availableSheets.push(sheetName);
-        this.changeCurrentSheet(sheetName);
-    }
-
-    loadSheetMenu() {
-        this.changeCurrentSheet('python');
-        this.http.get(`${environment.apiUrl}/sheet`).subscribe((responseBody) =>{
-            this.availableSheets = responseBody['result']['sheetNames']
-        }, () => {});
-    }
-
-    constructor(private http: HttpClient) {
-        this.changeCurrentSheet('python');
-        this.http.get(`${environment.apiUrl}/sheet`).subscribe((responseBody) =>{
-            this.availableSheets = responseBody['result']['sheetNames']
-        }, () => {});
+        return newSheet;
     }
 }
