@@ -54,4 +54,11 @@ export class HeaderComponent {
         });
     }
 
+    onClickNewSheet() {
+        this.sheetService.createNewBaseIndexCard();
+        this.snackBar.open(`New blank index card created`, '', {
+            duration: 1500,
+        });
+    }
+
 }

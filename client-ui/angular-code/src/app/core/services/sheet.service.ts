@@ -36,7 +36,7 @@ export class SheetService {
     // The following variable is a flag for when the page is in Edit mode.
     // With Edit Mode, one can rearrange, delete and edit index cards.
     // This property is two way bindable and initially set to False
-    private editModeOnValue: boolean = false;
+    private editModeOnValue: boolean = true;
     public $editModeOn: BehaviorSubject<boolean> = new BehaviorSubject(this.editModeOnValue);
     get editModeOn(): boolean{
         return this.editModeOnValue;
@@ -142,6 +142,33 @@ export class SheetService {
         }, () => {});
         return getSheetData;
     }
+
+    /**
+     * Create a brand new index card for the current sheet
+     *
+     * //WARNING: -This only creates on new Index in the user's browser session
+     *            -it doesn't doesn't save it.
+     */
+    createNewBaseIndexCard(): void {
+        let arrayToAdd = null;
+        if (
+            this.currentSheetValue.leftIndexCards.length <=
+            this.currentSheetValue.rightIndexCards.length
+        ){
+            arrayToAdd = this.currentSheetValue.leftIndexCards;
+        } else {
+            arrayToAdd = this.currentSheetValue.rightIndexCards;
+        }
+        const indexCard = new BaseIndexCard();
+        indexCard.indexCardType = 'BaseIndexCard';
+        indexCard.indexCardTitle = 'New Index Card';
+        indexCard.fileType = this.currentSheetValue.defaultFileType;
+        indexCard.fileContent = '"Change my title and code by clicking EDIT"';
+        indexCard.dateCreated = new Date();
+        indexCard.dateUpdated = new Date();
+        arrayToAdd.push(indexCard);
+    }
+
 
     private parseSheet(rawSheetJson: any): Sheet {
         const newSheet = new Sheet();

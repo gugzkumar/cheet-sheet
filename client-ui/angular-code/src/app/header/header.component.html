@@ -53,7 +53,7 @@
       <button *ifEditMode mat-icon-button>
         <mat-icon>save</mat-icon>
       </button>
-      <button *ifEditMode mat-icon-button>
+      <button *ifEditMode mat-icon-button (click)="onClickNewSheet()">
         <mat-icon>note_add</mat-icon>
       </button>
       <button
