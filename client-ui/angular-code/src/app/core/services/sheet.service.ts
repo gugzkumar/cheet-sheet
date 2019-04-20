@@ -9,7 +9,7 @@ import BaseIndexCard from '../../models/base-index-card';
 import { Observable, BehaviorSubject } from 'rxjs';
 import * as availableFileTypesImport from '../../../assets/json/available_file_types.json';
 const dataTemplate = {
-    "defaultFileType": "",
+    "defaultFileType": "python",
     "dateCreated": "5/10/2018",
     "dateUpdated": "5/10/2018",
     "leftIndexCards": [
@@ -31,6 +31,9 @@ export class SheetService {
             const sheets = responseBody['result']['sheetNames'];
             this.setSelectedSheet(sheets[0]);
         }, () => {});
+        // this.currentSheetName='python';
+        // this.currentSheetValue=this.parseSheet(dataTemplate);
+        // this.availableSheets = ['python'];
     }
 
     // The following variable is a flag for when the page is in Edit mode.

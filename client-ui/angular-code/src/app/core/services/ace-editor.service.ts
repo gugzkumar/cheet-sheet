@@ -40,16 +40,19 @@ export class AceEditorService {
     //       alert("HI!");
     //     }
     // });
-    // editor.setValue("the new text here");
-    // editor..getSession().setUseWrapMode(true);
+
+    if (!readOnly) {
+
+      editor.focus();
+    };
+    return editor;
 
   }
 
   public setWriteEditor() {
-
   }
 
-  public saveEditorCode() {
-
+  public updateEditorCode(editor: any, text: string) {
+    editor.setValue(text);
   }
 }

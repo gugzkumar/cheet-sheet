@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import {
-  MatDialogRef
+  MatDialogRef,
+  MAT_DIALOG_DATA
 } from '@angular/material';
 import { SheetService } from '../core/services/sheet.service';
+import { EditorDirective } from '../core/directives/editor.directive';
 
 @Component({
     selector: 'app-edit-index-card-dialog',
@@ -10,14 +12,26 @@ import { SheetService } from '../core/services/sheet.service';
     styleUrls: ['./edit-index-card-dialog.component.scss']
 })
 export class EditIndexCardDialogComponent {
-
+    @ViewChild(EditorDirective) directive: EditorDirective;
     constructor(
         public dialogRef: MatDialogRef<EditIndexCardDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: {
+            'indexCardTitle': string,
+            'fileContent': string,
+            'fileType': string
+        },
         private sheetService: SheetService
-    ) { }
-
-    ngOnInit() {
+    ) {
     }
+
+    onClickOk() {
+        this.dialogRef.close({
+            'indexCardTitle': this.data.indexCardTitle,
+            'fileContent': this.directive.editor.getValue(),
+            'fileType': this.data.fileType
+        });
+    }
+
 
 
 

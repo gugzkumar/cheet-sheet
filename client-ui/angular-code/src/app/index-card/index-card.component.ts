@@ -1,6 +1,7 @@
 import {
   Component,
   Input,
+  ViewChild
 } from '@angular/core';
 
 import {
@@ -10,6 +11,7 @@ import {
 
 import BaseIndexCard from '../models/base-index-card';
 import { EditIndexCardDialogComponent } from '../edit-index-card-dialog/edit-index-card-dialog.component';
+import { EditorDirective } from '../core/directives/editor.directive';
 
 @Component({
   selector: 'app-index-card',
@@ -17,8 +19,8 @@ import { EditIndexCardDialogComponent } from '../edit-index-card-dialog/edit-ind
   styleUrls: ['./index-card.component.scss']
 })
 export class IndexCardComponent {
+  @ViewChild(EditorDirective) directive: EditorDirective;
   @Input() indexCard: BaseIndexCard;
-  // @Input() indexCardContent: BaseIndexCardModel;
   public enableElevation:boolean = false;
 
   // Two Way Bindable canEdit property. If can edit, clipboard functionality is
@@ -41,18 +43,40 @@ export class IndexCardComponent {
 
 
   clickEdit() {
-    this.dialog.open(EditIndexCardDialogComponent, {
+    const editDialog = this.dialog.open(EditIndexCardDialogComponent, {
         'data': {
-          'message': `Are you sure you would like to delete` +
-            `This will remove all index cards associated language.`,
-          'onConfirm': () => {}
+          'indexCardTitle': this.indexCard.indexCardTitle,
+          'fileContent': this.indexCard.fileContent,
+          'fileType': this.indexCard.fileType
         },
-        'disableClose': true
+        'disableClose': true,
+        'autoFocus': false
       }
     );
+    editDialog.afterClosed().subscribe((data)=>{
+        console.log(data);
+        if (!data) {
+            return;
+        }
+        const newIndexCardTitle = data.indexCardTitle;
+        const newFileContent = data.fileContent;
+        const newFileType = data.fileType;
+        if (
+            newIndexCardTitle != this.indexCard.indexCardTitle ||
+            newFileType != this.indexCard.fileType ||
+            newFileContent != this.indexCard.fileContent
+        ) {
+            console.log('WHY');
+            this.indexCard.indexCardTitle = newIndexCardTitle;
+            this.indexCard.fileType = newFileType;
+            this.indexCard.fileContent = newFileContent;
+            this.directive.editor.setValue(newFileContent, -1);
+        }
+    })
   }
 
   clickDelete() {
+
   }
 
 
