@@ -34,5 +34,25 @@ export class EditIndexCardDialogComponent {
 
 
 
+    // onClickCancel() {
+    //     // const cancel = () => {
+    //     //     console.log('Hello')
+    //     //     // this.dialogRef.close()
+    //     // }
+    //     // return console.log;
+    //     console.log('QH')
+    // }
+    onClickCtrlEnter = this.onClickOk.bind(this);
+    onClickEsc = function () {
+        // const cancel = () => {
+        //     console.log('Hello')
+        //     // this.dialogRef.close()
+        // }
+        // return console.log;
+        this.dialogRef.close()
+    }.bind(this);
+
+
+
 
 }

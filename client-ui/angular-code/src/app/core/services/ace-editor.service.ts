@@ -15,7 +15,9 @@ export class AceEditorService {
     text: string,
     readOnly: boolean,
     maxLines: number,
-    minLines: number
+    minLines: number,
+    customEscFunction: () => any = () => {},
+    customCtrlEnterFunction: () => any = () => {}
   ): void {
     const editor = ace.edit(div, {
       mode: `ace/mode/${language}`,
@@ -26,24 +28,28 @@ export class AceEditorService {
       useWorker: false,
       behavioursEnabled: true,
       autoScrollEditorIntoView: true,
-      minLines: minLines
+      minLines: minLines,
+      wrap: true,
+      fontSize: 15
     });
-    // editor.commands.addCommand(
-    //   {
-    //     name: 'saveFile',
-    //     bindKey: {
-    //       win: 'Ctrl-S',
-    //       mac: 'Command-S',
-    //       sender: 'editor|cli'
-    //     },
-    //     exec: function(env, args, request) {
-    //       alert("HI!");
-    //     }
-    // });
+    editor.setAutoScrollEditorIntoView(true);
 
     if (!readOnly) {
-
       editor.focus();
+      if(customCtrlEnterFunction) {
+        editor.commands.addCommand({
+            name: 'clickCtrlEnter',
+            bindKey: { win: 'Ctrl-Enter', mac: 'Command-Enter', sender: 'editor|cli' },
+            exec: customCtrlEnterFunction
+        });
+      }
+      if(customEscFunction) {
+        editor.commands.addCommand({
+            name: 'clickEscape',
+            bindKey: { win: 'Esc', mac: 'Esc', sender: 'editor|cli' },
+            exec: customEscFunction
+        });
+      }
     };
     return editor;
 
