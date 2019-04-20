@@ -148,6 +148,44 @@ export class SheetService {
     }
 
     /**
+     * Sends a request to the save the current sheet and its index cards
+     *
+     * @returns and Observable to the http request
+     */
+    saveCurrentSheet(): Observable<any> {
+        const body = {
+            'sheetName': this.currentSheetName,
+            'sheetData': {
+            }
+        }
+        body['sheetData']['defaultFileType'] = this.currentSheetValue.defaultFileType;
+        body['sheetData']['defaultFileType'] = this.currentSheetValue.defaultFileType;
+        body['sheetData']['leftIndexCards'] = this.currentSheetValue.leftIndexCards.map(
+            (card) => {
+                return {
+                    "indexCardType": "BaseIndexCard",
+                    "indexCardTitle": card.indexCardTitle,
+                    "fileType": card.fileType,
+                    "fileContent": card.fileContent
+                }
+            }
+        );
+        body['sheetData']['rightIndexCards'] = this.currentSheetValue.rightIndexCards.map(
+            (card) => {
+                return {
+                    "indexCardType": "BaseIndexCard",
+                    "indexCardTitle": card.indexCardTitle,
+                    "fileType": card.fileType,
+                    "fileContent": card.fileContent
+                }
+            }
+        );
+        console.log(body);
+        return null;
+    }
+
+
+    /**
      * Create a brand new index card for the current sheet
      *
      * //WARNING: -This only creates on new Index in the user's browser session
