@@ -4,7 +4,15 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:10000'
+  apiUrl: 'http://localhost:10000',
+  cognitoParams: {
+    cognitoLoginUrl:'https://scratch-cheet-sheet.auth.us-east-1.amazoncognito.com/login',
+    cognitoLogoutUrl:'https://scratch-cheet-sheet.auth.us-east-1.amazoncognito.com/logout',
+    cognitoClientId: '13r6k9a94vo40pqa83cdmhomjm',
+    cognitoResponseType: 'token',
+    cognitoScope: 'openid+profile+aws.cognito.signin.user.admin',
+    cognitoRedirectUri: 'http://localhost:4200'
+  }
 };
 
 /*
@@ -15,3 +23,9 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+`
+https://scratch-cheet-sheet.auth.us-east-1.amazoncognito.com/login?
+response_type=token&
+client_id=13r6k9a94vo40pqa83cdmhomjm&
+redirect_uri=http://localhost:4200/login/&scope=openid+profile+aws.cognito.signin.user.admin
+`

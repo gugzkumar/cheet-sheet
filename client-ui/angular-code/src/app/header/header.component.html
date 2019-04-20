@@ -16,7 +16,7 @@
       <mat-icon>
         person_outline
       </mat-icon>
-      Gagan
+      {{ authService.username }}
     </button>
     <button *ifLoggedOut mat-raised-button (click)="authService.login()">
       Login

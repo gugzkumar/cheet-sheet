@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SheetService } from './services/sheet.service';
 import { AceEditorService } from './services/ace-editor.service';
+import { AuthResolver } from './guardsAndResolvers/auth.resolve';
 import {
   IfEditModeDirective,
   IfViewModeDirective,
@@ -27,7 +28,8 @@ import { EditorDirective } from './directives/editor.directive';
   ],
   providers: [
     SheetService,
-    AceEditorService
+    AceEditorService,
+    AuthResolver
   ],
   exports: [
     IfEditModeDirective,
