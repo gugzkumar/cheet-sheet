@@ -54,6 +54,11 @@
       margin-left: 12px;
     }
 
+    button:disabled {
+        color: #505459;
+        transition: .05s;
+    }
+
     .cheat-sheet-header-bottom-left-content {
         align-items: flex-end;
         margin-left: 10px;

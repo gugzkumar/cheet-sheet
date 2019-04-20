@@ -43,18 +43,22 @@
     <button mat-icon-button (click)="sheetService.toggleSheetMenu($event)">
       <mat-icon>list</mat-icon>
     </button>
-    <button mat-icon-button>
+    <!-- <button mat-icon-button>
       <mat-icon>refresh</mat-icon>
-    </button>
+    </button> -->
     <ng-container *ifLoggedIn>
       <mat-checkbox [(ngModel)]="sheetService.editModeOn">
         Edit Mode
       </mat-checkbox>
-      <button *ifEditMode mat-icon-button>
-        <mat-icon>save</mat-icon>
-      </button>
       <button *ifEditMode mat-icon-button (click)="onClickNewSheet()">
         <mat-icon>note_add</mat-icon>
+      </button>
+      <button
+        *ifEditMode mat-icon-button
+        [disabled]="!(sheetService.currentSheetValue && sheetService.currentSheetValue.isDirty)"
+        (click)="onClickSave()"
+      >
+        <mat-icon>save</mat-icon>
       </button>
       <button
         *ifViewMode

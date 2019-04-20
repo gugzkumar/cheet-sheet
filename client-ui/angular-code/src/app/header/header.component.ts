@@ -54,6 +54,24 @@ export class HeaderComponent {
         });
     }
 
+    onClickSave() {
+        this.sheetService.saveCurrentSheet().subscribe(
+            () => {
+                // If apiRequest is successfull show a successfull snackbar
+                this.snackBar.open('Changes saved', '', {
+                    duration: 1500,
+                });
+            },
+            (errorResponse) => {
+                // If apiRequest is unsuccessfull show red snack bar with the error message
+                this.snackBar.open(errorResponse['error']['message'], '', {
+                    duration: 1500,
+                    panelClass: ['red-snackbar']
+                });
+            }
+        );;
+    }
+
     onClickNewSheet() {
         this.sheetService.createNewBaseIndexCard();
         this.snackBar.open(`New blank index card created`, '', {

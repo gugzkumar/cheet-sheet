@@ -180,8 +180,14 @@ export class SheetService {
                 }
             }
         );
-        console.log(body);
-        return null;
+        const saveSheetRequest = this.http.put(
+          `${environment.apiUrl}/sheet/${this.currentSheetName}`,
+          body
+        )
+        saveSheetRequest.subscribe(() => {
+            this.currentSheetValue.isDirty = false;
+        }, () => {});
+        return saveSheetRequest;
     }
 
 
@@ -208,6 +214,7 @@ export class SheetService {
         indexCard.fileContent = '"Change my title and code by clicking EDIT"';
         indexCard.dateCreated = new Date();
         indexCard.dateUpdated = new Date();
+        this.currentSheetValue.isDirty = true;
         arrayToAdd.push(indexCard);
     }
 

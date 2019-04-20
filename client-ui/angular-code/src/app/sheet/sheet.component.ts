@@ -23,12 +23,16 @@ export class SheetComponent {
 
         // Logic to rearrange data in Drag and Drop
         if (event.previousContainer === event.container) {
+            if(event.previousIndex !== event.currentIndex) {
+                this.sheetService.currentSheetValue.isDirty = true;
+            }
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
         } else {
             transferArrayItem(event.previousContainer.data,
                               event.container.data,
                               event.previousIndex,
                               event.currentIndex);
+            this.sheetService.currentSheetValue.isDirty = true;
         }
     }
 }

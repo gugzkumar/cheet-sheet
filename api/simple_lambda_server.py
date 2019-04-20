@@ -53,7 +53,7 @@ post_lambda_event_template = {
     }
 }
 put_lambda_event_template = {
-    'httpMethod': 'DELETE',
+    'httpMethod': 'PUT',
     'body': {},
     'queryStringParameters': {},
     'requestContext': {

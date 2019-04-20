@@ -12,6 +12,8 @@ import {
 import BaseIndexCard from '../models/base-index-card';
 import { EditIndexCardDialogComponent } from '../edit-index-card-dialog/edit-index-card-dialog.component';
 import { EditorDirective } from '../core/directives/editor.directive';
+import { SheetService } from '../core/services/sheet.service';
+
 
 @Component({
   selector: 'app-index-card',
@@ -37,7 +39,8 @@ export class IndexCardComponent {
 
   constructor(
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private sheetService: SheetService
   ) {
   }
 
@@ -66,11 +69,11 @@ export class IndexCardComponent {
             newFileType != this.indexCard.fileType ||
             newFileContent != this.indexCard.fileContent
         ) {
-            console.log('WHY');
             this.indexCard.indexCardTitle = newIndexCardTitle;
             this.indexCard.fileType = newFileType;
             this.indexCard.fileContent = newFileContent;
             this.directive.editor.setValue(newFileContent, -1);
+            this.sheetService.currentSheetValue.isDirty = true;
         }
     })
   }

@@ -30,7 +30,7 @@ export class AceEditorService {
       autoScrollEditorIntoView: true,
       minLines: minLines,
       wrap: true,
-      fontSize: 15
+      // fontSize: 15
     });
     editor.setAutoScrollEditorIntoView(true);
 
