@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { AuthService } from './core/services/auth.service';
 import { SheetService } from './core/services/sheet.service';
 
 @Component({
@@ -11,6 +12,7 @@ export class AppComponent {
 
     constructor(
       private sheetService: SheetService,
+      private authService: AuthService,
       private snackBar: MatSnackBar
     ) { }
 
@@ -20,6 +22,7 @@ export class AppComponent {
     // KeyBoard Events For The App
     @HostListener('document:keydown.meta.s', ['$event'])
     handleKeyboardEventCommandS(event: KeyboardEvent) {
+        if (!this.authService.isLoggedIn) return;
         if (!this.sheetService.disableSave && this.sheetService.currentSheetValue.isDirty) {
             this.sheetService.saveCurrentSheet().subscribe(
                 () => {
@@ -42,6 +45,7 @@ export class AppComponent {
 
     @HostListener('document:keydown.meta.e', ['$event'])
     handleKeyboardEventCommandE(event: KeyboardEvent) {
+        if (!this.authService.isLoggedIn) return;
         this.sheetService.editModeOn = !this.sheetService.editModeOn
         event.preventDefault();
     }

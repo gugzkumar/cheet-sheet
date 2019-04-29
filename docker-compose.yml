@@ -35,3 +35,15 @@ services:
             cp -r ./cached-dependencies/* ./dependencies/python/lib/python3.7/site-packages
             exec start.sh jupyter notebook --NotebookApp.token='' & nodemon --exec python simple_lambda_server.py
         entrypoint: ["dash", "-c"]
+
+
+    sam-local:
+        build: ./sam-local
+        container_name: sam-local
+        privileged: true
+        ports:
+          - "3000:3000"
+        env_file:
+            .env
+        volumes:
+          - ./sam-local:/app

@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -11,6 +10,7 @@ import {
   MatDialogModule,
   MatIconModule,
   MatInputModule,
+  MatProgressSpinnerModule,
   MatSelectModule,
   MatSidenavModule,
   MatSnackBarModule,
@@ -37,6 +37,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 import { EditIndexCardDialogComponent } from './edit-index-card-dialog/edit-index-card-dialog.component';
 import { CreateSheetDialogComponent } from './create-sheet-dialog/create-sheet-dialog.component';
 import { CreateIndexCardDialogComponent } from './create-index-card-dialog/create-index-card-dialog.component';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -49,14 +50,14 @@ import { CreateIndexCardDialogComponent } from './create-index-card-dialog/creat
     ConfirmationDialogComponent,
     EditIndexCardDialogComponent,
     CreateSheetDialogComponent,
-    CreateIndexCardDialogComponent
+    CreateIndexCardDialogComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     CoreModule,
-    HttpClientModule,
     FormsModule,
     // Angular Material imports
     MatAutocompleteModule,
@@ -66,6 +67,7 @@ import { CreateIndexCardDialogComponent } from './create-index-card-dialog/creat
     MatDialogModule,
     MatIconModule,
     MatInputModule,
+    MatProgressSpinnerModule,
     MatSelectModule,
     MatSidenavModule,
     MatSnackBarModule,

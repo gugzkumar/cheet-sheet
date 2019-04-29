@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SheetService } from './services/sheet.service';
+import { SheetResolver } from './guardsAndResolvers/sheet.resolve';
 import { AceEditorService } from './services/ace-editor.service';
 import { AuthResolver } from './guardsAndResolvers/auth.resolve';
+import { LoaderService } from './services/loader.service';
+import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import {
   IfEditModeDirective,
   IfViewModeDirective,
@@ -24,12 +28,16 @@ import { EditorDirective } from './directives/editor.directive';
     EditorDirective
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
   providers: [
     SheetService,
+    SheetResolver,
     AceEditorService,
-    AuthResolver
+    AuthResolver,
+    LoaderService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
   ],
   exports: [
     IfEditModeDirective,

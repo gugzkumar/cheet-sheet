@@ -2,7 +2,6 @@ import {
   Injectable
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MatDialog } from '@angular/material';
 import { environment } from '../../../environments/environment';
 import Sheet from '../../models/sheet';
 import BaseIndexCard from '../../models/base-index-card';
@@ -24,22 +23,13 @@ const dataTemplate = {
 export class SheetService {
 
     constructor(
-        private http: HttpClient,
-        private dialog: MatDialog
-    ) {
-        this.loadSheetMenu().subscribe((responseBody) => {
-            const sheets = responseBody['result']['sheetNames'];
-            this.setSelectedSheet(sheets[0]);
-        }, () => {});
-        // this.currentSheetName='python';
-        // this.currentSheetValue=this.parseSheet(dataTemplate);
-        // this.availableSheets = ['python'];
-    }
+        private http: HttpClient
+    ) {}
 
     // The following variable is a flag for when the page is in Edit mode.
     // With Edit Mode, one can rearrange, delete and edit index cards.
     // This property is two way bindable and initially set to False
-    private editModeOnValue: boolean = true;
+    private editModeOnValue: boolean = false;
     public $editModeOn: BehaviorSubject<boolean> = new BehaviorSubject(this.editModeOnValue);
     get editModeOn(): boolean{
         return this.editModeOnValue;
@@ -51,7 +41,7 @@ export class SheetService {
 
     // The following variable is flag that tells whether or not the Sheet Menu
     // on the left side should be open or not.
-    private showSheetMenuValue:boolean = true;
+    private showSheetMenuValue:boolean = false;
     get showSheetMenu(): boolean {
         return this.showSheetMenuValue;
     }

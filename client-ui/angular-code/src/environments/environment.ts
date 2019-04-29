@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:10000',
+  apiUrl: 'http://localhost:3000',
   cognitoParams: {
     cognitoLoginUrl:'https://scratch-cheet-sheet.auth.us-east-1.amazoncognito.com/login',
     cognitoLogoutUrl:'https://scratch-cheet-sheet.auth.us-east-1.amazoncognito.com/logout',
