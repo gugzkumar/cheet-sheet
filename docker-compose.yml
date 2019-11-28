@@ -13,3 +13,18 @@ services:
           - /usr/src/app/node_modules
         ports:
           - "4200:4200"
+    # --------------------------------------------------------------------------
+    # BACKEND WRITTEN IN AWS SAM LOCAL
+    # --------------------------------------------------------------------------
+    serverless-lambda-api:
+        build: ./api
+        container_name: serverless-lambda-api
+        env_file:
+            .env
+        volumes:
+          - ./api:/app
+          - /var/run/docker.sock:/var/run/docker.sock
+          - ./api:${SAM_LOCAL_ABSOLUTE_PATH}
+        ports:
+          - "3000:3000"
+        command: sh standup-api.sh
