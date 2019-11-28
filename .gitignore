@@ -19,6 +19,7 @@ api/dependencies/*
 !api/dependencies/.gitkeep
 api/notebooks
 api/cached-dependencies
+archived-services
 
 # CLIENT UI Ignores
 client-ui/angular-output/*
