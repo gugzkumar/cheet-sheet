@@ -7,7 +7,9 @@ import { map, mergeMap } from 'rxjs/operators';
 
 @Injectable()
 export class SheetResolver implements Resolve<any> {
-    constructor(private sheetService: SheetService) { }
+
+    constructor(private sheetService: SheetService) {}
+
     resolve() {
         const request = this.sheetService.loadSheetMenu().pipe(
           mergeMap(responseBody => {

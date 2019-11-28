@@ -38,7 +38,7 @@ export class AppComponent {
                         panelClass: ['red-snackbar']
                     });
                 }
-            );;
+            );
         }
         event.preventDefault();
     }

@@ -4,12 +4,16 @@ import { Subject } from 'rxjs';
 @Injectable()
 export class LoaderService {
     isLoading = new Subject<boolean>();
+    number_of_currently_loading_jobs = 0;
 
-    show() {
-        this.isLoading.next(true);
+    trackALoadingJob() {
+        this.number_of_currently_loading_jobs += 1;
+        if (this.number_of_currently_loading_jobs == 1) this.isLoading.next(true);
     }
 
-    hide() {
-        this.isLoading.next(false);
+    untrackALoadingJob() {
+        this.number_of_currently_loading_jobs -= 1;
+        if (this.number_of_currently_loading_jobs == 0) this.isLoading.next(false);
     }
+
 }

@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment';
 import Sheet from '../../models/sheet';
 import BaseIndexCard from '../../models/base-index-card';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { share } from 'rxjs/operators';
 import * as availableFileTypesImport from '../../../assets/json/available_file_types.json';
 const dataTemplate = {
     "defaultFileType": "python",
@@ -83,7 +84,7 @@ export class SheetService {
         {
             'sheetName': sheetName,
             'defaultFileType': defaultFileType
-        });
+        }).pipe(share());
         createSheetRequest.subscribe();
         return createSheetRequest;
     }
@@ -97,7 +98,7 @@ export class SheetService {
     deleteSheet(sheetName: string): Observable<any> {
         const deleteSheetRequest = this.http.delete(
             `${environment.apiUrl}/sheet/${sheetName}`
-        );
+        ).pipe(share());
         deleteSheetRequest.subscribe();
         return deleteSheetRequest;
     }
@@ -109,7 +110,7 @@ export class SheetService {
      * @returns and Observable to the http request
      */
     loadSheetMenu(): Observable<any> {
-        const getAllSheetNames = this.http.get(`${environment.apiUrl}/sheet`);
+        const getAllSheetNames = this.http.get(`${environment.apiUrl}/sheet`).pipe(share());
         getAllSheetNames.subscribe((responseBody) => {
             this.availableSheets = responseBody['result']['sheetNames'];
             return this.availableSheets;
@@ -126,7 +127,7 @@ export class SheetService {
      * @returns and Observable to the http request
      */
     setSelectedSheet(sheetName: string): Observable<any> {
-        const getSheetData = this.http.get(`${environment.apiUrl}/sheet/${sheetName}`);
+        const getSheetData = this.http.get(`${environment.apiUrl}/sheet/${sheetName}`).pipe(share());
         getSheetData.subscribe((responseBody) => {
             const rawSheetJson = responseBody['result']['sheetData'];
             const sheet = this.parseSheet(rawSheetJson);
@@ -173,7 +174,7 @@ export class SheetService {
         const saveSheetRequest = this.http.put(
           `${environment.apiUrl}/sheet/${this.currentSheetName}`,
           body
-        )
+        ).pipe(share());
         saveSheetRequest.subscribe(() => {
             this.currentSheetValue.isDirty = false;
         }, () => {});
