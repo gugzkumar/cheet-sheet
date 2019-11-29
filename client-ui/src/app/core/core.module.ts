@@ -5,6 +5,7 @@ import { SheetService } from './services/sheet.service';
 import { SheetResolver } from './guardsAndResolvers/sheet.resolve';
 import { AceEditorService } from './services/ace-editor.service';
 import { AuthResolver } from './guardsAndResolvers/auth.resolve';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { LoaderService } from './services/loader.service';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import {
@@ -37,7 +38,8 @@ import { EditorDirective } from './directives/editor.directive';
     AceEditorService,
     AuthResolver,
     LoaderService,
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   exports: [
     IfEditModeDirective,

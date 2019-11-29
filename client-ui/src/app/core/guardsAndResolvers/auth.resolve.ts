@@ -16,7 +16,6 @@ export class AuthResolver implements Resolve<any> {
                 const value = str.split('=')[1];
                 authRouterParams[key] = value;
             });
-            console.log(authRouterParams);
         }
         this.authService.handleAuthentication(authRouterParams);
     }
