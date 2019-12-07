@@ -20,6 +20,7 @@ api/dependencies/*
 api/notebooks
 api/cached-dependencies
 archived-services
+__dependencies__
 
 # CLIENT UI Ignores
 client-ui/angular-output/*

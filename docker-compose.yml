@@ -27,4 +27,4 @@ services:
           - ./api:${SAM_LOCAL_ABSOLUTE_PATH}
         ports:
           - "3000:3000"
-        command: sh standup-api.sh
+        command: bash standup-api.sh

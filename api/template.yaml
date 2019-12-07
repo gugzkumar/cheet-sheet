@@ -10,7 +10,7 @@ Globals:
   Function:
     Runtime: python3.7
     Timeout: 3
-    MemorySize: 256
+    MemorySize: 512
     Environment:
       Variables:
         CLIENT_UI_SUBDOMAIN: $CLIENT_UI_SUBDOMAIN
@@ -24,42 +24,36 @@ Globals:
       AllowOrigin: "'*'"
 
 Resources:
-  #/sheet
-  SheetFunction:
+
+  ApiFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: sheet/_code_
+      CodeUri: src
       Handler: app.main
       Events:
-        Get:
+        #/sheet
+        Get_sheet:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /sheet
             Method: get
-        Post:
+        Post_sheet/{sheetName}:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /sheet
             Method: post
-
-  #/sheet/{sheetName}
-  SheetSheetNameFunction:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
-    Properties:
-      CodeUri: sheet/{sheetName}/_code_
-      Handler: app.main
-      Events:
-        Get:
+        #/sheet/{sheetName}
+        Get_sheet/{sheetName}:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /sheet/{sheetName}
             Method: get
-        Delete:
+        Delete_sheet/{sheetName}:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /sheet/{sheetName}
             Method: delete
-        Put:
+        Put_sheet/{sheetName}:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /sheet/{sheetName}
