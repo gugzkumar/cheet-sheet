@@ -7,7 +7,7 @@ import datetime
 from boto3 import client
 s3_client = client('s3')
 from __core__.settings import AVAILABLE_FILE_TYPES, SHEET_DATA_S3_BUCKET, ADMIN_USER
-from __core__.utilities import get_a_blank_new_sheet, get_error_response
+from __core__.utilities import get_a_blank_new_sheet, get_error_response, authenticated_users_only
 
 user = ADMIN_USER
 s3_get_sheet_names_response = s3_client.list_objects(
@@ -30,6 +30,7 @@ def get(event, context):
         })
     }
 
+@authenticated_users_only
 def post(event, context):
     """
     Create A New Sheet

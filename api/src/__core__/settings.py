@@ -1,3 +1,6 @@
+from os import environ
+from __core__.utilities import decode_base64_to_json
+
 AVAILABLE_FILE_TYPES = [
     'abap', 'abc', 'actionscript', 'ada', 'apache_conf', 'apex', 'applescript', 'asciidoc', 'asl',
     'assembly_x86', 'autohotkey', 'batchfile', 'bro', 'c9search', 'c_cpp', 'cirru', 'clojure', 'cobol',
@@ -17,4 +20,7 @@ AVAILABLE_FILE_TYPES = [
     'velocity', 'verilog', 'vhdl', 'visualforce', 'wollok', 'xml', 'xquery', 'yaml'
 ]
 SHEET_DATA_S3_BUCKET='scratch-cheetsheet-storage'
-ADMIN_USER='default'
+ADMIN_USER=environ['APP_ADMIN_USER']
+PUBLIC_SHEETS_FOLDER=environ['PUBLIC_SHEETS_FOLDER']
+COGNITO_ACCESS_JWK=decode_base64_to_json(environ['COGNITO_ACCESS_JWK_BASE4'])
+COGNITO_ID_JWK=decode_base64_to_json(environ['COGNITO_ID_JWK_BASE4'])

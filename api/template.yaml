@@ -5,6 +5,12 @@ Description: >
 
   Sample SAM Template for sam-app
 
+Parameters:
+  LayerArn:
+    Type: String
+    Default: Override This Variable from the CLI
+
+
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
@@ -15,8 +21,10 @@ Globals:
       Variables:
         CLIENT_UI_SUBDOMAIN: $CLIENT_UI_SUBDOMAIN
         SHEET_DATA_S3_BUCKET: $SHEET_DATA_S3_BUCKET
-        COGNITO_CLIENT_ID: $COGNITO_CLIENT_ID
-        COGNITO_CLIENT_SECRET: $COGNITO_CLIENT_SECRET
+        COGNITO_ACCESS_JWK_BASE4: $COGNITO_ACCESS_JWK_BASE4
+        COGNITO_ID_JWK_BASE4: $COGNITO_ID_JWK_BASE4
+        APP_ADMIN_USER: $APP_ADMIN_USER
+        PUBLIC_SHEETS_FOLDER: $PUBLIC_SHEETS_FOLDER
   Api:
     Cors:
       AllowMethods: "'*'"
@@ -30,6 +38,8 @@ Resources:
     Properties:
       CodeUri: src
       Handler: app.main
+      Layers:
+        - !Sub '${LayerArn}'
       Events:
         #/sheet
         Get_sheet:

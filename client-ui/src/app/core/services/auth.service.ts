@@ -58,6 +58,10 @@ export class AuthService {
         return localStorage.getItem(ID_TOKEN);
     }
 
+    getCurrentAccessToken() {
+        return localStorage.getItem(ACCESS_TOKEN);
+    }
+
     handleAuthentication(authRouterParams) {
         if (authRouterParams) {
             localStorage.setItem(ACCESS_TOKEN, authRouterParams['access_token']);
