@@ -3,7 +3,7 @@
 node_modules
 package-lock.json
 .env
-2.env
+backup.env
 .ipynb_checkpoints
 SimpleServer.ipynb
 __pycache__

@@ -1,9 +1,9 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  sam-app
-
-  Sample SAM Template for sam-app
+  This is the SAM template code
+  for running the CH33T SH33T app locally
+  as well as to deploy it to a remote Environment
 
 Parameters:
   LayerArn:
