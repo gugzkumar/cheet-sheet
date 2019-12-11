@@ -7,20 +7,15 @@ import datetime
 from boto3 import client
 s3_client = client('s3')
 from __core__.settings import AVAILABLE_FILE_TYPES, SHEET_DATA_S3_BUCKET, ADMIN_USER
-from __core__.utilities import get_a_blank_new_sheet, get_error_response, authenticated_users_only
-
-user = ADMIN_USER
-s3_get_sheet_names_response = s3_client.list_objects(
-    Bucket = SHEET_DATA_S3_BUCKET,
-    Prefix = f'{user}/',
-    Delimiter = '/'
-)['CommonPrefixes']
-all_current_sheet_names = [obj['Prefix'][(len(user)+1):-1] for obj in s3_get_sheet_names_response]
+from __core__.utilities import get_a_blank_new_sheet, get_error_response
+from __core__.utilities import authenticated_users_only, get_all_sheets_names_for_a_folder
 
 def get(event, context):
     """
     Get JSON data of a sheet
     """
+    sheets_folder = event['sheets_folder']
+    all_current_sheet_names = get_all_sheets_names_for_a_folder(s3_client, sheets_folder, SHEET_DATA_S3_BUCKET)
 
     if 'sheetName' not in event['pathParameters'] or event['pathParameters']['sheetName'] is None:
         # Error if no sheet name was provided
@@ -31,7 +26,7 @@ def get(event, context):
 
     s3_get_sheet_response = s3_client.get_object(
         Bucket=SHEET_DATA_S3_BUCKET,
-        Key=f'{user}/{event["pathParameters"]["sheetName"]}/sheet.json'
+        Key=f'{sheets_folder}/{event["pathParameters"]["sheetName"]}/sheet.json'
     )
     sheet_data = json.loads(s3_get_sheet_response["Body"].read().decode())
 
@@ -50,6 +45,8 @@ def delete(event, context):
     """
     Delete a sheet
     """
+    sheets_folder = event['sheets_folder']
+    all_current_sheet_names = get_all_sheets_names_for_a_folder(s3_client, sheets_folder, SHEET_DATA_S3_BUCKET)
 
     if 'sheetName' not in event['pathParameters'] or event['pathParameters']['sheetName'] is None:
         # Error if no sheet name was provided
@@ -61,7 +58,7 @@ def delete(event, context):
     # Delete sheet in S3 bucket
     s3_delete_sheet_response = s3_client.delete_object(
         Bucket = SHEET_DATA_S3_BUCKET,
-        Key=f'{user}/{event["pathParameters"]["sheetName"]}/sheet.json'
+        Key=f'{sheets_folder}/{event["pathParameters"]["sheetName"]}/sheet.json'
     )
 
     if s3_delete_sheet_response['ResponseMetadata']['HTTPStatusCode'] not in [200, 204]:
@@ -79,7 +76,9 @@ def put(event, context):
     """
     Update an existing sheet
     """
-    print(type(event['body']))
+    sheets_folder = event['sheets_folder']
+    all_current_sheet_names = get_all_sheets_names_for_a_folder(s3_client, sheets_folder, SHEET_DATA_S3_BUCKET)
+
     if 'sheetName' not in event['pathParameters'] or event['pathParameters']['sheetName'] is None:
         # Error if no sheet name was provided
         return get_error_response('No name for sheet was provided')
@@ -106,7 +105,7 @@ def put(event, context):
     # Get current data for sheet
     s3_get_sheet_response = s3_client.get_object(
         Bucket=SHEET_DATA_S3_BUCKET,
-        Key=f'{user}/{event["pathParameters"]["sheetName"]}/sheet.json'
+        Key=f'{sheets_folder}/{event["pathParameters"]["sheetName"]}/sheet.json'
     )
     sheet_data = json.loads(s3_get_sheet_response["Body"].read().decode())
     new_sheet_data["dateCreated"] = sheet_data["dateCreated"]
@@ -115,7 +114,7 @@ def put(event, context):
         ACL='private',
         Body = (bytes(json.dumps(new_sheet_data).encode('UTF-8'))),
         Bucket = SHEET_DATA_S3_BUCKET,
-        Key=f'{user}/{event["pathParameters"]["sheetName"]}/sheet.json'
+        Key=f'{sheets_folder}/{event["pathParameters"]["sheetName"]}/sheet.json'
     )
 
     return {

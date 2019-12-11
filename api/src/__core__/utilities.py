@@ -20,6 +20,15 @@ def get_error_response(message, statusCode=400):
         'headers': {'Access-Control-Allow-Origin': "*"}
     }
 
+def get_all_sheets_names_for_a_folder(s3_client, sheets_folder, SHEET_DATA_S3_BUCKET):
+    s3_get_sheet_names_response = s3_client.list_objects(
+        Bucket = SHEET_DATA_S3_BUCKET,
+        Prefix = f'{sheets_folder}/',
+        Delimiter = '/'
+    )['CommonPrefixes']
+    all_current_sheet_names = [obj['Prefix'][(len(sheets_folder)+1):-1] for obj in s3_get_sheet_names_response]
+    return all_current_sheet_names
+
 def encode_json_to_base64(json_obj):
     return base64.b64encode(json.dumps(json_obj).encode('ascii'))
 

@@ -6,21 +6,16 @@ import json
 import datetime
 from boto3 import client
 s3_client = client('s3')
-from __core__.settings import AVAILABLE_FILE_TYPES, SHEET_DATA_S3_BUCKET, ADMIN_USER
-from __core__.utilities import get_a_blank_new_sheet, get_error_response, authenticated_users_only
-
-user = ADMIN_USER
-s3_get_sheet_names_response = s3_client.list_objects(
-    Bucket = SHEET_DATA_S3_BUCKET,
-    Prefix = f'{user}/',
-    Delimiter = '/'
-)['CommonPrefixes']
-all_current_sheet_names = [obj['Prefix'][(len(user)+1):-1] for obj in s3_get_sheet_names_response]
+from __core__.settings import AVAILABLE_FILE_TYPES, SHEET_DATA_S3_BUCKET
+from __core__.utilities import get_a_blank_new_sheet, get_error_response
+from __core__.utilities import authenticated_users_only, get_all_sheets_names_for_a_folder
 
 def get(event, context):
     """
     Get All Sheets
     """
+    sheets_folder = event['sheets_folder']
+    all_current_sheet_names = get_all_sheets_names_for_a_folder(s3_client, sheets_folder, SHEET_DATA_S3_BUCKET)
     return {
         "statusCode": 200,
         "body": json.dumps({
@@ -35,6 +30,8 @@ def post(event, context):
     """
     Create A New Sheet
     """
+    sheets_folder = event['sheets_folder']
+    all_current_sheet_names = get_all_sheets_names_for_a_folder(s3_client, sheets_folder, SHEET_DATA_S3_BUCKET)
 
     if 'sheetName' not in event['body'] or event['body']['sheetName'] is None:
         # Error if no sheet name was provided
