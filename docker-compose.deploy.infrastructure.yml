@@ -6,7 +6,6 @@
 #
 # What this sets up:
 # - Cognito Userpool
-# - API Gateway
 # - S3 Bucket for UI hosting
 # - S3 Bucket for App Data Storage
 # - S3 Bucket for Code Deployment Artifacts
@@ -19,3 +18,18 @@
 # Note: If you don't have a Cloud Admin who can set this up for you
 # it is recommended to use docker-compose.network.yml
 # ------------------------------------------------------------------------------
+version: '3.7'
+services:
+    # --------------------------------------------------------------------------
+    # AWS-INFRASTRUCTURE DEPLOYMENT AND MAINTAINENCE WRITTEN IN aws-cdk
+    # --------------------------------------------------------------------------
+    serverless-aws-cdk:
+        build: ./.aws-infrastructure
+        container_name: serverless-aws-cdk
+        env_file:
+            infrastructure.env
+        command: tail -F anything
+        volumes:
+            - ./package.json:/usr/src/.aws-infrastructure/package.json
+            - ./.aws-infrastructure:/usr/src/app/
+            - /usr/src/app/node_modules
