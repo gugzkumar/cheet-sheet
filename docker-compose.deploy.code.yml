@@ -1,8 +1,19 @@
 # ------------------------------------------------------------------------------
-# LOCAL DOCKER COMPOSE
+# CODE DOCKER COMPOSE
 #
-# This Docker Compose is meant to run the App locally on ones machine.
-# Its use case is for development.
+# This Docker Compose is meant to deploy frontend code and backend code
+# to a remote environment.
+#
+# What this deploys:
+# - Angular code to an S3 bucket
+# - Lambda Function that connects to an API Gateway
+#
+# Prerequisites:
+# - Cognito Userpool
+# - API Gateway
+# - S3 Bucket for UI hosting
+# - S3 Bucket for App Data Storage
+#
 # ------------------------------------------------------------------------------
 version: '3.7'
 services:
@@ -12,25 +23,21 @@ services:
     serverless-angular-client-ui:
         build: ./client-ui
         container_name: serverless-angular-client-ui
-        env_file:
-            .env
         volumes:
           - ./client-ui:/usr/src/app
           - /usr/src/app/node_modules
-        ports:
-          - "4200:4200"
+        command: sh deploy.sh
     # --------------------------------------------------------------------------
     # BACKEND WRITTEN IN AWS SAM LOCAL
     # --------------------------------------------------------------------------
     serverless-lambda-api:
         build: ./api
         container_name: serverless-lambda-api
-        env_file:
-            .env
         volumes:
           - ./api:/app
-          - /var/run/docker.sock:/var/run/docker.sock
-          - ./api:${SAM_LOCAL_ABSOLUTE_PATH}
-        ports:
-          - "3000:3000"
-        command: bash standup-api.sh
+        environment:
+          - AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+          - AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+          - AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+          - LAMBDA_LAYER:$LAMBDA_LAYER
+        # command: bash deploy.sh

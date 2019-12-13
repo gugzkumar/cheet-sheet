@@ -1,0 +1,21 @@
+# ------------------------------------------------------------------------------
+# INFRASTRUCTURE DOCKER COMPOSE
+#
+# This Docker Compose is meant provision the necessary AWS resources
+# for a user. This includes VPC's, Subnets, Roles and Policies.
+#
+# What this sets up:
+# - Cognito Userpool
+# - API Gateway
+# - S3 Bucket for UI hosting
+# - S3 Bucket for App Data Storage
+# - S3 Bucket for Code Deployment Artifacts
+#
+# Prerequisites:
+# - AWS VPC
+# - Route53 Domains
+# - Cloud Front CDN
+#
+# Note: If you don't have a Cloud Admin who can set this up for you
+# it is recommended to use docker-compose.network.yml
+# ------------------------------------------------------------------------------

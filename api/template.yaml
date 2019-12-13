@@ -40,30 +40,31 @@ Resources:
       Handler: app.main
       Layers:
         - !Sub '${LayerArn}'
+      Role: arn:aws:iam::056825751459:role/service-role/scratch-cheet-sheet-lambda-role
       Events:
         #/sheet
-        Get_sheet:
+        GetSheet:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /sheet
             Method: get
-        Post_sheet/{sheetName}:
+        PostSheet:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /sheet
             Method: post
         #/sheet/{sheetName}
-        Get_sheet/{sheetName}:
+        GetSheetSheetName:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /sheet/{sheetName}
             Method: get
-        Delete_sheet/{sheetName}:
+        DeleteSheetSheetName:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /sheet/{sheetName}
             Method: delete
-        Put_sheet/{sheetName}:
+        PutSheetSheetName:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /sheet/{sheetName}
