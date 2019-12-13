@@ -3,4 +3,4 @@ ENV HOME=/usr/src/app
 WORKDIR $HOME
 COPY ./ $HOME
 RUN npm install -g aws-cdk@1.18.0 --quiet
-# RUN npm install --quiet
+RUN npm install --quiet

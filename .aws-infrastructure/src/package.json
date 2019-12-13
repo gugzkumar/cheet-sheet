@@ -1,8 +1,8 @@
 {
-  "name": "src",
+  "name": ".aws-infrastructure",
   "version": "0.1.0",
   "bin": {
-    "src": "bin/src.js"
+    "src": "bin/CheetSheetInfrastructure.js"
   },
   "scripts": {
     "build": "tsc",
