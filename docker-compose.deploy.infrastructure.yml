@@ -33,3 +33,7 @@ services:
             - ./package.json:/usr/src/.aws-infrastructure/package.json
             - ./.aws-infrastructure:/usr/src/app/
             - /usr/src/app/node_modules
+
+networks:
+  default:
+    name: cheet-sheet-deploy-infrastructure

@@ -1,5 +1,5 @@
 {
-  "name": ".aws-infrastructure",
+  "name": "cheet-sheet-infrastructure",
   "version": "0.1.0",
   "bin": {
     "src": "bin/CheetSheetInfrastructure.js"
@@ -21,6 +21,14 @@
     "typescript": "~3.7.2"
   },
   "dependencies": {
+    "@aws-cdk/aws-certificatemanager": "^1.18.0",
+    "@aws-cdk/aws-cloudfront": "^1.18.0",
+    "@aws-cdk/aws-cognito": "^1.18.0",
+    "@aws-cdk/aws-iam": "^1.18.0",
+    "@aws-cdk/aws-route53": "^1.18.0",
+    "@aws-cdk/aws-route53-targets": "^1.18.0",
+    "@aws-cdk/aws-s3": "^1.18.0",
+    "@aws-cdk/aws-s3-deployment": "^1.18.0",
     "@aws-cdk/core": "^1.18.0",
     "source-map-support": "^0.5.16"
   }

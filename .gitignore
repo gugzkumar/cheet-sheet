@@ -3,6 +3,7 @@
 node_modules
 package-lock.json
 *.env
+!*.template.env
 backup.env
 .ipynb_checkpoints
 SimpleServer.ipynb

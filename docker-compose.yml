@@ -3,6 +3,13 @@
 #
 # This Docker Compose is meant to run the App locally on ones machine.
 # Its use case is for development.
+#
+# You need the following AWS resources to run this:
+# - Lambda layer with
+#     pyjwt==1.7.1
+#     cryptography==2.8
+# - S3 Bucket for App Data
+# - Cognito user pool
 # ------------------------------------------------------------------------------
 version: '3.7'
 services:
@@ -13,7 +20,7 @@ services:
         build: ./client-ui
         container_name: serverless-angular-client-ui
         env_file:
-            .env
+            local.env
         volumes:
           - ./client-ui:/usr/src/app
           - /usr/src/app/node_modules
@@ -26,7 +33,7 @@ services:
         build: ./api
         container_name: serverless-lambda-api
         env_file:
-            .env
+            local.env
         volumes:
           - ./api:/app
           - /var/run/docker.sock:/var/run/docker.sock

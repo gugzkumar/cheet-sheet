@@ -1,6 +1,0 @@
-# ------------------------------------------------------------------------------
-# NETWORK DOCKER COMPOSE
-#
-# This Docker Compose is meant to setup the necessary network infrastructure
-# for the app. This includes VPC's, Subnets, Roles and Policies.
-# ------------------------------------------------------------------------------
