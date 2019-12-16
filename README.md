@@ -12,17 +12,20 @@ DO NOT TRY REPLICATING SERVICES
 - Good for personal project, or small prototypes
 
 - https://aws.amazon.com/premiumsupport/knowledge-center/decode-verify-cognito-json-token/
-https://github.com/jpadilla/pyjwt/issues/359
+- https://github.com/jpadilla/pyjwt/issues/359
 
 
 docker-compose -f docker-compose.deploy.code.yml down -v && docker-compose -f docker-compose.deploy.code.yml up --build -d
 docker-compose -f docker-compose.deploy.infrastructure.yml down -v && docker-compose -f docker-compose.deploy.infrastructure.yml up --build -d
 
 
-<!--  -->
 
+# Infrastructure Costs
 AWS Certificate Manager - Free
-AWS Route 53- Per Use
+AWS Route 53 - Per Transaction, and Annual fee for Domains
 AWS S3 - Per Transaction and Storage
-AWS Lambda - Per Use
-API Gateway - Per Use
+AWS Lambda - Per Transaction
+API Gateway - Per Transaction
+AWS Cognito - Per User
+
+https://github.com/aws-samples/aws-cdk-examples/tree/master/typescript/

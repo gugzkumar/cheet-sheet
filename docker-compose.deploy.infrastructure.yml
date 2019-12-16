@@ -30,7 +30,7 @@ services:
             infrastructure.env
         command: tail -F anything
         volumes:
-            - ./package.json:/usr/src/.aws-infrastructure/package.json
+            - ./.aws-infrastructure/package.json:/usr/src/.aws-infrastructure/package.json
             - ./.aws-infrastructure:/usr/src/app/
             - /usr/src/app/node_modules
 

@@ -14,7 +14,7 @@ const SITE_SUB_DOMAIN = process.env['SITE_DOMAIN'] || '';
 const SITE_DOMAIN = process.env['SITE_SUB_DOMAIN'] || '';
 const AWS_ACM_CERTIFICATE_ARN = process.env['AWS_ACM_CERTIFICATE_ARN'] || '';
 const ENVIRONMENT = process.env['ENVIRONMENT'] || '';
-const CREATE_IAM_POLICIES = process.env['CREATE_IAM_POLICIES'] || 'true';
+const AWS_CREATE_IAM_POLICIES = process.env['AWS_CREATE_IAM_POLICIES'] || 'true';
 
 const toBoolean = (value: string | number | boolean): boolean =>
     [true, 'true', 'True', 'TRUE', '1', 1].includes(value);
@@ -24,95 +24,67 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
     siteHostname = `${SITE_SUB_DOMAIN}.${SITE_DOMAIN}`;
     siteDomainName = SITE_DOMAIN;
     uiDistributionType = UI_DISTRIBUTION_TYPE;
-    shouldCreateIamPolicies = toBoolean(CREATE_IAM_POLICIES);
+    shouldCreateIamPolicies = toBoolean(AWS_CREATE_IAM_POLICIES);
 
     constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
 
-        // Create these resources to host our API and UI only if on a remote environment
-        if (ENVIRONMENT !== 'local') {
-            this.constructWebsiteResources(this.uiDistributionType);
-            this.constructApiRequiredResources(this.shouldCreateIamPolicies);
-        }
+        // Set up our app data storage resources
+        const storageARNs = this.constructDataStorageResources();
 
         // Create our resources for our Authentication Management system
         this.constructCognitoResources();
 
-        // Set up our private bucket that will save our application data (Sheet data is saved here)
-        this.constructApiRequiredResources(toBoolean(CREATE_IAM_POLICIES))
+        // Create these resources to host our API and UI only if on a remote environment
+        if (ENVIRONMENT !== 'local') {
+            this.constructApiRequiredResources(this.shouldCreateIamPolicies, storageARNs);
+            this.constructClientUiResources(this.uiDistributionType);
+        }
 
     }
 
-
-    constructApiRequiredResources(shouldCreateIamPolicies: boolean) {
+    /**
+     * Create all resources needed to host our API.
+     * You can directly host from S3, or you can set up a Cloud Front CDN
+     * if you expect more trafic.
+     *
+     * @param shouldCreateIamPolicies: boolean
+     *    true - create the IAM policy for our API's lambda function
+     *    false - skip creating the IAM policy for our API's lambda functions
+     */
+    constructApiRequiredResources(shouldCreateIamPolicies: boolean, storageARNs: Array<string>) {
         // Set up our private bucket that will be used to save and track deployment Artifacts for our API
         const apiDeploymentBucket = new s3.Bucket(this, 'S3APIDeploymentBucket', {
              removalPolicy: cdk.RemovalPolicy.DESTROY,
-             accessControl: s3.BucketAccessControl.PRIVATE
+             accessControl: s3.BucketAccessControl.PRIVATE,
+             bucketName: `${this.siteDomainName}-api-deployment`
         });
 
         // Create IAM Policies to necessary for our Lambda functions in our API
         if (shouldCreateIamPolicies) {
-            const role = new iam.Role(this, 'MyRole', {
-                assumedBy: new iam.ServicePrincipal('sns.amazonaws.com')
+            const role = new iam.Role(this, 'LambdaExecutionRole', {
+                assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com')
             });
 
             role.addToPolicy(new iam.PolicyStatement({
-                resources: ['*'],
-                actions: ['lambda:InvokeFunction'] })
-            );
+                resources: storageARNs,
+                actions: [
+                    's3:GetObject',
+                    's3:DeleteObject',
+                    's3:PutObject',
+                    's3:ListBucket',
+                    'dynamodb:BatchGetItem',
+                    'dynamodb:BatchWriteItem',
+                    'dynamodb:DeleteItem',
+                    'dynamodb:DescribeTable',
+                    'dynamodb:GetItem',
+                    'dynamodb:GetRecords',
+                    'dynamodb:PutItem',
+                    'dynamodb:Query',
+                    'dynamodb:Scan',
+                ]
+            }));
         }
-    }
-
-    /**
-     * This method constructs all methods needed to setup our authentication
-     * management in Cognito
-     */
-    constructCognitoResources() {
-        // Create our Cognito Userpool for tracking users
-        const userPool = new cognito.UserPool(this, 'CognitoAppUserPool',  {
-            signInType: cognito.SignInType.USERNAME,
-            autoVerifiedAttributes: [cognito.UserPoolAttribute.EMAIL],
-            userPoolName: this.siteHostname,
-            usernameAliasAttributes: [ cognito.UserPoolAttribute.PREFERRED_USERNAME ]
-        });
-        new cognito.CfnUserPoolGroup(this, "CognitoAdminsGroup", {
-            groupName: 'admin',
-            userPoolId: userPool.userPoolId,
-
-        });
-
-        const logoutUrLs = [
-            `https://${this.siteHostname}`,
-            `https://${this.siteHostname}/login`,
-            `https://${this.siteHostname}/logout`,
-            `http://${this.siteHostname}`,
-            `http://${this.siteHostname}/login`,
-            `http://${this.siteHostname}/logout`
-        ]
-        const callbackUrLs = [
-            `https://${this.siteHostname}`,
-            `https://${this.siteHostname}/login`,
-            `https://${this.siteHostname}/logout`,
-            `http://${this.siteHostname}`,
-            `http://${this.siteHostname}/login`,
-            `http://${this.siteHostname}/logout`
-        ]
-
-        const userPoolClient = new cognito.CfnUserPoolClient(this, 'CognitoAppUserPoolClient', {
-            userPoolId: userPool.userPoolId,
-            explicitAuthFlows: [ cognito.AuthFlow.USER_PASSWORD ],
-            logoutUrLs: logoutUrLs,
-            callbackUrLs: callbackUrLs,
-            allowedOAuthFlows: [ 'implicit', 'code'],
-            allowedOAuthScopes: [ "email", "openid", "aws.cognito.signin.user.admin", "profile"],
-            refreshTokenValidity: 30
-        });
-
-        const userPoolDomain = new cognito.CfnUserPoolDomain(this, 'CognitoAppUserPoolDomain', {
-            userPoolId: userPool.userPoolId,
-            domain: 'cheet-sheet-dev'
-        });
     }
 
     /**
@@ -122,7 +94,7 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
      *
      * @param targetResourceType - "buket" or "cloudfront"
      */
-    constructWebsiteResources(targetResourceType = 'bucket') {
+    constructClientUiResources(targetResourceType = 'bucket') {
         if (targetResourceType !== 'bucket' && targetResourceType !== 'cloudfront')
           throw new Error('Your UI distribution type must be "bucket" or "cloudfront"');
 
@@ -146,7 +118,7 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
                         behaviors: [
                           {
                             isDefaultBehavior: true,
-                            allowedMethods: cloudfront.CloudFrontAllowedMethods.ALL,
+                            allowedMethods: cloudfront.CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
                             defaultTtl: cdk.Duration.seconds(60)
                           },
                         ]
@@ -176,4 +148,87 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
         });
     }
 
+    /**
+     * This method constructs all resources needed to setup our authentication
+     * management in Cognito
+     */
+    constructCognitoResources() {
+        // Restrictions placed on password
+        const policies: cognito.CfnUserPool.PoliciesProperty = {
+            passwordPolicy: {
+                minimumLength: 8,
+                requireNumbers: false,
+                requireSymbols: false,
+                requireUppercase: false,
+                requireLowercase: false,
+            }
+        };
+
+        // List of Valid client facing urls for cognito
+        const logoutUrLs = [
+            `https://${this.siteHostname}`,
+            `https://${this.siteHostname}/login`,
+            `https://${this.siteHostname}/logout`,
+            `https://${this.siteHostname}/login/callback`,
+            `http://${this.siteHostname}`,
+            `http://${this.siteHostname}/login`,
+            `http://${this.siteHostname}/logout`,
+            `http://${this.siteHostname}/login/callback`,
+        ]
+        const callbackUrLs = [
+            `https://${this.siteHostname}`,
+            `https://${this.siteHostname}/login`,
+            `https://${this.siteHostname}/logout`,
+            `https://${this.siteHostname}/login/callback`,
+            `http://${this.siteHostname}`,
+            `http://${this.siteHostname}/login`,
+            `http://${this.siteHostname}/logout`,
+            `http://${this.siteHostname}/login/callback`,
+        ]
+
+        // Construct the actual user pool, its groups and its clients
+        const userPool = new cognito.CfnUserPool(this, 'CognitoAppUserPool',  {
+            aliasAttributes: [cognito.UserPoolAttribute.EMAIL],
+            autoVerifiedAttributes: [cognito.UserPoolAttribute.EMAIL],
+            policies: policies,
+            userPoolName: this.siteHostname,
+        });
+        new cognito.CfnUserPoolGroup(this, "CognitoAdminsGroup", {
+            groupName: 'admin',
+            userPoolId: userPool.ref
+
+        });
+        const userPoolClient = new cognito.CfnUserPoolClient(this, 'CognitoAppUserPoolClient', {
+            userPoolId: userPool.attrArn,
+            explicitAuthFlows: [ cognito.AuthFlow.USER_PASSWORD ],
+            logoutUrLs: logoutUrLs,
+            callbackUrLs: callbackUrLs,
+            allowedOAuthFlows: [ 'implicit', 'code'],
+            allowedOAuthScopes: [ "email", "openid", "aws.cognito.signin.user.admin", "profile"],
+            refreshTokenValidity: 30,
+            supportedIdentityProviders: [ userPool.attrProviderName ]
+        });
+        const userPoolDomain = new cognito.CfnUserPoolDomain(this, 'CognitoAppUserPoolDomain', {
+            userPoolId: userPool.ref,
+            domain: 'cheet-sheet-dev'
+        });
+    }
+
+    /**
+     * This method constructs all resources needed for saving app data, like
+     * S3 buckets and dynamo DB tables.
+     *
+     * @return: list of resource ARNs
+     */
+    constructDataStorageResources() {
+        // Set up our private bucket that will be used to save and track deployment Artifacts for our API
+        const appDataBucket = new s3.Bucket(this, 'S3AppDataStorageBucket', {
+             removalPolicy: cdk.RemovalPolicy.DESTROY,
+             accessControl: s3.BucketAccessControl.PRIVATE,
+             bucketName: `${this.siteDomainName}-sheetdata`
+        });
+        return [
+             appDataBucket.bucketArn
+        ];
+    }
 }
