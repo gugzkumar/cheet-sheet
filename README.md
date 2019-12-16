@@ -1,4 +1,11 @@
-# cheat-sheet
+<p align="center">
+  <img
+    alt="Cheet Sheet"
+    src="/docs/images/readme_logo.png"
+    width="700"
+  />
+</p>
+
 
 https://github.com/awslabs/aws-support-tools/blob/master/Cognito/decode-verify-jwt/decode-verify-jwt.py
 Doesn't break whole API
