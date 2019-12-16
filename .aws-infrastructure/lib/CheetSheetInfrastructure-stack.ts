@@ -165,25 +165,26 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
         };
 
         // List of Valid client facing urls for cognito
+        const host = ENVIRONMENT === 'local' ? 'localhost:4200' : this.siteHostname;
         const logoutUrLs = [
-            `https://${this.siteHostname}`,
-            `https://${this.siteHostname}/login`,
-            `https://${this.siteHostname}/logout`,
-            `https://${this.siteHostname}/login/callback`,
-            `http://${this.siteHostname}`,
-            `http://${this.siteHostname}/login`,
-            `http://${this.siteHostname}/logout`,
-            `http://${this.siteHostname}/login/callback`,
+            `https://${host}`,
+            `https://${host}/login`,
+            `https://${host}/logout`,
+            `https://${host}/login/callback`,
+            `http://${host}`,
+            `http://${host}/login`,
+            `http://${host}/logout`,
+            `http://${host}/login/callback`,
         ]
         const callbackUrLs = [
-            `https://${this.siteHostname}`,
-            `https://${this.siteHostname}/login`,
-            `https://${this.siteHostname}/logout`,
-            `https://${this.siteHostname}/login/callback`,
-            `http://${this.siteHostname}`,
-            `http://${this.siteHostname}/login`,
-            `http://${this.siteHostname}/logout`,
-            `http://${this.siteHostname}/login/callback`,
+            `https://${host}`,
+            `https://${host}/login`,
+            `https://${host}/logout`,
+            `https://${host}/login/callback`,
+            `http://${host}`,
+            `http://${host}/login`,
+            `http://${host}/logout`,
+            `http://${host}/login/callback`,
         ]
 
         // Construct the actual user pool, its groups and its clients
