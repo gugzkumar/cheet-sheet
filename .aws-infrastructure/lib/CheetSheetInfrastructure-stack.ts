@@ -10,11 +10,12 @@ import iam = require('@aws-cdk/aws-iam');
 // Read environment variables
 const UI_DISTRIBUTION_TYPE = process.env['UI_DISTRIBUTION_TYPE'] || '';;
 const AWS_ROUTE53_HOSTED_ZONE_ID = process.env['AWS_ROUTE53_HOSTED_ZONE_ID'] || '';
-const SITE_SUB_DOMAIN = process.env['SITE_DOMAIN'] || '';
-const SITE_DOMAIN = process.env['SITE_SUB_DOMAIN'] || '';
+const SITE_SUB_DOMAIN = process.env['SITE_SUB_DOMAIN'] || '';
+const SITE_DOMAIN = process.env['SITE_DOMAIN'] || '';
 const AWS_ACM_CERTIFICATE_ARN = process.env['AWS_ACM_CERTIFICATE_ARN'] || '';
 const ENVIRONMENT = process.env['ENVIRONMENT'] || '';
 const AWS_CREATE_IAM_POLICIES = process.env['AWS_CREATE_IAM_POLICIES'] || 'true';
+const region = process.env['AWS_DEFAULT_REGION'] || '';
 
 const toBoolean = (value: string | number | boolean): boolean =>
     [true, 'true', 'True', 'TRUE', '1', 1].includes(value);
@@ -57,7 +58,12 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
         const apiDeploymentBucket = new s3.Bucket(this, 'S3APIDeploymentBucket', {
              removalPolicy: cdk.RemovalPolicy.DESTROY,
              accessControl: s3.BucketAccessControl.PRIVATE,
-             bucketName: `${this.siteDomainName}-api-deployment`
+             bucketName: `${this.siteHostname}-api-deployment`
+        });
+        new cdk.CfnOutput(this, 'S3APIDeploymentBucketOutput', {
+            exportName: 'API-DEPLOYMENT-BUCKET',
+            value: apiDeploymentBucket.bucketName,
+            description: 'The S3 Bucket that will facilitate SAM deployments of the api code'
         });
 
         // Create IAM Policies to necessary for our Lambda functions in our API
@@ -84,6 +90,11 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
                     'dynamodb:Scan',
                 ]
             }));
+            new cdk.CfnOutput(this, 'LambdaExecutionRoleOutput', {
+                exportName: 'LAMBDA-IAM-ROLE-ARN',
+                value: role.roleArn,
+                description: 'The ARN of the IAM Role that the Lambda Functions of the api need so they can access the right resources'
+            });
         }
     }
 
@@ -192,6 +203,12 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
             aliasAttributes: [cognito.UserPoolAttribute.EMAIL],
             autoVerifiedAttributes: [cognito.UserPoolAttribute.EMAIL],
             policies: policies,
+            schema: [{
+              name: cognito.UserPoolAttribute.EMAIL,
+              attributeDataType: 'String',
+              mutable: false,
+              required: true
+            }],
             userPoolName: this.siteHostname,
         });
         new cognito.CfnUserPoolGroup(this, "CognitoAdminsGroup", {
@@ -200,19 +217,32 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
 
         });
         const userPoolClient = new cognito.CfnUserPoolClient(this, 'CognitoAppUserPoolClient', {
-            userPoolId: userPool.attrArn,
+            userPoolId: userPool.ref,
             explicitAuthFlows: [ cognito.AuthFlow.USER_PASSWORD ],
             logoutUrLs: logoutUrLs,
             callbackUrLs: callbackUrLs,
             allowedOAuthFlows: [ 'implicit', 'code'],
             allowedOAuthScopes: [ "email", "openid", "aws.cognito.signin.user.admin", "profile"],
             refreshTokenValidity: 30,
-            supportedIdentityProviders: [ userPool.attrProviderName ]
+            supportedIdentityProviders: [ 'COGNITO' ]
         });
         const userPoolDomain = new cognito.CfnUserPoolDomain(this, 'CognitoAppUserPoolDomain', {
             userPoolId: userPool.ref,
-            domain: 'cheet-sheet-dev'
+            domain: this.siteHostname.split('.').join('-')
         });
+
+        // Cloud Formation Outputs
+        new cdk.CfnOutput(this, 'CognitoAppUserPoolOutput', {
+            exportName: 'COGNITO-USER-POOL-ID',
+            value: userPool.ref,
+            description: 'The S3 bucket that will save all the different Cheet Sheets users create in our app.'
+        });
+        new cdk.CfnOutput(this, 'CognitoAppUserPoolDomainOutput', {
+            exportName: 'COGNITO-AUTHENTICATION-DOMAIN',
+            value: userPoolDomain.ref,
+            description: 'The domain of the cognito where authentication happens, and the login ui is hosted.'
+        });
+
     }
 
     /**
@@ -226,7 +256,12 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
         const appDataBucket = new s3.Bucket(this, 'S3AppDataStorageBucket', {
              removalPolicy: cdk.RemovalPolicy.DESTROY,
              accessControl: s3.BucketAccessControl.PRIVATE,
-             bucketName: `${this.siteDomainName}-sheetdata`
+             bucketName: `${this.siteHostname}-sheetdata`
+        });
+        new cdk.CfnOutput(this, 'S3AppDataStorageBucketOutput', {
+            exportName: 'SHEET-DATA-S3-BUCKET',
+            value: appDataBucket.bucketDomainName,
+            description: 'The S3 bucket that will save all the different Cheet Sheets users create in our app.'
         });
         return [
              appDataBucket.bucketArn
