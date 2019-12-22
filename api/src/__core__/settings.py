@@ -19,8 +19,8 @@ AVAILABLE_FILE_TYPES = [
     'terraform', 'tex', 'text', 'textile', 'toml', 'tsx', 'turtle', 'twig', 'typescript', 'vala', 'vbscript',
     'velocity', 'verilog', 'vhdl', 'visualforce', 'wollok', 'xml', 'xquery', 'yaml'
 ]
-SHEET_DATA_S3_BUCKET='scratch-cheetsheet-storage'
-ADMIN_USER=environ['APP_ADMIN_USER']
-PUBLIC_SHEETS_FOLDER=environ['PUBLIC_SHEETS_FOLDER']
-COGNITO_ACCESS_JWK=decode_base64_to_json(environ['COGNITO_ACCESS_JWK_BASE4'])
-COGNITO_ID_JWK=decode_base64_to_json(environ['COGNITO_ID_JWK_BASE4'])
+SHEET_DATA_S3_BUCKET=environ['SHEET_DATA_S3_BUCKET']
+ADMIN_USER_GROUP='admin'
+PUBLIC_SHEETS_FOLDER='public'
+COGNITO_JWKS_BASE64=environ['COGNITO_JWKS_BASE64']
+COGNITO_CLIENT_ID=environ['COGNITO_CLIENT_ID']

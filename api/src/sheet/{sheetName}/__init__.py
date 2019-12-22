@@ -6,7 +6,7 @@ import json
 import datetime
 from boto3 import client
 s3_client = client('s3')
-from __core__.settings import AVAILABLE_FILE_TYPES, SHEET_DATA_S3_BUCKET, ADMIN_USER
+from __core__.settings import AVAILABLE_FILE_TYPES, SHEET_DATA_S3_BUCKET
 from __core__.utilities import get_a_blank_new_sheet, get_error_response
 from __core__.utilities import authenticated_users_only, get_all_sheets_names_for_a_folder
 

@@ -55,8 +55,8 @@ def post(event, context):
     s3_client.put_object(
         ACL='private',
         Body = (bytes(json.dumps(new_sheet).encode('UTF-8'))),
-        Bucket = cheetsheet_bucket_name,
-        Key=f'{user}/{event["body"]["sheetName"]}/sheet.json'
+        Bucket = SHEET_DATA_S3_BUCKET,
+        Key=f'{sheets_folder}/{event["body"]["sheetName"]}/sheet.json'
 
     )
 
