@@ -32,3 +32,11 @@
 .cdk-drag-animating {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
+
+
+.no-sheets-message-container {
+  width: 100%;
+  margin-top: 100px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.29);
+}

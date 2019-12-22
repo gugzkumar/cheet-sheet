@@ -61,7 +61,7 @@ export class SheetService {
 
     public readonly availableFileTypes: string[] = availableFileTypesImport['default']; // All available file types for ACE
     public availableSheets: string[]; // List of sheets available to switch between
-    public currentSheetName: string = 'Python'; // Value of the currently active sheet on the page
+    public currentSheetName: string = null; // Value of the currently active sheet on the page
     public currentSheetValue: Sheet = null; // Sheet Object of currently active sheet
     public currentSheetIsDirty: boolean = false; // Tells if unSaved Changes have been made
     public disableSave = false;

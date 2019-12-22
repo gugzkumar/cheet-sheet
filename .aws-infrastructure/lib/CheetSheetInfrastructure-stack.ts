@@ -221,8 +221,9 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
             explicitAuthFlows: [ cognito.AuthFlow.USER_PASSWORD ],
             logoutUrLs: logoutUrLs,
             callbackUrLs: callbackUrLs,
-            allowedOAuthFlows: [ 'implicit', 'code'],
-            allowedOAuthScopes: [ "email", "openid", "aws.cognito.signin.user.admin", "profile"],
+            allowedOAuthFlowsUserPoolClient: true,
+            allowedOAuthFlows: [ 'implicit', 'code' ],
+            allowedOAuthScopes: [ "email", "openid", "aws.cognito.signin.user.admin", "profile" ],
             refreshTokenValidity: 30,
             supportedIdentityProviders: [ 'COGNITO' ]
         });

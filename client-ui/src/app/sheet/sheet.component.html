@@ -43,3 +43,7 @@
   </div>
 
 </div>
+
+<div *ngIf=!sheetService.currentSheetValue class="no-sheets-message-container">
+  <h1>This workspace has no sheets.<br/> Please add one.</h1>
+</div>

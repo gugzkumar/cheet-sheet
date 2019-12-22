@@ -14,7 +14,9 @@ export class SheetResolver implements Resolve<any> {
         const request = this.sheetService.loadSheetMenu().pipe(
           mergeMap(responseBody => {
             const sheets = responseBody['result']['sheetNames'];
-            return this.sheetService.setSelectedSheet(sheets[0]);
+            if(sheets.length > 0)
+              return this.sheetService.setSelectedSheet(sheets[0]);
+            else return [];
           })
         );
         // mergeMap()

@@ -11,10 +11,12 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const jwtToken = this.authService.getCurrentAccessToken();
-        if (jwtToken) {
+        const accessToken = this.authService.getCurrentAccessToken();
+        const idToken = this.authService.getCurrentIdToken();
+        if (accessToken) {
             const clonedReq = req.clone({
-              headers: req.headers.set("Authorization", `Bearer ${jwtToken}`)
+              headers: req.headers.set("Authorization", `Bearer ${accessToken}`)
+                                  .set("Id-Token", `Bearer ${idToken}`)
             });
             return next.handle(clonedReq);
         }
