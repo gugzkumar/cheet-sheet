@@ -23,7 +23,7 @@ services:
     # FRONTEND WRITTEN IN ANGULAR
     # --------------------------------------------------------------------------
     utils:
-        build: ./client-ui
+        build: ./.utils
         container_name: cheet-sheet-utils
         volumes:
           - ./utils:/usr/src/app
