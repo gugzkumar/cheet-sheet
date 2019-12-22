@@ -20,12 +20,13 @@ services:
         build: ./client-ui
         container_name: serverless-angular-client-ui
         env_file:
-            local.env
+            .env
         volumes:
           - ./client-ui:/usr/src/app
           - /usr/src/app/node_modules
         ports:
           - "4200:4200"
+        command: sh -c "node build-env.js && npm start"
     # --------------------------------------------------------------------------
     # BACKEND WRITTEN IN AWS SAM LOCAL
     # --------------------------------------------------------------------------
@@ -33,7 +34,7 @@ services:
         build: ./api
         container_name: serverless-lambda-api
         env_file:
-            local.env
+            .env
         volumes:
           - ./api:/app
           - /var/run/docker.sock:/var/run/docker.sock
