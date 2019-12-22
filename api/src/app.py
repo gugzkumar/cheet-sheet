@@ -11,7 +11,9 @@ def main(event, context):
     api_http_method = event["httpMethod"].lower()
 
     # Apply middleware
-    authentication_middleware.apply(event)
+    response = authentication_middleware.apply(event)
+    if (response):
+        return response
     json_parsing_middleware.apply(event)
 
     # Load the correct python module for the api endpoint

@@ -46,6 +46,7 @@
     <!-- <button mat-icon-button>
       <mat-icon>refresh</mat-icon>
     </button> -->
+    <ng-container *ngIf=sheetService.currentSheetValue>
     <ng-container *ifLoggedIn>
       <mat-checkbox [(ngModel)]="sheetService.editModeOn">
         Edit Mode
@@ -67,7 +68,8 @@
         (click)="onClickDeleteSheet($event)"
       >
         DELETE SHEET
-    </button>
+      </button>
+    </ng-container>
     </ng-container>
   </span>
   <span class="cheat-sheet-header-bottom-right-content">

@@ -25,15 +25,17 @@ def get_all_sheets_names_for_a_folder(s3_client, sheets_folder, SHEET_DATA_S3_BU
         Bucket = SHEET_DATA_S3_BUCKET,
         Prefix = f'{sheets_folder}/',
         Delimiter = '/'
-    )['CommonPrefixes']
-    all_current_sheet_names = [obj['Prefix'][(len(sheets_folder)+1):-1] for obj in s3_get_sheet_names_response]
-    return all_current_sheet_names
+    )
+    if ('CommonPrefixes' in s3_get_sheet_names_response):
+        return [obj['Prefix'][(len(sheets_folder)+1):-1] for obj in s3_get_sheet_names_response['CommonPrefixes']]
+    else:
+        return []
 
 def encode_json_to_base64(json_obj):
     return base64.b64encode(json.dumps(json_obj).encode('ascii'))
 
 def decode_base64_to_json(encoded_bytes):
-    return base64.b64decode(encoded_bytes)
+    return json.loads(base64.b64decode(encoded_bytes).decode('ascii'))
 
 
 def authenticated_users_only(func):

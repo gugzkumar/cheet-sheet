@@ -127,6 +127,13 @@ export class SheetService {
      * @returns and Observable to the http request
      */
     setSelectedSheet(sheetName: string): Observable<any> {
+        // If no sheet is given, set the current sheet name and value to null
+        if ( !sheetName ) {
+            this.currentSheetName = null;
+            this.currentSheetValue = null;
+            return null;
+        }
+
         const getSheetData = this.http.get(`${environment.apiUrl}/sheet/${sheetName}`).pipe(share());
         getSheetData.subscribe((responseBody) => {
             const rawSheetJson = responseBody['result']['sheetData'];
