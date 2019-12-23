@@ -1,3 +1,3 @@
 {
-  "app": "npx ts-node bin/CheetSheetInfrastructure.ts"
+  "app": "npx ts-node bin/cdk.ts"
 }

@@ -9,6 +9,18 @@ Parameters:
   LayerArn:
     Type: String
     Default: Override This Variable from the CLI
+  RoleArn:
+    Type: String
+    Default: Override This Variable from the CLI
+  SheetDataBucket:
+    Type: String
+    Default: Override This Variable from the CLI
+  CognitoClientId:
+    Type: String
+    Default: Override This Variable from the CLI
+  CognitoJWKSBase64:
+    Type: String
+    Default: Override This Variable from the CLI
 
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
@@ -19,12 +31,9 @@ Globals:
     MemorySize: 512
     Environment:
       Variables:
-        CLIENT_UI_SUBDOMAIN: $CLIENT_UI_SUBDOMAIN
-        SHEET_DATA_S3_BUCKET: $SHEET_DATA_S3_BUCKET
-        COGNITO_CLIENT_ID: $COGNITO_CLIENT_ID
-        COGNITO_JWKS_BASE64: $COGNITO_JWKS_BASE64
-        APP_ADMIN_USER: $APP_ADMIN_USER
-        PUBLIC_SHEETS_FOLDER: $PUBLIC_SHEETS_FOLDER
+        SHEET_DATA_S3_BUCKET: !Sub '${SheetDataBucket}'
+        COGNITO_CLIENT_ID: !Sub '${CognitoClientId}'
+        COGNITO_JWKS_BASE64: !Sub '${CognitoJWKSBase64}'
   Api:
     Cors:
       AllowMethods: "'*'"
@@ -40,7 +49,7 @@ Resources:
       Handler: app.main
       Layers:
         - !Sub '${LayerArn}'
-      Role: arn:aws:iam::056825751459:role/service-role/scratch-cheet-sheet-lambda-role
+      Role: !Sub '${RoleArn}'
       Events:
         #/sheet
         GetSheet:

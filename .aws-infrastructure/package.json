@@ -2,7 +2,7 @@
   "name": "cheet-sheet-infrastructure",
   "version": "0.1.0",
   "bin": {
-    "src": "bin/CheetSheetInfrastructure.js"
+    "src": "bin/cdk.js"
   },
   "scripts": {
     "build": "tsc",

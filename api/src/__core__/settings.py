@@ -1,5 +1,4 @@
 from os import environ
-from __core__.utilities import decode_base64_to_json
 
 AVAILABLE_FILE_TYPES = [
     'abap', 'abc', 'actionscript', 'ada', 'apache_conf', 'apex', 'applescript', 'asciidoc', 'asl',

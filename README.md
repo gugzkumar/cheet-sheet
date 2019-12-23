@@ -22,9 +22,15 @@ DO NOT TRY REPLICATING SERVICES
 - https://aws.amazon.com/premiumsupport/knowledge-center/decode-verify-cognito-json-token/
 - https://github.com/jpadilla/pyjwt/issues/359
 
-
-docker-compose -f docker-compose.deploy.code.yml down -v && docker-compose -f docker-compose.deploy.code.yml up --build -d
+## Run Infrastructure Deploy Environment
+```
 docker-compose -f docker-compose.deploy.infrastructure.yml down -v && docker-compose -f docker-compose.deploy.infrastructure.yml up --build -d
+```
+
+## Run Code Deploy Environment
+```
+docker-compose -f docker-compose.deploy.code.yml down -v && docker-compose -f docker-compose.deploy.code.yml up --build -d
+```
 
 
 
