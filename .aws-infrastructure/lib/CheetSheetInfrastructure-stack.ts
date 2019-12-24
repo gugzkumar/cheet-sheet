@@ -1,30 +1,23 @@
 import cdk = require('@aws-cdk/core');
 import s3 = require('@aws-cdk/aws-s3');
-import cloudfront = require('@aws-cdk/aws-cloudfront');
-import route53 = require('@aws-cdk/aws-route53');
-import targets = require('@aws-cdk/aws-route53-targets/lib');
 import cognito = require('@aws-cdk/aws-cognito');
 import iam = require('@aws-cdk/aws-iam');
 
 
 // Read environment variables
-const UI_DISTRIBUTION_TYPE = process.env['UI_DISTRIBUTION_TYPE'] || '';;
-const AWS_ROUTE53_HOSTED_ZONE_ID = process.env['AWS_ROUTE53_HOSTED_ZONE_ID'] || '';
 const SITE_SUB_DOMAIN = process.env['SITE_SUB_DOMAIN'] || '';
 const SITE_DOMAIN = process.env['SITE_DOMAIN'] || '';
-const AWS_ACM_CERTIFICATE_ARN = process.env['AWS_ACM_CERTIFICATE_ARN'] || '';
 const ENVIRONMENT = process.env['ENVIRONMENT'] || '';
 const AWS_CREATE_IAM_POLICIES = process.env['AWS_CREATE_IAM_POLICIES'] || 'true';
-const region = process.env['AWS_DEFAULT_REGION'] || '';
 
 const toBoolean = (value: string | number | boolean): boolean =>
     [true, 'true', 'True', 'TRUE', '1', 1].includes(value);
 
 export class CheetSheetInfrastructureStack extends cdk.Stack {
 
+    // stackName = `CheetSheetInfrastructureStack-${ENVIRONMENT}`;
     siteHostname = `${SITE_SUB_DOMAIN}.${SITE_DOMAIN}`;
     siteDomainName = SITE_DOMAIN;
-    uiDistributionType = UI_DISTRIBUTION_TYPE;
     shouldCreateIamPolicies = toBoolean(AWS_CREATE_IAM_POLICIES);
 
     constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -39,7 +32,7 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
         // Create these resources to host our API and UI only if on a remote environment
         if (ENVIRONMENT !== 'local') {
             this.constructApiRequiredResources(this.shouldCreateIamPolicies, storageARNs);
-            this.constructClientUiResources(this.uiDistributionType);
+            this.constructClientUiResources();
         }
 
     }
@@ -61,7 +54,7 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
              bucketName: `${this.siteHostname}-api-deployment`
         });
         new cdk.CfnOutput(this, 'S3APIDeploymentBucketOutput', {
-            exportName: 'API-DEPLOYMENT-BUCKET',
+            exportName: `${this.stackName}-API-DEPLOYMENT-BUCKET`,
             value: apiDeploymentBucket.bucketName,
             description: 'The S3 Bucket that will facilitate SAM deployments of the api code'
         });
@@ -91,7 +84,7 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
                 ]
             }));
             new cdk.CfnOutput(this, 'LambdaExecutionRoleOutput', {
-                exportName: 'LAMBDA-IAM-ROLE-ARN',
+                exportName: `${this.stackName}-LAMBDA-IAM-ROLE-ARN`,
                 value: role.roleArn,
                 description: 'The ARN of the IAM Role that the Lambda Functions of the api need so they can access the right resources'
             });
@@ -118,45 +111,13 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
              removalPolicy: cdk.RemovalPolicy.DESTROY
         });
 
-        let targetResource: route53.IAliasRecordTarget = new targets.BucketWebsiteTarget(clientUIAssetsBucket);
-        if (targetResourceType!=='bucket') {
-            const clientUIWebDistribution = new cloudfront.CloudFrontWebDistribution(this, 'CloudFrontClientUIWebDistribution', {
-                originConfigs: [
-                    {
-                        s3OriginSource: {
-                            s3BucketSource: clientUIAssetsBucket
-                        },
-                        behaviors: [
-                          {
-                            isDefaultBehavior: true,
-                            allowedMethods: cloudfront.CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
-                            defaultTtl: cdk.Duration.seconds(60)
-                          },
-                        ]
-                    }
-                ],
-                aliasConfiguration: {
-                    acmCertRef: AWS_ACM_CERTIFICATE_ARN,
-                    names: [ this.siteHostname ],
-                    sslMethod: cloudfront.SSLMethod.SNI,
-                    securityPolicy: cloudfront.SecurityPolicyProtocol.TLS_V1_1_2016
-                }
-            });
-            targetResource = new targets.CloudFrontTarget(clientUIWebDistribution);
-        }
-
-        const zone = route53.HostedZone.fromHostedZoneAttributes(this, 'Zone', {
-            hostedZoneId: AWS_ROUTE53_HOSTED_ZONE_ID,
-            zoneName: this.siteDomainName
+        new cdk.CfnOutput(this, 'S3ClientUIAssetsBucketOutput', {
+            exportName: `${this.stackName}-CLIENT-UI-S3-BUCKET`,
+            value: clientUIAssetsBucket.bucketDomainName,
+            description: 'The S3 bucket is the source of truth for the frontend.'
         });
 
-        const clientUIDNSRecord = new route53.ARecord(this, 'SiteAliasRecord', {
-            recordName: 'cheet-sheet-dev',
-            target: route53.AddressRecordTarget.fromAlias(
-                targetResource
-            ),
-            zone
-        });
+
     }
 
     /**
@@ -176,26 +137,18 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
         };
 
         // List of Valid client facing urls for cognito
-        const host = ENVIRONMENT === 'local' ? 'localhost:4200' : this.siteHostname;
+        const host = ENVIRONMENT === 'local' ? 'http://localhost:4200' : `https://${this.siteHostname}`;
         const logoutUrLs = [
-            `https://${host}`,
-            `https://${host}/login`,
-            `https://${host}/logout`,
-            `https://${host}/login/callback`,
-            `http://${host}`,
-            `http://${host}/login`,
-            `http://${host}/logout`,
-            `http://${host}/login/callback`,
+            `${host}`,
+            `${host}/login`,
+            `${host}/logout`,
+            `${host}/login/callback`,
         ]
         const callbackUrLs = [
-            `https://${host}`,
-            `https://${host}/login`,
-            `https://${host}/logout`,
-            `https://${host}/login/callback`,
-            `http://${host}`,
-            `http://${host}/login`,
-            `http://${host}/logout`,
-            `http://${host}/login/callback`,
+            `${host}`,
+            `${host}/login`,
+            `${host}/logout`,
+            `${host}/login/callback`,
         ]
 
         // Construct the actual user pool, its groups and its clients
@@ -234,12 +187,12 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
 
         // Cloud Formation Outputs
         new cdk.CfnOutput(this, 'CognitoAppUserPoolOutput', {
-            exportName: 'COGNITO-USER-POOL-ID',
+            exportName: `${this.stackName}-COGNITO-USER-POOL-ID`,
             value: userPool.ref,
             description: 'The S3 bucket that will save all the different Cheet Sheets users create in our app.'
         });
         new cdk.CfnOutput(this, 'CognitoAppUserPoolDomainOutput', {
-            exportName: 'COGNITO-AUTHENTICATION-DOMAIN',
+            exportName: `${this.stackName}-COGNITO-AUTHENTICATION-DOMAIN`,
             value: userPoolDomain.ref,
             description: 'The domain of the cognito where authentication happens, and the login ui is hosted.'
         });
@@ -260,7 +213,7 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
              bucketName: `${this.siteHostname}-sheetdata`
         });
         new cdk.CfnOutput(this, 'S3AppDataStorageBucketOutput', {
-            exportName: 'SHEET-DATA-S3-BUCKET',
+            exportName: `${this.stackName}-SHEET-DATA-S3-BUCKET`,
             value: appDataBucket.bucketDomainName,
             description: 'The S3 bucket that will save all the different Cheet Sheets users create in our app.'
         });
