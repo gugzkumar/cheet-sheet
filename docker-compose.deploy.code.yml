@@ -17,7 +17,7 @@
 #     Should have permission to update the App Data Storage bucket
 #
 # ------------------------------------------------------------------------------
-version: '3.7'
+version: '3.2'
 services:
     # --------------------------------------------------------------------------
     # FRONTEND WRITTEN IN ANGULAR
