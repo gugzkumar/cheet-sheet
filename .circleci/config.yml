@@ -7,16 +7,16 @@ commands: # Reuasable commands
           name: "Load remote.env file from ENVIRONMENT variables"
           command: |
             if [ "${CIRCLE_BRANCH}" = "master" ]; then
-                echo $DEV_ENV_FILE | base64 -D > remote.env
+                echo $DEV_ENV_FILE | base64 -d > remote.env
 
             elif [ "${CIRCLE_BRANCH}" = "develop" ]; then
-                echo $PROD_ENV_FILE | base64 -D > remote.env
+                echo $PROD_ENV_FILE | base64 -d > remote.env
 
             elif [ "${CIRCLE_BRANCH}" = "staging" ]; then
-                echo $STAGING_ENV_FILE | base64 -D > remote.env
+                echo $STAGING_ENV_FILE | base64 -d > remote.env
 
             elif [ "${CIRCLE_BRANCH}" = "demo" ]; then
-                echo $DEMO_ENV_FILE | base64 -D > remote.env
+                echo $DEMO_ENV_FILE | base64 -d > remote.env
 
             else
                 exit 1
@@ -49,7 +49,7 @@ jobs:
 
 workflows:
   version: 2.1
-  test-build-deploy:
+  deploy-code:
     jobs:
       - deploy-api:
           filters:
