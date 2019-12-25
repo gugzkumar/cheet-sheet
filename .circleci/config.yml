@@ -1,18 +1,51 @@
 version: 2.1
+
+commands: # Reuasable commands
+  load-env:
+    steps:
+      - run: # Extract environment variable as remote.env file
+          name: "Load remote.env file from ENVIRONMENT variables"
+          command: |
+            if [ "${CIRCLE_BRANCH}" = "master" ]; then
+                echo $DEV_ENV_FILE | base64 -D > remote.env
+
+            elif [ "${CIRCLE_BRANCH}" = "develop" ]; then
+                echo $PROD_ENV_FILE | base64 -D > remote.env
+
+            elif [ "${CIRCLE_BRANCH}" = "staging" ]; then
+                echo $STAGING_ENV_FILE | base64 -D > remote.env
+
+            elif [ "${CIRCLE_BRANCH}" = "demo" ]; then
+                echo $DEMO_ENV_FILE | base64 -D > remote.env
+
+            else
+                exit 1
+            fi
+
+
 jobs:
+
   deploy-api:
     machine: true
     steps:
-      - run:
-          name: "Checking Versions"
+      - run: # check that we have docker
+          name: "Checking Docker Version"
           command: |
             docker -v
 
       - checkout # check out the code in the project directory
 
-      - run:
-          name: "List Current Directory"
-          command: ls
+      - run: # test what branch we're on.
+          name: "What branch am I on?"
+          command: echo ${CIRCLE_BRANCH}
+
+      - load-env
+
+      - run: # actually deploy the api
+          name: "Deploy API"
+          command: docker-compose -f docker-compose.deploy.code.yml run --rm serverless-lambda-api sh deploy.sh
+
+
 
 workflows:
   version: 2.1
