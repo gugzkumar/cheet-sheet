@@ -15,7 +15,7 @@
 # - Route53 Domains
 # - AWS Certificate Manager
 # ------------------------------------------------------------------------------
-version: '3.7'
+version: '3.2'
 services:
     # --------------------------------------------------------------------------
     # AWS-INFRASTRUCTURE DEPLOYMENT AND MAINTAINENCE WRITTEN IN aws-cdk
