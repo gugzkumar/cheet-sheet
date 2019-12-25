@@ -17,6 +17,8 @@
 #     Should have permission to update the App Data Storage bucket
 #
 # ------------------------------------------------------------------------------
+# # Temporarily set to version 3.2 to support circle CI
+# version: '3.7'
 version: '3.2'
 services:
     # --------------------------------------------------------------------------
@@ -46,6 +48,7 @@ services:
           - LAMBDA_LAYER:$LAMBDA_LAYER
         command: tail -f /dev/null
 
-networks:
-  default:
-    name: cheet-sheet-deploy-code
+# # Temporarily commented since not supported by circle CI
+# networks:
+#   default:
+#     name: cheet-sheet-deploy-code
