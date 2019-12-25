@@ -13,19 +13,26 @@ const SITE_SUB_DOMAIN = process.env['SITE_SUB_DOMAIN'] || '';
 const SITE_DOMAIN = process.env['SITE_DOMAIN'] || '';
 const AWS_ACM_CERTIFICATE_ARN = process.env['AWS_ACM_CERTIFICATE_ARN'] || '';
 const ENVIRONMENT = process.env['ENVIRONMENT'] || '';
-const region = process.env['AWS_DEFAULT_REGION'] || '';
 
 export class CheetSheetNetworkStack extends cdk.Stack {
 
     siteHostname = `${SITE_SUB_DOMAIN}.${SITE_DOMAIN}`;
     siteDomainName = SITE_DOMAIN;
     uiDistributionType = UI_DISTRIBUTION_TYPE;
+    zone:route53.IHostedZone;
 
     constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
+
+        this.zone = route53.HostedZone.fromHostedZoneAttributes(this, 'Zone', {
+            hostedZoneId: AWS_ROUTE53_HOSTED_ZONE_ID,
+            zoneName: this.siteDomainName
+        });
         // this.constructClientUiNetwork();
         this.constructApiNetwork();
+
     }
+
 
     constructApiNetwork() {
         const apiDomainName = `${SITE_SUB_DOMAIN}.api.${SITE_DOMAIN}`;
@@ -41,10 +48,22 @@ export class CheetSheetNetworkStack extends cdk.Stack {
         });
         apiDomain.addBasePathMapping(api);
 
+
+        const targetResource = new targets.ApiGatewayDomain(apiDomain);
+
+        const ApiDNSRecord = new route53.ARecord(this, 'ApiSiteAliasRecord', {
+            recordName: apiRecordName,
+            target: route53.AddressRecordTarget.fromAlias(
+                targetResource
+            ),
+            zone: this.zone
+        });
+
     }
 
     constructClientUiNetwork() {
         const clientUIAssetsBucketName = this.siteHostname;
+        const clientUIRecordName = `${SITE_SUB_DOMAIN}`;
         const clientUIAssetsBucket = s3.Bucket.fromBucketName(this, 'S3ClientUIAssetsBucket' , clientUIAssetsBucketName);
 
         const clientUIWebDistribution = new cloudfront.CloudFrontWebDistribution(this, 'CloudFrontClientUIWebDistribution', {
@@ -71,17 +90,12 @@ export class CheetSheetNetworkStack extends cdk.Stack {
         });
         const targetResource = new targets.CloudFrontTarget(clientUIWebDistribution);
 
-        const zone = route53.HostedZone.fromHostedZoneAttributes(this, 'Zone', {
-            hostedZoneId: AWS_ROUTE53_HOSTED_ZONE_ID,
-            zoneName: this.siteDomainName
-        });
-
-        const clientUIDNSRecord = new route53.ARecord(this, 'SiteAliasRecord', {
-            recordName: SITE_SUB_DOMAIN,
+        const clientUIDNSRecord = new route53.ARecord(this, 'ClientUiSiteAliasRecord', {
+            recordName: clientUIRecordName,
             target: route53.AddressRecordTarget.fromAlias(
                 targetResource
             ),
-            zone
+            zone: this.zone
         });
     }
 
