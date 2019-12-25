@@ -41,11 +41,6 @@ services:
           - ./api:/app
         env_file:
           - remote.env
-        environment:
-          - AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
-          - AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-          - AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-          - LAMBDA_LAYER:$LAMBDA_LAYER
         command: tail -f /dev/null
 
 # # Temporarily commented since not supported by circle CI
