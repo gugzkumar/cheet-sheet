@@ -13,4 +13,5 @@ sam deploy --stack-name $codeStackName \
   --region $AWS_DEFAULT_REGION --capabilities CAPABILITY_IAM \
   --parameter-overrides LayerArn=$LAMBDA_LAYER RoleArn=$LAMBDA_IAM_ROLE SheetDataBucket=$SHEET_DATA_S3_BUCKET \
     CognitoClientId=$COGNITO_CLIENT_ID CognitoJWKSBase64=$COGNITO_JWKS_BASE64 \
-    ApiResourceName=$apiSiteName ApiFunctionResourceName=$apiFunctionName
+    ApiResourceName=$apiSiteName ApiFunctionResourceName=$apiFunctionName \
+    StackName=$codeStackName

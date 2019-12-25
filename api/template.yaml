@@ -27,6 +27,9 @@ Parameters:
   ApiFunctionResourceName:
     Type: String
     Default: Override This Variable from the CLI
+  StackName:
+    Type: String
+    Default: Override This Variable from the CLI
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
@@ -85,3 +88,16 @@ Resources:
           Properties:
             Path: /sheet/{sheetName}
             Method: put
+
+Outputs:
+  ServerlessRestApiOutput:
+    Description: Id of Rest API
+    Value: !Ref ServerlessRestApi
+    Export:
+      Name: !Sub "${StackName}-API-GATEWAY-API-ID"
+Outputs:
+  ApiFunctionOutput:
+    Description: Id of Lambda function that is the brains behind the api
+    Value: !Ref ApiFunction
+    Export:
+      Name: !Sub "${StackName}-API-FUNCTION"
