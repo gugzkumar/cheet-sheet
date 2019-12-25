@@ -95,7 +95,6 @@ Outputs:
     Value: !Ref ServerlessRestApi
     Export:
       Name: !Sub "${StackName}-API-GATEWAY-API-ID"
-Outputs:
   ApiFunctionOutput:
     Description: Id of Lambda function that is the brains behind the api
     Value: !Ref ApiFunction
