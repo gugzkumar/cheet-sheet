@@ -28,9 +28,8 @@ export class CheetSheetNetworkStack extends cdk.Stack {
             hostedZoneId: AWS_ROUTE53_HOSTED_ZONE_ID,
             zoneName: this.siteDomainName
         });
-        // this.constructClientUiNetwork();
+        this.constructClientUiNetwork();
         this.constructApiNetwork();
-
     }
 
 
@@ -40,15 +39,18 @@ export class CheetSheetNetworkStack extends cdk.Stack {
         const acmCert = certificatemanager.Certificate.fromCertificateArn(this, 'SSLCertificate', AWS_ACM_CERTIFICATE_ARN);
 
         const apiIdReference = cdk.Fn.importValue(`CheetSheetCodeStack-${ENVIRONMENT}-API-GATEWAY-API-ID`);
-        const api = apigateway.RestApi.fromRestApiId(this, 'RestApi', apiIdReference);
 
         const apiDomain = new apigateway.DomainName(this, 'ApiGatewayDomain', {
             domainName: apiDomainName,
             certificate: acmCert
         });
-        apiDomain.addBasePathMapping(api);
-
-
+        const apiDomainMapping = new apigateway.CfnBasePathMapping(this, 'ApiGatewayDomainMapping',
+            {
+                domainName: apiDomain.domainName,
+                restApiId: apiIdReference,
+                stage: 'Prod'
+            }
+        )
         const targetResource = new targets.ApiGatewayDomain(apiDomain);
 
         const ApiDNSRecord = new route53.ARecord(this, 'ApiSiteAliasRecord', {
