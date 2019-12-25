@@ -21,7 +21,12 @@ Parameters:
   CognitoJWKSBase64:
     Type: String
     Default: Override This Variable from the CLI
-
+  ApiResourceName:
+    Type: String
+    Default: Override This Variable from the CLI
+  ApiFunctionResourceName:
+    Type: String
+    Default: Override This Variable from the CLI
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
@@ -39,12 +44,14 @@ Globals:
       AllowMethods: "'*'"
       AllowHeaders: "'*'"
       AllowOrigin: "'*'"
+    Name: !Sub '${ApiResourceName}'
 
 Resources:
 
   ApiFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
+      FunctionName: !Sub '${ApiFunctionResourceName}'
       CodeUri: src
       Handler: app.main
       Layers:

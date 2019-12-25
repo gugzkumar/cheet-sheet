@@ -1,0 +1,32 @@
+version: 2.1
+jobs:
+  deploy-api:
+    machine: true
+    steps:
+      - run:
+          name: "Checking Versions"
+          command: |
+            docker -v
+
+      - checkout # check out the code in the project directory
+
+      - run:
+          name: "List Current Directory"
+          command: ls
+
+workflows:
+  version: 2.1
+  test-build-deploy:
+    jobs:
+      - deploy-api:
+          filters:
+            branches:
+              only:
+                  - master
+                  - develop
+      # - deploy-client-ui:
+      #     filters:
+      #         branches:
+      #             only:
+      #                 - master
+      #                 - develop

@@ -28,7 +28,7 @@ services:
         volumes:
           - ./client-ui:/usr/src/app
           - /usr/src/app/node_modules
-        command: sh deploy.sh
+        command: tail -f /dev/null
     # --------------------------------------------------------------------------
     # BACKEND WRITTEN IN AWS SAM LOCAL
     # --------------------------------------------------------------------------
@@ -44,6 +44,7 @@ services:
           - AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
           - AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
           - LAMBDA_LAYER:$LAMBDA_LAYER
+        command: tail -f /dev/null
 
 networks:
   default:

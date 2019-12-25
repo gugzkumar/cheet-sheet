@@ -13,10 +13,7 @@
 # Prerequisites:
 # - AWS VPC
 # - Route53 Domains
-# - Cloud Front CDN
-#
-# Note: If you don't have a Cloud Admin who can set this up for you
-# it is recommended to use docker-compose.network.yml
+# - AWS Certificate Manager
 # ------------------------------------------------------------------------------
 version: '3.7'
 services:

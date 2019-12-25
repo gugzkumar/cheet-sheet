@@ -113,7 +113,7 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
 
         new cdk.CfnOutput(this, 'S3ClientUIAssetsBucketOutput', {
             exportName: `${this.stackName}-CLIENT-UI-S3-BUCKET`,
-            value: clientUIAssetsBucket.bucketDomainName,
+            value: clientUIAssetsBucket.bucketName,
             description: 'The S3 bucket is the source of truth for the frontend.'
         });
 
@@ -214,7 +214,7 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
         });
         new cdk.CfnOutput(this, 'S3AppDataStorageBucketOutput', {
             exportName: `${this.stackName}-SHEET-DATA-S3-BUCKET`,
-            value: appDataBucket.bucketDomainName,
+            value: appDataBucket.bucketName,
             description: 'The S3 bucket that will save all the different Cheet Sheets users create in our app.'
         });
         return [
