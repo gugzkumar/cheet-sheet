@@ -13,7 +13,7 @@ import { SheetService } from '../core/services/sheet.service';
 })
 export class SheetComponent {
 
-    constructor(private sheetService: SheetService) {}
+    constructor(public sheetService: SheetService) {}
 
     drop(event: CdkDragDrop<string[]>) {
         // If the Cheat Sheet Page is in edit mode Prevent Drag and Drop Behavior

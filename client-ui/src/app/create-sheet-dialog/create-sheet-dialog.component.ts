@@ -17,7 +17,7 @@ export class CreateSheetDialogComponent {
 
     constructor(
         public dialogRef: MatDialogRef<CreateSheetDialogComponent>,
-        private sheetService: SheetService,
+        public sheetService: SheetService,
         private snackBar: MatSnackBar
     ) { }
 

@@ -11,7 +11,7 @@ import { SheetService } from './core/services/sheet.service';
 export class AppComponent {
 
     constructor(
-      private sheetService: SheetService,
+      public sheetService: SheetService,
       private authService: AuthService,
       private snackBar: MatSnackBar
     ) { }

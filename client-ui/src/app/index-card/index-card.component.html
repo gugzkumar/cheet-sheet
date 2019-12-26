@@ -3,7 +3,7 @@
     [class.mat-elevation-z8]="enableElevation"
     (mouseover)="enableElevation=true"
     (mouseout)="enableElevation=false"
-    (click)="copyToClipBoard($event)"
+    (click)="copyToClipBoard()"
   >
     <div class="overlay" addClassOnEditMode>
     </div>
@@ -23,7 +23,7 @@
       </div>
     </mat-card-content>
     <mat-card-actions *ifEditMode style="z-index: 200;">
-      <button mat-raised-button (click)="clickEdit($event)">EDIT</button>
+      <button mat-raised-button (click)="clickEdit()">EDIT</button>
       <button mat-raised-button color="warn">REMOVE</button>
     </mat-card-actions>
   </mat-card>

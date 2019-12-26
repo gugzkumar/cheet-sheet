@@ -30,6 +30,8 @@ services:
         volumes:
           - ./client-ui:/usr/src/app
           - /usr/src/app/node_modules
+        env_file:
+          - remote.env
         command: tail -f /dev/null
     # --------------------------------------------------------------------------
     # BACKEND WRITTEN IN AWS SAM LOCAL

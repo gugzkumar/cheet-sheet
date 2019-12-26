@@ -11,9 +11,9 @@ import { CreateSheetDialogComponent } from '../create-sheet-dialog/create-sheet-
 export class SheetMenuComponent {
 
   constructor(
-      private sheetService: SheetService,
+      public sheetService: SheetService,
       private dialog: MatDialog
-  ) { 
+  ) {
   }
 
   onClickAddNewSheet() {

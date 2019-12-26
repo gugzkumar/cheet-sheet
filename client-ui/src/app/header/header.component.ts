@@ -12,7 +12,7 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
 export class HeaderComponent {
 
     constructor(
-        private sheetService: SheetService,
+        public sheetService: SheetService,
         private authService: AuthService,
         private dialog: MatDialog,
         private snackBar: MatSnackBar
