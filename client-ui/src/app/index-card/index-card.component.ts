@@ -57,7 +57,6 @@ export class IndexCardComponent {
       }
     );
     editDialog.afterClosed().subscribe((data)=>{
-        console.log(data);
         if (!data) {
             return;
         }
@@ -78,7 +77,7 @@ export class IndexCardComponent {
     })
   }
 
-  clickDelete() {
+  clickRemove() {
 
   }
 

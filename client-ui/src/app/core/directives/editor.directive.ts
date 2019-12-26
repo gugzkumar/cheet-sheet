@@ -30,7 +30,7 @@ export class EditorDirective implements OnInit, OnChanges {
     }
     ngOnInit() {
         try {
-            this.editor = this.aceEditorService.setReadOnlyEditor(
+            this.editor = this.aceEditorService.initEditor(
               this.hostElement.nativeElement,
               this.language,
               this.code,
@@ -48,7 +48,7 @@ export class EditorDirective implements OnInit, OnChanges {
 
     ngOnChanges() {
         try {
-            this.editor = this.aceEditorService.setReadOnlyEditor(
+            this.editor = this.aceEditorService.initEditor(
               this.hostElement.nativeElement,
               this.language,
               this.code,
