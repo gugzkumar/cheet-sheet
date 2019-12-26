@@ -43,7 +43,7 @@ export class AuthService {
         this.document.location.href = (
             COGNITO_PARAMS.cognitoLogoutUrl + '?' +
             `client_id=${COGNITO_PARAMS.cognitoClientId}&` +
-            `logout_uri=${COGNITO_PARAMS.cognitoRedirectUri}&`
+            `logout_uri=${COGNITO_PARAMS.cognitoLogoutRedirectUri}`
         );
     }
 
