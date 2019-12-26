@@ -15,7 +15,8 @@ export const environment = {
     cognitoClientId: '${process.env['COGNITO_CLIENT_ID']}',
     cognitoResponseType: 'token',
     cognitoScope: 'openid+profile+aws.cognito.signin.user.admin',
-    cognitoRedirectUri: '${process.env['CLIENT_UI_URL']}'
+    cognitoRedirectUri: '${process.env['CLIENT_UI_URL']}/login/callback',
+    cognitoLogoutRedirectUri: '${process.env['CLIENT_UI_URL']}/logout'
   }
 };`
 }
