@@ -3,7 +3,6 @@ import s3 = require('@aws-cdk/aws-s3');
 import cognito = require('@aws-cdk/aws-cognito');
 import iam = require('@aws-cdk/aws-iam');
 
-
 // Read environment variables
 const SITE_SUB_DOMAIN = process.env['SITE_SUB_DOMAIN'] || '';
 const SITE_DOMAIN = process.env['SITE_DOMAIN'] || '';
@@ -13,9 +12,21 @@ const AWS_CREATE_IAM_POLICIES = process.env['AWS_CREATE_IAM_POLICIES'] || 'true'
 const toBoolean = (value: string | number | boolean): boolean =>
     [true, 'true', 'True', 'TRUE', '1', 1].includes(value);
 
+/**
+ * This AWS Cloud Formation stack deals with setting up infrastructure for CheetSheet.
+ * This DOES NOT set up any networking or routing to host the infrastructure via
+ * a Route53 or a DNS provider. That is done in the CheetSheetNetworkStack.
+ *
+ * This stack creates the following:
+ *  - Authentication Resources
+ *  - Client UI Dependant Resources
+ *  - API Dependant Resources
+ *  - App Data Storage Resources
+ *
+ * If ENVIRONMENT == 'local', only authentication and app data storage resources are created.
+ */
 export class CheetSheetInfrastructureStack extends cdk.Stack {
 
-    // stackName = `CheetSheetInfrastructureStack-${ENVIRONMENT}`;
     siteHostname = `${SITE_SUB_DOMAIN}.${SITE_DOMAIN}`;
     siteDomainName = SITE_DOMAIN;
     shouldCreateIamPolicies = toBoolean(AWS_CREATE_IAM_POLICIES);
@@ -92,16 +103,9 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
     }
 
     /**
-     * Create all resources needed to host our UI. There are two options.
-     * You can directly host from S3, or you can set up a Cloud Front CDN
-     * if you expect more trafic.
-     *
-     * @param targetResourceType - "buket" or "cloudfront"
+     * Create all resources needed to host our UI
      */
-    constructClientUiResources(targetResourceType = 'bucket') {
-        if (targetResourceType !== 'bucket' && targetResourceType !== 'cloudfront')
-          throw new Error('Your UI distribution type must be "bucket" or "cloudfront"');
-
+    constructClientUiResources() {
         // Set up our public bucket that hosts our frontend
         const clientUIAssetsBucket = new s3.Bucket(this, 'S3ClientUIAssetsBucket', {
              websiteIndexDocument: 'index.html',
@@ -116,8 +120,6 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
             value: clientUIAssetsBucket.bucketName,
             description: 'The S3 bucket is the source of truth for the frontend.'
         });
-
-
     }
 
     /**
@@ -136,7 +138,8 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
             }
         };
 
-        // List of Valid client facing urls for cognito
+        // List of Valid client facing urls for cognito. If we are building this for a
+        // local environment, the urls are on http://localhost:4200
         const host = ENVIRONMENT === 'local' ? 'http://localhost:4200' : `https://${this.siteHostname}`;
         const logoutUrLs = [
             `${host}`,
@@ -203,7 +206,7 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
      * This method constructs all resources needed for saving app data, like
      * S3 buckets and dynamo DB tables.
      *
-     * @return: list of resource ARNs
+     * @return: list of created resource ARNs
      */
     constructDataStorageResources() {
         // Set up our private bucket that will be used to save and track deployment Artifacts for our API
