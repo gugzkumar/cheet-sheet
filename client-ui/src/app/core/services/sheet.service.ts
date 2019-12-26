@@ -43,10 +43,10 @@ export class SheetService {
     // The following variable is flag that tells whether or not the Sheet Menu
     // on the left side should be open or not.
     private showSheetMenuValue:boolean = false;
-    get showSheetMenu(): boolean {
+    public get showSheetMenu(): boolean {
         return this.showSheetMenuValue;
     }
-    set showSheetMenu(val: boolean) {
+    public set showSheetMenu(val: boolean) {
         this.showSheetMenuValue = val;
     }
 

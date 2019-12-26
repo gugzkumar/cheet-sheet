@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --disable-host-check --watch --poll 500",
     "build": "ng build --watch --poll 500 --outputPath=../angular-output",
+    "build-prod": "ng build --prod --outputPath=./angular-output",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

@@ -1,6 +1,11 @@
 version: 2.1
 
-commands: # Reuasable commands
+# Reuasable commands and orbs
+
+orbs:
+  aws-s3: circleci/aws-s3@1.0.12
+
+commands:
   load-env:
     steps:
       - run: # Extract environment variable as remote.env file
@@ -22,9 +27,7 @@ commands: # Reuasable commands
                 exit 1
             fi
 
-
 jobs:
-
   deploy-api:
     machine: true
     steps:
@@ -45,6 +48,38 @@ jobs:
           name: "Deploy API"
           command: docker-compose -f docker-compose.deploy.code.yml run --rm serverless-lambda-api sh deploy.sh
 
+  deploy-client-ui:
+    machine: true
+    steps:
+      - run: # check that we have docker
+          name: "Checking Docker Version"
+          command: |
+            docker -v
+
+      - checkout # check out the code in the project directory
+
+      - run: # test what branch we're on.
+          name: "What branch am I on?"
+          command: echo ${CIRCLE_BRANCH}
+
+      - load-env
+
+      - run: # load env variables into the machine
+          name: "source env"
+          command: source ./remote.env
+
+      - run: # Build Client UI
+          name: "Build Client UI"
+          command: docker-compose -f docker-compose.deploy.code.yml run --rm serverless-angular-client-ui sh -c "node build-env.js && npm run build-prod"
+
+      - aws-s3/sync: # Deploy Client UI
+          from: ./client-ui/angular-output
+          to: 's3://${SITE_SUB_DOMAIN}.${SITE_DOMAIN}'
+          arguments: |
+            --acl public-read \
+            --cache-control "max-age=60" \
+            --delete
+          overwrite: true
 
 
 workflows:
@@ -57,9 +92,9 @@ workflows:
               only:
                   - master
                   - develop
-      # - deploy-client-ui:
-      #     filters:
-      #         branches:
-      #             only:
-      #                 - master
-      #                 - develop
+      - deploy-client-ui:
+          filters:
+              branches:
+                  only:
+                      - master
+                      - develop

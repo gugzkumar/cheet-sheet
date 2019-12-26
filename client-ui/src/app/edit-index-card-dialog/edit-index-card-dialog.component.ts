@@ -20,7 +20,7 @@ export class EditIndexCardDialogComponent {
             'fileContent': string,
             'fileType': string
         },
-        private sheetService: SheetService
+        public sheetService: SheetService
     ) {
         this.sheetService.disableSave = true;
     }
