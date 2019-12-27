@@ -4,10 +4,9 @@
     (mouseover)="enableElevation=true"
     (mouseout)="enableElevation=false"
   >
-    <!-- (click)="copyToClipBoard()"
-  > -->
-
-    <!-- <div class="overlay" *ifEditMode addClassOnEditMode></div> -->
+    <ng-container *ifEditMode>
+      <div class="overlay" addClassOnEditMode></div>
+    </ng-container>
 
     <mat-card-header>
       <mat-icon mat-card-avatar (click)="copyToClipBoard()">file_copy</mat-icon>
