@@ -54,6 +54,7 @@
             "scripts": [
               "src/assets/ace/ace.js",
               "src/assets/ace/theme-dracula.js",
+              "src/assets/ace/theme-crimson_editor.js",
               "src/assets/ace/mode-mushcode.js",
               "src/assets/ace/mode-mysql.js",
               "src/assets/ace/mode-nix.js",

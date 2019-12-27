@@ -36,7 +36,7 @@
   <span class="spacer"></span>
   <mat-form-field>
     <mat-label>File Type</mat-label>
-    <mat-select [(ngModel)]="data.fileType">
+    <mat-select [(ngModel)]="data.fileType" (selectionChange)="onLanguageChange()">
       <mat-option
         *ngFor="let ft of sheetService.availableFileTypes"
         [value]="ft"

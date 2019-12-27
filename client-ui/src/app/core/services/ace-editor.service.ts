@@ -8,7 +8,7 @@ export class AceEditorService {
 
   constructor() { }
 
-  public setReadOnlyEditor(
+  public initEditor(
     // editorId: string,
     div: Element,
     language: string,
@@ -21,7 +21,8 @@ export class AceEditorService {
   ): void {
     const editor = ace.edit(div, {
       mode: `ace/mode/${language}`,
-      theme: `ace/theme/dracula`,
+      // theme: `ace/theme/crimson_editor`, // Light Theme Editor
+      theme: `ace/theme/dracula`, // Dark Theme Editor
       readOnly: readOnly,
       value: text,
       maxLines: maxLines,
@@ -30,8 +31,13 @@ export class AceEditorService {
       autoScrollEditorIntoView: true,
       minLines: minLines,
       wrap: true,
-      // fontSize: 15
+      // Disable on readOnly
+      showLineNumbers: !readOnly,
+      showPrintMargin: !readOnly,
+      showGutter: !readOnly,
+      highlightActiveLine: !readOnly
     });
+
     editor.setAutoScrollEditorIntoView(true);
 
     if (!readOnly) {
@@ -50,6 +56,12 @@ export class AceEditorService {
             exec: customEscFunction
         });
       }
+    } else {
+      editor.renderer.$cursorLayer.element.style.display = "none"
+      editor.on("blur", function(e, editor) {
+        if (document.activeElement != editor.textInput.getElement())
+            editor.selection.clearSelection();
+      });
     };
     return editor;
 
@@ -59,6 +71,11 @@ export class AceEditorService {
   }
 
   public updateEditorCode(editor: any, text: string) {
-    editor.setValue(text);
+    editor.setValue(text, -1);
   }
+
+  public updateEditorMode(editor: any, language: string) {
+    editor.session.setMode(`ace/mode/${language}`);
+  }
+
 }

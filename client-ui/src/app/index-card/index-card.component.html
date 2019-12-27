@@ -3,12 +3,13 @@
     [class.mat-elevation-z8]="enableElevation"
     (mouseover)="enableElevation=true"
     (mouseout)="enableElevation=false"
-    (click)="copyToClipBoard()"
   >
-    <div class="overlay" addClassOnEditMode>
-    </div>
+    <ng-container *ifEditMode>
+      <div class="overlay" addClassOnEditMode></div>
+    </ng-container>
+
     <mat-card-header>
-      <mat-icon mat-card-avatar>file_copy</mat-icon>
+      <mat-icon mat-card-avatar (click)="copyToClipBoard()">file_copy</mat-icon>
       <mat-card-title>{{indexCard.indexCardTitle}}</mat-card-title>
 
     </mat-card-header>

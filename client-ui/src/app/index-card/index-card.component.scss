@@ -4,6 +4,12 @@
     cursor: pointer;
 }
 .index-card {
+    mat-card-header {
+        cursor: default;
+    }
+    mat-icon {
+        cursor: pointer;
+    }
     .overlay {
         background-color: black;
         height: 100%;
