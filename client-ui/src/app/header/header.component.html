@@ -24,7 +24,7 @@
     <button *ifLoggedIn mat-raised-button (click)="authService.logout()">
       Logout
     </button>
-    <button *ifLoggedOut mat-raised-button>
+    <button *ifLoggedOut mat-raised-button (click)="authService.signup()">
       Sign Up
     </button>
     <button mat-icon-button>

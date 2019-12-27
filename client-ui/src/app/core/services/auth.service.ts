@@ -38,6 +38,16 @@ export class AuthService {
         );
     }
 
+    signup() {
+        this.document.location.href = (
+            COGNITO_PARAMS.cognitoSignUpUrl + '?' +
+            `response_type=${COGNITO_PARAMS.cognitoResponseType}&` +
+            `client_id=${COGNITO_PARAMS.cognitoClientId}&` +
+            `redirect_uri=${COGNITO_PARAMS.cognitoRedirectUri}&` +
+            `scope=${COGNITO_PARAMS.cognitoScope}`
+        );
+    }
+
     logout() {
         this.clearLocalStorage();
         this.document.location.href = (

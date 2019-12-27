@@ -12,6 +12,7 @@ export const environment = {
   cognitoParams: {
     cognitoLoginUrl:'${process.env['COGNITO_AUTH_URL']}/login',
     cognitoLogoutUrl:'${process.env['COGNITO_AUTH_URL']}/logout',
+    cognitoSignUpUrl:'${process.env['COGNITO_AUTH_URL']}/signup',
     cognitoClientId: '${process.env['COGNITO_CLIENT_ID']}',
     cognitoResponseType: 'token',
     cognitoScope: 'openid+profile+aws.cognito.signin.user.admin',
