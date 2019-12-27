@@ -38,11 +38,13 @@ import { EditIndexCardDialogComponent } from './edit-index-card-dialog/edit-inde
 import { CreateSheetDialogComponent } from './create-sheet-dialog/create-sheet-dialog.component';
 import { CreateIndexCardDialogComponent } from './create-index-card-dialog/create-index-card-dialog.component';
 import { LoaderComponent } from './loader/loader.component';
+import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
 
 @NgModule({
   declarations: [
     // Components
     AppComponent,
+    AuthCallbackComponent,
     HeaderComponent,
     SheetComponent,
     IndexCardComponent,
