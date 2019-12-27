@@ -34,6 +34,10 @@ export class EditIndexCardDialogComponent {
         });
     }
 
+    onLanguageChange() {
+        this.directive.setFileType(this.data.fileType);
+    }
+
     onClickCtrlEnter = this.onClickOk.bind(this);
     onClickEsc = function () {
         this.sheetService.disableSave = false;

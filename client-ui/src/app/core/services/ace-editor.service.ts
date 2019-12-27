@@ -71,11 +71,11 @@ export class AceEditorService {
   }
 
   public updateEditorCode(editor: any, text: string) {
-    editor.setValue(text);
+    editor.setValue(text, -1);
   }
 
-  public updateEditorLanguage(editor: any, language: string) {
-    editor.setMode(`ace/mode/${language}`);
+  public updateEditorMode(editor: any, language: string) {
+    editor.session.setMode(`ace/mode/${language}`);
   }
 
 }

@@ -71,7 +71,8 @@ export class IndexCardComponent {
             this.indexCard.indexCardTitle = newIndexCardTitle;
             this.indexCard.fileType = newFileType;
             this.indexCard.fileContent = newFileContent;
-            this.directive.editor.setValue(newFileContent, -1);
+            this.directive.setContent(newFileContent);
+            this.directive.setFileType(newFileType);
             this.sheetService.currentSheetValue.isDirty = true;
         }
     })
