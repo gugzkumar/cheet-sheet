@@ -18,7 +18,6 @@ export class AppResolver implements Resolve<any> {
 
     resolve(route: ActivatedRouteSnapshot) {
         // Initialize Auth
-        console.log('Calling Resolver');
         const fragment: string = route.fragment;
         let authRouterParams = null;
         if (fragment) {

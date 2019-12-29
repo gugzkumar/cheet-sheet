@@ -24,7 +24,6 @@ export class WorkspaceService {
 
     initWorkspaceRouterListener() {
         this.route.queryParams.subscribe(queryParams => {
-            console.log('1');
             const sheetService = this.sheetService;
             if (
                 sheetService.availableSheets &&
@@ -34,17 +33,19 @@ export class WorkspaceService {
                 sheetService.setSelectedSheet(queryParams.sheet);
             }
 
+            if (!this.authService.isLoggedIn) return;
             if (this.selectedWorkspace && this.selectedWorkspace.name == queryParams.workspace) return;
             const requestedWorkspace = this.availableWorkspaces.find(
                 ws => ws.name === queryParams.workspace
             );
             this.selectedWorkspace = requestedWorkspace;
-            console.log('HERE');
             sheetService.loadSheetMenu().pipe(mergeMap((responseBody) => {
-                console.log('WHY');
                 const sheets = responseBody['result']['sheetNames'];
                 // If no sheets available
-                if(sheets.length < 1) return [];
+                if(sheets.length < 1) {
+                    sheetService.currentSheetName = null;
+                    return [];
+                };
                 return sheetService.setSelectedSheet(sheets[0]);
             })).subscribe();
         });
