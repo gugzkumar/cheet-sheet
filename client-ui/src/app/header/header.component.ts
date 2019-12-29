@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { SheetService } from '../core/services/sheet.service';
 import { AuthService } from '../core/services/auth.service';
+import { SheetService } from '../core/services/sheet.service';
+import { WorkspaceService } from '../core/services/workspace.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
@@ -11,11 +12,19 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
 })
 export class HeaderComponent {
 
+    workpaces = [
+        {icon: '', workpaceName: 'Personal'},
+        {icon: '', workpaceName: 'Public'},
+        {icon: '', workpaceName: 'Admin'}
+
+    ]
+
     constructor(
-        public sheetService: SheetService,
         private authService: AuthService,
+        public sheetService: SheetService,
+        private workspaceService: WorkspaceService,
         private dialog: MatDialog,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
     ) {}
 
     onClickDeleteSheet() {

@@ -27,6 +27,7 @@ export class AuthService {
     }
 
     public username: string;
+    public groups: string[];
 
     login() {
         this.document.location.href = (
@@ -94,6 +95,7 @@ export class AuthService {
         } else {
             this.isLoggedIn = true;
             this.username = this.jwtHelper.decodeToken(accessToken).username;
+            this.groups = this.jwtHelper.decodeToken(accessToken)['cognito:groups'] ;
         }
     }
 

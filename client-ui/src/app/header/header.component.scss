@@ -26,6 +26,13 @@
       background-color: $foreground-color;
       color: $header-top-color;
     }
+    .cheat-sheet-header-bottom-left-content {
+        display: flex;
+        align-items: inherit;
+        .header-logo {
+            cursor: default;
+        }
+    }
 }
 
 .cheat-sheet-header-bottom {

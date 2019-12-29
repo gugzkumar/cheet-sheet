@@ -3,12 +3,29 @@
   class="cheat-sheet-header-top"
   addClassOnEditMode
 >
-  <!-- Logo -->
-  <span class="cheat-sheet-header-bottom-left-content">
-    <h1 class="header-logo">
-      CH33T $H33T
-    </h1>
-  </span>
+  <!-- Logo and Workpace Switcher -->
+    <span class="cheat-sheet-header-bottom-left-content">
+        <h1 class="header-logo">
+          CH33T $H33T
+        </h1>
+        <ng-container *ngIf="workspaceService.selectedWorkspace && workspaceService.availableWorkspaces && workspaceService.availableWorkspaces.length > 0">
+            <button mat-button [matMenuTriggerFor]="menu">
+                <mat-icon [style.color]="workspaceService.selectedWorkspace.displayColorLight">
+                    {{ workspaceService.selectedWorkspace.displayIcon }}
+                </mat-icon>
+                {{ workspaceService.selectedWorkspace.name }}
+                <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <ng-container *ngFor="let ws of workspaceService.availableWorkspaces; let i = index">
+                    <button mat-menu-item [routerLink]="['/']" [queryParams]="{ 'workspace': ws.name }" queryParamsHandling="merge">
+                        <mat-icon [style.color]="ws.displayColorDark">{{ ws.displayIcon }}</mat-icon>
+                        {{ ws.name }}
+                    </button>
+                </ng-container>
+            </mat-menu>
+        </ng-container>
+    </span>
 
   <!-- Login and Logout Options  -->
   <span class="cheat-sheet-header-bottom-right-content">
