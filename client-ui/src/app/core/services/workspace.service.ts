@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Workspace, { WorkspaceColor, WorkspaceIcon } from '../../models/workspace';
+import Workspace, { WorkspaceIcon, WorkspaceIconClass } from '../../models/workspace';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { SheetService } from './sheet.service';
@@ -95,16 +95,14 @@ export class WorkspaceService {
         workspaces.push({
             name: 'Personal',
             displayIcon: WorkspaceIcon.Personal,
-            displayColorDark: WorkspaceColor.Personal,
-            displayColorLight: WorkspaceColor.Personal
+            displayIconClass: WorkspaceIconClass.Personal
         });
         // Add the Public Workspace if user belongs to the admin group
         if(indexOfAdminGroup > -1)
             workspaces.push({
                 name: 'Public',
                 displayIcon: WorkspaceIcon.Public,
-                displayColorDark: WorkspaceColor.PublicDark,
-                displayColorLight: WorkspaceColor.PublicLight
+                displayIconClass: WorkspaceIconClass.Public
             });
 
         // Add Team Workspaces
@@ -113,8 +111,7 @@ export class WorkspaceService {
             workspaces.push({
                 name: groupName,
                 displayIcon: WorkspaceIcon.Team,
-                displayColorDark: WorkspaceColor.TeamDark,
-                displayColorLight: WorkspaceColor.TeamLight
+                displayIconClass: WorkspaceIconClass.Team
             });
         });
         return workspaces;

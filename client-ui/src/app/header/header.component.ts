@@ -20,9 +20,9 @@ export class HeaderComponent {
     ]
 
     constructor(
-        private authService: AuthService,
+        public authService: AuthService,
         public sheetService: SheetService,
-        private workspaceService: WorkspaceService,
+        public workspaceService: WorkspaceService,
         private dialog: MatDialog,
         private snackBar: MatSnackBar,
     ) {}

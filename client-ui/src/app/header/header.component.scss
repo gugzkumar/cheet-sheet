@@ -22,13 +22,26 @@
       }
     }
 
+    mat-icon.workspace-icon-team {
+        color: $workspace-icon-dark-team-color;
+    }
+    mat-icon.workspace-icon-public {
+        color: $workspace-icon-dark-public-color;
+    }
+
     &.edit-mode {
-      background-color: $foreground-color;
-      color: $header-top-color;
+        background-color: $foreground-color;
+        color: $header-top-color;
+        mat-icon.workspace-icon-team {
+          color: $workspace-icon-light-team-color;
+        }
+        mat-icon.workspace-icon-public {
+          color: $workspace-icon-light-public-color;
+        }
     }
     .cheat-sheet-header-bottom-left-content {
         display: flex;
-        align-items: inherit;
+        align-items: baseline;
         .header-logo {
             cursor: default;
         }
