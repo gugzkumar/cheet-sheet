@@ -10,6 +10,7 @@
   "author": "",
   "dependencies": {
     "aws-sdk": "^2.592.0",
+    "chalk": "^3.0.0",
     "commander": "^4.0.1",
     "dotenv": "^8.2.0",
     "inquirer": "^7.0.1",

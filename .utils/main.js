@@ -1,21 +1,27 @@
 const program = require('commander');
 const { createEnv } = require('./create-env');
+const creatInfraEnv = require('./create-infra-env');
 const { prompt } = require('inquirer');
 const request = require('request');
 
 program
-    .description('Cheet Sheet Utility Functions');
+    .description('CH33T $H33T Utility Functions');
+
+program
+    .command('create-infra-env')
+    .description('Create and infrastructure env for local development or remote deployment`\n  ')
+    .action(creatInfraEnv);
 
 program
     .command('create-env <environment>')
-    .description('Add a contact')
+    .description('Create and .env file for `docker-compose.yaml`, or `docker-compose.deploy.code.yaml`\n  ')
     .action( (environment) => {
         createEnv(environment);
     });
 
 program
     .command('generate COGNITO_JWKS_BASE64')
-    .description('Add a contact')
+    .description('Generate the BASE64 encoded jwks for your Cognito client. This is required as a ENV variable for your local and remote environement variables.')
     .action( (environment) => {
 
         prompt([
