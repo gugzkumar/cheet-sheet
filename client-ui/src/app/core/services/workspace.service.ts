@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import Workspace, { WorkspaceColor, WorkspaceIcon } from '../../models/workspace';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { SheetService } from './sheet.service';
 import { environment } from '../../../environments/environment';
@@ -15,39 +15,61 @@ export class WorkspaceService {
     public availableWorkspaces: Workspace[];
     public selectedWorkspace: Workspace;
 
+    private transitioningToNewWorkspace = false;
+
     constructor(
         private route: ActivatedRoute,
+        private router: Router,
         private authService: AuthService,
         private sheetService: SheetService
     ) {
     }
 
     initWorkspaceRouterListener() {
+        const sheetService = this.sheetService;
         this.route.queryParams.subscribe(queryParams => {
-            const sheetService = this.sheetService;
-            if (
-                sheetService.availableSheets &&
-                queryParams.sheet &&
-                sheetService.currentSheetName!=queryParams.sheet
-            ) {
-                sheetService.setSelectedSheet(queryParams.sheet);
+            // // Handle switching Workspace Query Params
+            if (this.authService.isLoggedIn) {
+                if (this.selectedWorkspace && this.selectedWorkspace.name != queryParams.workspace)
+                {
+                    const requestedWorkspace = this.availableWorkspaces.find(
+                        ws => ws.name === queryParams.workspace
+                    );
+                    this.selectedWorkspace = requestedWorkspace;
+                    this.transitioningToNewWorkspace = true;
+                    // If workspace is switched we need a new sheet list
+                    sheetService.loadSheetMenu().pipe(mergeMap((responseBody) => {
+                        const sheets = responseBody['result']['sheetNames'];
+                        if(sheets.length < 1) {
+                            return this.router.navigate(['/'], {
+                                queryParams: {'sheet': null},
+                                queryParamsHandling: 'merge'
+                            });
+                        }
+
+                        if (sheets[0] === sheetService.currentSheetName)
+                            return sheetService.setSelectedSheet(queryParams.sheet);
+
+                        return this.router.navigate(['/'], {
+                            queryParams: {'sheet': sheets[0]},
+                            queryParamsHandling: 'merge'
+                        });
+                    })).subscribe();
+                    return;
+                }
             }
 
-            if (!this.authService.isLoggedIn) return;
-            if (this.selectedWorkspace && this.selectedWorkspace.name == queryParams.workspace) return;
-            const requestedWorkspace = this.availableWorkspaces.find(
-                ws => ws.name === queryParams.workspace
-            );
-            this.selectedWorkspace = requestedWorkspace;
-            sheetService.loadSheetMenu().pipe(mergeMap((responseBody) => {
-                const sheets = responseBody['result']['sheetNames'];
-                // If no sheets available
-                if(sheets.length < 1) {
-                    sheetService.currentSheetName = null;
-                    return [];
-                };
-                return sheetService.setSelectedSheet(sheets[0]);
-            })).subscribe();
+            // Handle switching Sheet Query Params
+            if ( !queryParams.sheet ) {
+                sheetService.currentSheetValue = null;
+                sheetService.currentSheetName = null;
+            } else if (
+                this.transitioningToNewWorkspace ||
+                sheetService.currentSheetName!=queryParams.sheet
+            ) {
+                this.transitioningToNewWorkspace = false;
+                sheetService.setSelectedSheet(queryParams.sheet);
+            }
         });
     }
 

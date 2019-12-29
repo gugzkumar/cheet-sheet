@@ -38,4 +38,26 @@ export class SheetComponent {
             this.sheetService.currentSheetValue.isDirty = true;
         }
     }
+
+    hasNoCards() {
+        return (
+            this.sheetService.currentSheetValue &&
+            this.sheetService.currentSheetValue.leftIndexCards.length < 1 &&
+            this.sheetService.currentSheetValue.leftIndexCards.length < 1
+        );
+    }
+
+    generateOnRemoveFunction(index: number, side: string): () => any {
+        return () => {
+            if (side === 'left') {
+                this.sheetService.currentSheetValue.leftIndexCards.splice(index, 1);
+                this.sheetService.currentSheetValue.isDirty = true;
+            }
+
+            if (side === 'right') {
+                this.sheetService.currentSheetValue.rightIndexCards.splice(index, 1);
+                this.sheetService.currentSheetValue.isDirty = true;
+            }
+        }
+    }
 }
