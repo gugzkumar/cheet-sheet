@@ -16,7 +16,7 @@ export class AppComponent {
       private snackBar: MatSnackBar
     ) { }
 
-    title = 'cheat-sheet';
+    title = 'cheet-sheet';
 
 
     // KeyBoard Events For The App

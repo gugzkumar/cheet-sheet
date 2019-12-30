@@ -6,6 +6,11 @@ $foreground-color: rgb(255, 255, 255);
 $foreground-text-color: #45474c;
 $header-top-color: #45474c;
 $header-top-text-color: rgb(255, 255, 255);
+$workspace-icon-light-public-color: #1E88E5;
+$workspace-icon-dark-public-color: #BBDEFB;
+$workspace-icon-light-team-color: #FFAB00;
+$workspace-icon-dark-team-color: #FFD54F;
+
 
 html {
     height: 100%;
@@ -62,6 +67,15 @@ h1, h2, h3, h4, h5, h6 {
     // background-color: orange;
     .mat-form-field-appearance-legacy .mat-form-field-underline {
 
+    }
+}
+
+.mat-menu-content {
+    mat-icon.workspace-icon-team {
+      color: $workspace-icon-light-team-color !important;
+    }
+    mat-icon.workspace-icon-public {
+      color: $workspace-icon-light-public-color !important;
     }
 }
 

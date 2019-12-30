@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment';
 import Sheet from '../../models/sheet';
 import BaseIndexCard from '../../models/base-index-card';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { share } from 'rxjs/operators';
 import * as availableFileTypesImport from '../../../assets/json/available_file_types.json';
 const dataTemplate = {
@@ -24,7 +25,8 @@ const dataTemplate = {
 export class SheetService {
 
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private route: ActivatedRoute,
     ) {}
 
     // The following variable is a flag for when the page is in Edit mode.
