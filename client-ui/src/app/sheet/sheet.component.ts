@@ -5,6 +5,7 @@ import {
     transferArrayItem
 } from '@angular/cdk/drag-drop';
 import { SheetService } from '../core/services/sheet.service';
+import { WorkspaceService } from '../core/services/workspace.service';
 
 @Component({
     selector: 'app-sheet',
@@ -13,7 +14,9 @@ import { SheetService } from '../core/services/sheet.service';
 })
 export class SheetComponent {
 
-    constructor(public sheetService: SheetService) {}
+    constructor(public sheetService: SheetService, private workspaceService: WorkspaceService) {
+        this.workspaceService.initWorkspaceRouterListener();
+    }
 
     drop(event: CdkDragDrop<string[]>) {
         // If the Cheat Sheet Page is in edit mode Prevent Drag and Drop Behavior
@@ -33,6 +36,28 @@ export class SheetComponent {
                               event.previousIndex,
                               event.currentIndex);
             this.sheetService.currentSheetValue.isDirty = true;
+        }
+    }
+
+    hasNoCards() {
+        return (
+            this.sheetService.currentSheetValue &&
+            this.sheetService.currentSheetValue.leftIndexCards.length < 1 &&
+            this.sheetService.currentSheetValue.leftIndexCards.length < 1
+        );
+    }
+
+    generateOnRemoveFunction(index: number, side: string): () => any {
+        return () => {
+            if (side === 'left') {
+                this.sheetService.currentSheetValue.leftIndexCards.splice(index, 1);
+                this.sheetService.currentSheetValue.isDirty = true;
+            }
+
+            if (side === 'right') {
+                this.sheetService.currentSheetValue.rightIndexCards.splice(index, 1);
+                this.sheetService.currentSheetValue.isDirty = true;
+            }
         }
     }
 }

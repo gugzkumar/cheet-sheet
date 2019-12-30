@@ -89,18 +89,18 @@ jobs:
 
 
 workflows:
-  version: 2.1
-  deploy-code:
-    jobs:
-      - deploy-api:
-          filters:
-            branches:
-              only:
-                  - master
-                  - develop
-      - deploy-client-ui:
-          filters:
-              branches:
-                  only:
-                      - master
-                      - develop
+    version: 2.1
+    deploy-code:
+        jobs:
+          - deploy-api:
+              filters:
+                  branches:
+                      only:
+                          - master
+                          # - develop
+          - deploy-client-ui:
+              filters:
+                 branches:
+                     only:
+                          - master
+                          # - develop

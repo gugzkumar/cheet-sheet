@@ -15,7 +15,6 @@ def apply(event):
     """
     """
     headers = event['headers']
-    event['sheets_folder'] = PUBLIC_SHEETS_FOLDER
 
     if ('Authorization' in headers) and (headers['Authorization']):
         try:
@@ -30,13 +29,24 @@ def apply(event):
 
             # Set the Username and Sheets Folder that the user requested
             event['username'] = decoded_access_token['username']
-            if (('cognito:groups' in decoded_access_token) and (ADMIN_USER_GROUP in decoded_access_token['cognito:groups'])):
-                event['sheets_folder'] = PUBLIC_SHEETS_FOLDER
-            else:
+            workspace = event['queryStringParameters']['workspace']
+
+            if workspace == 'Personal':
                 event['sheets_folder'] = 'personal_' + event['username']
+            elif workspace == 'Public':
+                if (('cognito:groups' in decoded_access_token) and (ADMIN_USER_GROUP in decoded_access_token['cognito:groups'])):
+                    event['sheets_folder'] = PUBLIC_SHEETS_FOLDER
+                else:
+                    raise Exception('User not Authenticated for Public Sheets Folder')
+            else:
+                if (('cognito:groups' in decoded_access_token) and (workspace in decoded_access_token['cognito:groups'])):
+                    event['sheets_folder'] = 'team_' + workspace
+                else:
+                    raise Exception(f'User not Authenticated for Team {workspace} Sheets Folder')
 
         except:
             event['username'] = None
             return get_error_response('Authentication Failed', statusCode=401)
     else:
         event['username'] = None
+        event['sheets_folder'] = PUBLIC_SHEETS_FOLDER

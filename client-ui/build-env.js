@@ -9,6 +9,7 @@ function getEnvFileContents (isProduction) {
 export const environment = {
   production: ${isProduction},
   apiUrl: '${process.env['API_URL']}',
+  adminUserGroup: 'admin',
   cognitoParams: {
     cognitoLoginUrl:'${process.env['COGNITO_AUTH_URL']}/login',
     cognitoLogoutUrl:'${process.env['COGNITO_AUTH_URL']}/logout',
