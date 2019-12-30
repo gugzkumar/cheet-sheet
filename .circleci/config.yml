@@ -97,10 +97,10 @@ workflows:
                   branches:
                       only:
                           - master
-                          # - develop
+                          - develop
           - deploy-client-ui:
               filters:
                  branches:
                      only:
                           - master
-                          # - develop
+                          - develop
