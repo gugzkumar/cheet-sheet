@@ -192,7 +192,12 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
         new cdk.CfnOutput(this, 'CognitoAppUserPoolOutput', {
             exportName: `${this.stackName}-COGNITO-USER-POOL-ID`,
             value: userPool.ref,
-            description: 'The S3 bucket that will save all the different Cheet Sheets users create in our app.'
+            description: 'The cognito userpool that manages all of our users.'
+        });
+        new cdk.CfnOutput(this, 'CognitoAppUserPoolClientOutput', {
+            exportName: `${this.stackName}-COGNITO-USER-POOL-CLIENT-ID`,
+            value: userPoolClient.ref,
+            description: 'The cognito userpool client that manages all of our users.'
         });
         new cdk.CfnOutput(this, 'CognitoAppUserPoolDomainOutput', {
             exportName: `${this.stackName}-COGNITO-AUTHENTICATION-DOMAIN`,
