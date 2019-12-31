@@ -1,0 +1,39 @@
+.index-card-editor {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+.index-card {
+    mat-card-header {
+        cursor: default;
+    }
+    mat-icon {
+        cursor: pointer;
+    }
+    .overlay {
+        background-color: black;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 100;
+        width: 100%;
+        cursor: pointer;
+        transition: 0.5s;
+        opacity: 0;
+        &.edit-mode {
+            cursor: move;
+        }
+        border-radius: 4px;
+    }
+    .overlay:active {
+        transition: 0.5s;
+        opacity: .2;
+        &.editable {
+            opacity: 0;
+        }
+    }
+    button {
+      z-index: 200;
+    }
+}

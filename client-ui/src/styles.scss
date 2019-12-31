@@ -1,0 +1,125 @@
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+/* You can add global styles to this file, and also import other style files */
+$background-color: rgb(246, 246, 246);
+$background-color-editmode: rgb(169, 169, 169);
+$foreground-color: rgb(255, 255, 255);
+$foreground-text-color: #45474c;
+$header-top-color: #45474c;
+$header-top-text-color: rgb(255, 255, 255);
+$workspace-icon-light-public-color: #1E88E5;
+$workspace-icon-dark-public-color: #BBDEFB;
+$workspace-icon-light-team-color: #FFAB00;
+$workspace-icon-dark-team-color: #FFD54F;
+
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: $background-color;
+    margin: 0px;
+    padding: 0px;
+    color: $foreground-text-color;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    padding: 0px;
+    margin: 0px;
+}
+
+.search-bar-form-field {
+    .mat-form-field-wrapper {
+        padding-bottom: 0px;
+    }
+    .mat-form-field-underline {
+        bottom: 0px;
+    }
+    .mat-form-field-infix {
+        width: 300px;
+    }
+}
+
+.search-bar-form-field.edit-mode {
+    .mat-form-field-ripple {
+        background-color: $foreground-color;
+    }
+    .mat-form-field-label {
+        color: $foreground-color;
+    }
+    .mat-form-field-underline {
+        background-color: $foreground-color
+    }
+    &.mat-focused {
+      .mat-form-field-ripple {
+          background-color: rgb(255, 215, 64);
+      }
+      .mat-form-field-label {
+          color: rgb(255, 215, 64);
+      }
+      input {
+          caret-color: rgb(255, 215, 64);
+      }
+    }
+
+    // background-color: orange;
+    .mat-form-field-appearance-legacy .mat-form-field-underline {
+
+    }
+}
+
+.mat-menu-content {
+    mat-icon.workspace-icon-team {
+      color: $workspace-icon-light-team-color !important;
+    }
+    mat-icon.workspace-icon-public {
+      color: $workspace-icon-light-public-color !important;
+    }
+}
+
+/* latin */
+@font-face {
+  font-family: 'Indie Flower';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Indie Flower'), local('IndieFlower'), url('/assets/fonts/indieflower.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* fallback */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/assets/fonts/mat-icons.woff2')  format('woff2');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+.blue-snackbar {
+    background: #2196F3;
+}
+
+.red-snackbar {
+    background: #F44336;
+}
+
+.green-snackbar {
+    background: #008B00;
+}

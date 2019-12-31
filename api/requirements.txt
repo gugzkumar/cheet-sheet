@@ -1,2 +1,2 @@
-numpy==1.16.0
-pandas==0.24.0
+pyjwt==1.7.1
+cryptography==2.8

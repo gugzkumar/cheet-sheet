@@ -1,0 +1,100 @@
+@import 'styles';
+.cheat-sheet-header-top {
+    z-index: 100;
+    box-sizing: border-box;
+    background-color: $header-top-color;
+    color: $header-top-text-color;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    transition: .3s;
+    width: 100%;
+    font-family: 'Indie Flower', cursive;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    span * {
+      margin-left: 10px;
+      margin-right: 10px;
+      mat-icon {
+          margin: 0px;
+      }
+    }
+
+    mat-icon.workspace-icon-team {
+        color: $workspace-icon-dark-team-color;
+    }
+    mat-icon.workspace-icon-public {
+        color: $workspace-icon-dark-public-color;
+    }
+
+    &.edit-mode {
+        background-color: $foreground-color;
+        color: $header-top-color;
+        mat-icon.workspace-icon-team {
+          color: $workspace-icon-light-team-color;
+        }
+        mat-icon.workspace-icon-public {
+          color: $workspace-icon-light-public-color;
+        }
+    }
+    .cheat-sheet-header-bottom-left-content {
+        display: flex;
+        align-items: baseline;
+        .header-logo {
+            cursor: default;
+        }
+    }
+}
+
+.cheat-sheet-header-bottom {
+    z-index: 100;
+    box-sizing: border-box;
+    background-color: $foreground-color;
+    padding-top: 5px;
+    padding-bottom: 9px;
+    transition: .5s;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    &.edit-mode {
+        background-color: $header-top-color;
+        color: $header-top-text-color;
+    }
+
+    mat-checkbox {
+      margin-right: 8px;
+      margin-left: 15px;
+    }
+
+    .mat-flat-button {
+      margin-left: 12px;
+    }
+
+    button:disabled {
+        color: #505459;
+        transition: .05s;
+    }
+
+    .cheat-sheet-header-bottom-left-content {
+        align-items: flex-end;
+        margin-left: 10px;
+    }
+
+    .cheat-sheet-header-bottom-right-content {
+      margin-right: 15px;
+      .search-bar {
+          box-sizing: border-box;
+          text-align: right;
+          &.edit-mode {
+              color: $foreground-color;
+          }
+
+
+      }
+    }
+
+}

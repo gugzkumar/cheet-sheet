@@ -1,0 +1,31 @@
+<div class="index-card">
+  <mat-card
+    [class.mat-elevation-z8]="enableElevation"
+    (mouseover)="enableElevation=true"
+    (mouseout)="enableElevation=false"
+  >
+    <ng-container *ifEditMode>
+      <div class="overlay" addClassOnEditMode></div>
+    </ng-container>
+
+    <mat-card-header>
+      <mat-icon mat-card-avatar (click)="copyToClipBoard()">file_copy</mat-icon>
+      <mat-card-title>{{indexCard.indexCardTitle}}</mat-card-title>
+
+    </mat-card-header>
+    <mat-card-content>
+      <div
+        editor
+        [language]="indexCard.fileType"
+        [code]="indexCard.fileContent"
+        class="index-card-editor"
+      >
+          <!-- Ace Editor Created inside this div with editor directive -->
+      </div>
+    </mat-card-content>
+    <mat-card-actions *ifEditMode style="z-index: 200;">
+      <button mat-raised-button (click)="clickEdit()">EDIT</button>
+      <button mat-raised-button (click)="clickRemove()" color="warn">REMOVE</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

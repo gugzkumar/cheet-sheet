@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>
+  Add New Sheet
+</h1>
+<div mat-dialog-content>
+  <p>
+    Please set a name and Default file type for your new sheet.
+  </p>
+  <div>
+    <mat-form-field>
+        <input
+          type="text"
+          placeholder="Sheet Name"
+          matInput
+          [(ngModel)]="sheetName"
+        />
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>Default File Type</mat-label>
+      <mat-select [(ngModel)]="defaultFileType">
+        <mat-option
+          *ngFor="let fileType of sheetService.availableFileTypes"
+          [value]="fileType"
+        >
+          {{fileType}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onClickCreate()">CREATE</button>
+  <button mat-raised-button color="warn" mat-dialog-close>CANCEL</button>
+</div>

@@ -1,4 +1,17 @@
-version: '3'
+# ------------------------------------------------------------------------------
+# LOCAL DOCKER COMPOSE
+#
+# This Docker Compose is meant to run the App locally on ones machine.
+# Its use case is for development.
+#
+# You need the following AWS resources to run this:
+# - Lambda layer with
+#     pyjwt==1.7.1
+#     cryptography==2.8
+# - S3 Bucket for App Data
+# - Cognito user pool
+# ------------------------------------------------------------------------------
+version: '3.7'
 services:
     # --------------------------------------------------------------------------
     # FRONTEND WRITTEN IN ANGULAR
@@ -10,28 +23,22 @@ services:
             .env
         volumes:
           - ./client-ui:/usr/src/app
-          - /usr/src/app/angular-code/node_modules
           - /usr/src/app/node_modules
         ports:
           - "4200:4200"
+        command: sh -c "node build-env.js && npm start"
     # --------------------------------------------------------------------------
-    # BACKEND WRITTEN IN PYTHON 3.7 (Flask Simulates API Gateway locally)
+    # BACKEND WRITTEN IN AWS SAM LOCAL
     # --------------------------------------------------------------------------
-    serverless-python-api:
+    serverless-lambda-api:
         build: ./api
-        container_name: serverless-python-api
+        container_name: serverless-lambda-api
         env_file:
             .env
         volumes:
-          - ./api:/app/
-          - /app/cached-dependencies # Python Dependencies for Lambda functions
+          - ./api:/app
+          - /var/run/docker.sock:/var/run/docker.sock
+          - ./api:${SAM_LOCAL_ABSOLUTE_PATH}
         ports:
-          - "8888:8888"
-          - "10000:10000"
-        command:
-          - |
-            rm -rf ./dependencies || true
-            mkdir -p dependencies/python/lib/python3.7/site-packages
-            cp -r ./cached-dependencies/* ./dependencies/python/lib/python3.7/site-packages
-            exec start.sh jupyter notebook --NotebookApp.token='' & nodemon --exec python simple_lambda_server.py
-        entrypoint: ["dash", "-c"]
+          - "3000:3000"
+        command: bash standup-api.sh

@@ -1,0 +1,110 @@
+<!-- Top Header Panel-->
+<div
+  class="cheat-sheet-header-top"
+  addClassOnEditMode
+>
+  <!-- Logo and Workpace Switcher -->
+    <span class="cheat-sheet-header-bottom-left-content">
+        <h1 class="header-logo">
+          CH33T $H33T
+        </h1>
+        <ng-container *ngIf="workspaceService.selectedWorkspace && workspaceService.availableWorkspaces && workspaceService.availableWorkspaces.length > 0">
+            <button [ngClass]="testing" mat-button [matMenuTriggerFor]="menu">
+                <mat-icon [className]="workspaceService.selectedWorkspace.displayIconClass">
+                    {{ workspaceService.selectedWorkspace.displayIcon }}
+                </mat-icon>
+                {{ workspaceService.selectedWorkspace.name }}
+                <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <ng-container *ngFor="let ws of workspaceService.availableWorkspaces; let i = index">
+                    <button mat-menu-item [routerLink]="['/']" [queryParams]="{ 'workspace': ws.name }" queryParamsHandling="merge">
+                        <mat-icon [className]="ws.displayIconClass">
+                            {{ ws.displayIcon }}
+                        </mat-icon>
+                        {{ ws.name }}
+                    </button>
+                </ng-container>
+            </mat-menu>
+        </ng-container>
+    </span>
+
+  <!-- Login and Logout Options  -->
+  <span class="cheat-sheet-header-bottom-right-content">
+    <button *ifLoggedIn mat-button>
+      <mat-icon>
+        person_outline
+      </mat-icon>
+      {{ authService.username }}
+    </button>
+    <button *ifLoggedOut mat-raised-button (click)="authService.login()">
+      Login
+    </button>
+    <button *ifLoggedIn mat-raised-button (click)="authService.logout()">
+      Logout
+    </button>
+    <button *ifLoggedOut mat-raised-button (click)="authService.signup()">
+      Sign Up
+    </button>
+    <button mat-icon-button>
+      <mat-icon>help_outline</mat-icon>
+    </button>
+  </span>
+
+</div>
+
+<!-- Bottom Header Panel-->
+<div
+  class="cheat-sheet-header-bottom mat-elevation-z5"
+  addClassOnEditMode
+>
+  <span class="cheat-sheet-header-bottom-left-content">
+    <button mat-icon-button (click)="sheetService.toggleSheetMenu()">
+      <mat-icon>list</mat-icon>
+    </button>
+    <!-- <button mat-icon-button>
+      <mat-icon>refresh</mat-icon>
+    </button> -->
+    <ng-container *ngIf=sheetService.currentSheetValue>
+    <ng-container *ifLoggedIn>
+      <mat-checkbox [(ngModel)]="sheetService.editModeOn">
+        Edit Mode
+      </mat-checkbox>
+      <button *ifEditMode mat-icon-button (click)="onClickNewSheet()">
+        <mat-icon>note_add</mat-icon>
+      </button>
+      <button
+        *ifEditMode mat-icon-button
+        [disabled]="!(sheetService.currentSheetValue && sheetService.currentSheetValue.isDirty)"
+        (click)="onClickSave()"
+      >
+        <mat-icon>save</mat-icon>
+      </button>
+      <button
+        *ifViewMode
+        mat-flat-button
+        color="warn"
+        (click)="onClickDeleteSheet($event)"
+      >
+        DELETE SHEET
+      </button>
+    </ng-container>
+    </ng-container>
+  </span>
+  <span class="cheat-sheet-header-bottom-right-content">
+    <mat-form-field
+      style="text-align: right"
+      class="search-bar-form-field"
+      addClassOnEditMode
+      *ngIf=sheetService.currentSheetValue
+    >
+      <input
+        class="search-bar-form-field-input"
+        type="text"
+        [placeholder]="'Search for ' + sheetService.currentSheetName +' index cards'"
+        matInput
+        [(ngModel)]="sheetService.searchFilter"
+      />
+    </mat-form-field>
+  </span>
+</div>

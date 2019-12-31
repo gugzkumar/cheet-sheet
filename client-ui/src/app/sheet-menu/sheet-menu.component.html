@@ -1,0 +1,16 @@
+<h3 mat-header class="sheet-menu-header">
+  Available Sheets
+</h3>
+<ul class="sheet-menu">
+  <li
+    class="sheet-menu-item"
+    *ngFor="let sheet of sheetService.availableSheets"
+    [class.sheet-menu-item-selected]="sheet == sheetService.currentSheetName"
+    [routerLink]="['/']"
+    [queryParams]="{ 'sheet': sheet }"
+    queryParamsHandling="merge"
+  >
+    {{sheet}}
+  </li>
+</ul>
+<button (click)='onClickAddNewSheet($event)' *ifLoggedIn class="add-sheet-button" mat-button>ADD NEW SHEET</button>

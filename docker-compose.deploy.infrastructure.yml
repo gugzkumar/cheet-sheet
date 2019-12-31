@@ -1,0 +1,36 @@
+# ------------------------------------------------------------------------------
+# INFRASTRUCTURE DOCKER COMPOSE
+#
+# This Docker Compose is meant provision the necessary AWS resources
+# for a user. This includes VPC's, Subnets, Roles and Policies.
+#
+# What this sets up:
+# - Cognito Userpool
+# - S3 Bucket for UI hosting
+# - S3 Bucket for App Data Storage
+# - S3 Bucket for Code Deployment Artifacts
+#
+# Prerequisites:
+# - AWS VPC
+# - Route53 Domains
+# - AWS Certificate Manager
+# ------------------------------------------------------------------------------
+version: '3.7'
+services:
+    # --------------------------------------------------------------------------
+    # AWS-INFRASTRUCTURE DEPLOYMENT AND MAINTAINENCE WRITTEN IN aws-cdk
+    # --------------------------------------------------------------------------
+    serverless-aws-cdk:
+        build: ./.aws-infrastructure
+        container_name: serverless-aws-cdk
+        env_file:
+            infrastructure.env
+        command: tail -F anything
+        volumes:
+            - ./.aws-infrastructure/package.json:/usr/src/.aws-infrastructure/package.json
+            - ./.aws-infrastructure:/usr/src/app/
+            - /usr/src/app/node_modules
+
+networks:
+  default:
+    name: cheet-sheet-deploy-infrastructure

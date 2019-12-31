@@ -1,0 +1,51 @@
+# ------------------------------------------------------------------------------
+# CODE DOCKER COMPOSE
+#
+# This Docker Compose is meant to deploy frontend code and backend code
+# to a remote environment.
+#
+# What this deploys:
+# - Angular code to an S3 bucket
+# - Lambda Function that connects to an API Gateway
+#
+# Prerequisites:
+# - Cognito Userpool
+# - API Gateway
+# - S3 Bucket for UI hosting
+# - S3 Bucket for App Data Storage
+# - IAM Role for a Lambda Function
+#     Should have permission to update the App Data Storage bucket
+#
+# ------------------------------------------------------------------------------
+# # Temporarily set to version 3.2 to support circle CI
+# version: '3.7'
+version: '3.2'
+services:
+    # --------------------------------------------------------------------------
+    # FRONTEND WRITTEN IN ANGULAR
+    # --------------------------------------------------------------------------
+    serverless-angular-client-ui:
+        build: ./client-ui
+        container_name: serverless-deploy-angular-client-ui
+        volumes:
+          - ./client-ui:/usr/src/app
+          - /usr/src/app/node_modules
+        env_file:
+          - remote.env
+        command: tail -f /dev/null
+    # --------------------------------------------------------------------------
+    # BACKEND WRITTEN IN AWS SAM LOCAL
+    # --------------------------------------------------------------------------
+    serverless-lambda-api:
+        build: ./api
+        container_name: serverless-deploy-lambda-api
+        volumes:
+          - ./api:/app
+        env_file:
+          - remote.env
+        command: tail -f /dev/null
+
+# # Temporarily commented since not supported by circle CI
+# networks:
+#   default:
+#     name: cheet-sheet-deploy-code

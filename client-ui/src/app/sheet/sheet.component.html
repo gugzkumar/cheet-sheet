@@ -1,0 +1,55 @@
+<div *ngIf=sheetService.currentSheetValue class="sheet-container" cdkDropListGroup>
+
+  <!-- LEFT COLUMN  -->
+  <div
+    class="sheet-column"
+    cdkDropList
+    [cdkDropListData]="sheetService.currentSheetValue.leftIndexCards"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div class="index-card-container"
+      *ngFor="let card of sheetService.currentSheetValue.leftIndexCards; index as i"
+      cdkDrag
+      [cdkDragDisabled]="!sheetService.editModeOn"
+    >
+      <app-index-card
+        *ngIf="card.indexCardTitle.toLowerCase().includes(sheetService.searchFilter.toLowerCase())"
+        [indexCard] = "card"
+        [(canEdit)] = "sheetService.editModeOn"
+        [onClickRemove] = "generateOnRemoveFunction(i, 'left')"
+      >
+      </app-index-card>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN  -->
+  <div
+    class="sheet-column"
+    cdkDropList
+    [cdkDropListData]="sheetService.currentSheetValue.rightIndexCards"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div class="index-card-container"
+      *ngFor="let card of sheetService.currentSheetValue.rightIndexCards; index as i"
+      cdkDrag
+      [cdkDragDisabled]="!sheetService.editModeOn"
+    >
+      <app-index-card
+        *ngIf="card.indexCardTitle.toLowerCase().includes(sheetService.searchFilter.toLowerCase())"
+        [indexCard] = "card"
+        [(canEdit)] = "sheetService.editModeOn"
+        [onClickRemove] = "generateOnRemoveFunction(i, 'right')"
+      >
+      </app-index-card>
+    </div>
+  </div>
+
+</div>
+
+<div *ngIf="!sheetService.currentSheetValue" class="no-sheets-message-container">
+  <h1>This workspace has no sheets.<br/> Please add one.</h1>
+</div>
+
+<div *ngIf="hasNoCards()" class="no-sheets-message-container">
+  <h1>This Sheet has no index Cards.<br/> Add one by clicking <mat-icon>note_add</mat-icon> in Edit mode.</h1>
+</div>

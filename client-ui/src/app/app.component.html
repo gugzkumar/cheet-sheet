@@ -1,0 +1,26 @@
+<!-- <app-header>
+</app-header> -->
+<div>
+  <app-loader></app-loader>
+</div>
+<div class="app-container">
+    <div class="header-container">
+        <app-header>
+        </app-header>
+    </div>
+
+    <div class="main-sheet-container" >
+        <mat-sidenav-container class="main-sheet">
+
+            <mat-sidenav class="sidenav-body" mode="side" [opened]="sheetService.showSheetMenu">
+                <app-sheet-menu>
+                </app-sheet-menu>
+            </mat-sidenav>
+
+            <mat-sidenav-content class="main-sheet-body" [class.editmode]="sheetService.editModeOn">
+                <router-outlet></router-outlet>
+            </mat-sidenav-content>
+
+        </mat-sidenav-container>
+    </div>
+</div>

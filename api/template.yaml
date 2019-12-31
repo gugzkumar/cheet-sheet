@@ -1,0 +1,102 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  This is the SAM template code
+  for running the CH33T SH33T app locally
+  as well as to deploy it to a remote Environment
+
+Parameters:
+  LayerArn:
+    Type: String
+    Default: Override This Variable from the CLI
+  RoleArn:
+    Type: String
+    Default: Override This Variable from the CLI
+  SheetDataBucket:
+    Type: String
+    Default: Override This Variable from the CLI
+  CognitoClientId:
+    Type: String
+    Default: Override This Variable from the CLI
+  CognitoJWKSBase64:
+    Type: String
+    Default: Override This Variable from the CLI
+  ApiResourceName:
+    Type: String
+    Default: Override This Variable from the CLI
+  ApiFunctionResourceName:
+    Type: String
+    Default: Override This Variable from the CLI
+  StackName:
+    Type: String
+    Default: Override This Variable from the CLI
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Runtime: python3.7
+    Timeout: 3
+    MemorySize: 512
+    Environment:
+      Variables:
+        SHEET_DATA_S3_BUCKET: !Sub '${SheetDataBucket}'
+        COGNITO_CLIENT_ID: !Sub '${CognitoClientId}'
+        COGNITO_JWKS_BASE64: !Sub '${CognitoJWKSBase64}'
+  Api:
+    Cors:
+      AllowMethods: "'*'"
+      AllowHeaders: "'*'"
+      AllowOrigin: "'*'"
+    Name: !Sub '${ApiResourceName}'
+
+Resources:
+
+  ApiFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      FunctionName: !Sub '${ApiFunctionResourceName}'
+      CodeUri: src
+      Handler: app.main
+      Layers:
+        - !Sub '${LayerArn}'
+      Role: !Sub '${RoleArn}'
+      Events:
+        #/sheet
+        GetSheet:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /sheet
+            Method: get
+        PostSheet:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /sheet
+            Method: post
+        #/sheet/{sheetName}
+        GetSheetSheetName:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /sheet/{sheetName}
+            Method: get
+        DeleteSheetSheetName:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /sheet/{sheetName}
+            Method: delete
+        PutSheetSheetName:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /sheet/{sheetName}
+            Method: put
+
+Outputs:
+  ServerlessRestApiOutput:
+    Description: Id of Rest API
+    Value: !Ref ServerlessRestApi
+    Export:
+      Name: !Sub "${StackName}-API-GATEWAY-API-ID"
+  ApiFunctionOutput:
+    Description: Id of Lambda function that is the brains behind the api
+    Value: !Ref ApiFunction
+    Export:
+      Name: !Sub "${StackName}-API-FUNCTION"

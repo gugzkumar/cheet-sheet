@@ -1,9 +1,9 @@
-*.js
 *.d.ts
 node_modules
 package-lock.json
-.env
-2.env
+*.env
+!*.template.env
+backup.env
 .ipynb_checkpoints
 SimpleServer.ipynb
 __pycache__
@@ -19,6 +19,8 @@ api/dependencies/*
 !api/dependencies/.gitkeep
 api/notebooks
 api/cached-dependencies
+archived-services
+__dependencies__
 
 # CLIENT UI Ignores
 client-ui/angular-output/*
