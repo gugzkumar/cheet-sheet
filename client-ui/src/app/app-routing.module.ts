@@ -27,6 +27,7 @@ const routes: Routes = [
             auth: AuthResolver
         }
     },
+    // Todo Replace with a 404 page
     { path: '**', redirectTo: '' }
 ];
 
