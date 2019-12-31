@@ -26,7 +26,9 @@ const routes: Routes = [
         resolve: {
             auth: AuthResolver
         }
-    }
+    },
+    // Todo Replace with a 404 page
+    { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

@@ -88,7 +88,19 @@ export class CheetSheetNetworkStack extends cdk.Stack {
                 names: [ this.siteHostname ],
                 sslMethod: cloudfront.SSLMethod.SNI,
                 securityPolicy: cloudfront.SecurityPolicyProtocol.TLS_V1_1_2016
-            }
+            },
+            errorConfigurations: [
+                {
+                    errorCode: 403,
+                    responseCode: 200,
+                    responsePagePath: '/index.html'
+                },
+                {
+                    errorCode: 404,
+                    responseCode: 200,
+                    responsePagePath: '/index.html'
+                }
+            ]
         });
         const targetResource = new targets.CloudFrontTarget(clientUIWebDistribution);
 

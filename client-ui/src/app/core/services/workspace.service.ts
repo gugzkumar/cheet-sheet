@@ -89,7 +89,6 @@ export class WorkspaceService {
      * Load all available groups
      */
     private parseGroups(groups: string[]): Workspace[] {
-        var indexOfAdminGroup = groups.indexOf(ADMIN_USER_GROUP);
         const workspaces: Workspace[] = [];
         // Add the Default Personal Workspace
         workspaces.push({
@@ -97,7 +96,12 @@ export class WorkspaceService {
             displayIcon: WorkspaceIcon.Personal,
             displayIconClass: WorkspaceIconClass.Personal
         });
+
+        if (!groups || groups.length <1)
+            return workspaces;
+
         // Add the Public Workspace if user belongs to the admin group
+        var indexOfAdminGroup = groups.indexOf(ADMIN_USER_GROUP);
         if(indexOfAdminGroup > -1)
             workspaces.push({
                 name: 'Public',

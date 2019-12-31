@@ -43,3 +43,4 @@ API Gateway - Per Transaction
 AWS Cognito - Per User
 
 https://github.com/aws-samples/aws-cdk-examples/tree/master/typescript/
+https://lucasfsantos.com/posts/deploy-react-angular-cloudfront/
