@@ -1,6 +1,8 @@
 {
   "name": "cheat-sheet",
   "version": "0.0.0",
+  "author": "Gagan Kumar Tunuguntla",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --disable-host-check --watch --poll 500",

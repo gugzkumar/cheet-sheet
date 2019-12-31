@@ -12,13 +12,6 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
 })
 export class HeaderComponent {
 
-    workpaces = [
-        {icon: '', workpaceName: 'Personal'},
-        {icon: '', workpaceName: 'Public'},
-        {icon: '', workpaceName: 'Admin'}
-
-    ]
-
     constructor(
         public authService: AuthService,
         public sheetService: SheetService,
