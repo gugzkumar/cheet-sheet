@@ -26,7 +26,8 @@ const routes: Routes = [
         resolve: {
             auth: AuthResolver
         }
-    }
+    },
+    { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
