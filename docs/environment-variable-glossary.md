@@ -20,12 +20,12 @@ This README tries to break down what each of these variables are.
 | AWS_ROUTE53_HOSTED_ZONE_ID        | This is the Zone Id for `SITE_DOMAIN` |
 | CLIENT_UI_URL                     | https://`{SITE_SUB_DOMAIN}`.`{SITE_DOMAIN}` if `ENVIRONMENT!=local`, `http://localhost:4200` if `ENVIRONMENT=local`|
 | API_URL                           | https://`{SITE_SUB_DOMAIN}`.api.`{SITE_DOMAIN}` if `ENVIRONMENT!=local`, `http://localhost:3000` if `ENVIRONMENT=local`|
-| COGNITO_CLIENT_ID                 | |
-| COGNITO_AUTH_URL                  | |
-| COGNITO_JWKS_BASE64               | |
-| SHEET_DATA_S3_BUCKET              | |
-| LAMBDA_IAM_ROLE                   | |
-| LAMBDA_LAYER                      | |
-| API_DEPLOYMENT_S3_BUCKET          | |
-| SAM_LOCAL_ABSOLUTE_PATH           | |
-| SAM_CLI_TELEMETRY                 | |
+| COGNITO_CLIENT_ID                 | This is the Id of the Cognito User Pool Client. We provision a different user pool for every different Environment. You can find this on your Infrastructure stack Outputs after it is deployed. |
+| COGNITO_AUTH_URL                  | This is the Cognito Domain, that handles our authentication and hosts the login page. You can find this on your Infrastructure stack Outputs after it is deployed.|
+| COGNITO_JWKS_BASE64               | In order to verify web tokens on the backend for login users we need a public. AWS hosts these keys as a Json Web Key Set on https://cognito-idp.{region}.amazonaws.com/{userPoolId}/.well-known/jwks.json. You can find the User Pool Id on your Infrastructure stack Outputs after it is deployed. |
+| SHEET_DATA_S3_BUCKET              | This is the S3 bucket name where the different sheets and index cards are saved. You can find this on your Infrastructure stack Outputs after it is deployed. |
+| LAMBDA_IAM_ROLE                   | This is the IAM role that gives the Lambda function that's behind our api, the necessary permissions to communicate with other AWS resources. You can find this on your Infrastructure stack Outputs after it is deployed. |
+| LAMBDA_LAYER                      | AWS ARN for the Layer. AWS Lambda Layers are for you to save dependencies for the Lambda function that's behind our api. By default Lambda comes with several libraries out of the box, but we still need 2 more. They are pyjwt==1.7.1 and cryptography==2.8. You will need to make one yourself you don't have on. You can look at https://github.com/gugzkumar/my-python-lambda-layers for guidance.  |
+| API_DEPLOYMENT_S3_BUCKET          | This is the S3 bucket name that SAM leverages to deploy the backend code of our app. You can find this on your Infrastructure stack Outputs after it is deployed. |
+| SAM_LOCAL_ABSOLUTE_PATH           | Absolute path of the `api` folder on your machine. In order for local development to work SAM needs to know where it is located. |
+| SAM_CLI_TELEMETRY                 | Set this to 0 if you don't want to send AWS logistics about your use of SAM. Set to 1 if you're okay with it. This can help AWS make improvements to SAM. |
