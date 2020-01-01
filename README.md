@@ -46,7 +46,7 @@ If you sign up for an account and log in, you will have access to your own Perso
   />
 </p>
 
-You can enter Edit mode by manually toggling it on and off. When on, you can add and modify index cards. All changes to your sheet are transient and won't be permanent unless you save. Refreshing the page, moving between sheets, or workspaces will cause you to loose all progress so be careful.
+You can enter Edit mode by manually toggling it on and off. When on, you can add, remove and modify index cards. You can even rearrange them via drag and drop. All changes to your sheet are transient and won't be permanent unless you save. Refreshing the page, moving between sheets, or workspaces will cause you to loose all progress so be careful.
 
 <h2>Teams</h2>
 <p align="left">
