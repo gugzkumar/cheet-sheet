@@ -82,18 +82,19 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
                     's3:GetObject',
                     's3:DeleteObject',
                     's3:PutObject',
-                    's3:ListBucket',
-                    'dynamodb:BatchGetItem',
-                    'dynamodb:BatchWriteItem',
-                    'dynamodb:DeleteItem',
-                    'dynamodb:DescribeTable',
-                    'dynamodb:GetItem',
-                    'dynamodb:GetRecords',
-                    'dynamodb:PutItem',
-                    'dynamodb:Query',
-                    'dynamodb:Scan',
+                    's3:PutObjectAcl',
+                    's3:ListBucket'
                 ]
             }));
+            role.addToPolicy(new iam.PolicyStatement({
+                resources: ['*'],
+                actions: [
+                    'logs:CreateLogStream',
+                    'logs:CreateLogGroup',
+                    'logs:PutLogEvents',
+                ]
+            }));
+
             new cdk.CfnOutput(this, 'LambdaExecutionRoleOutput', {
                 exportName: `${this.stackName}-LAMBDA-IAM-ROLE-ARN`,
                 value: role.roleArn,
@@ -226,7 +227,8 @@ export class CheetSheetInfrastructureStack extends cdk.Stack {
             description: 'The S3 bucket that will save all the different Cheet Sheets users create in our app.'
         });
         return [
-             appDataBucket.bucketArn
+             appDataBucket.bucketArn,
+             appDataBucket.bucketArn + '/*'
         ];
     }
 }

@@ -12,13 +12,6 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
 })
 export class HeaderComponent {
 
-    workpaces = [
-        {icon: '', workpaceName: 'Personal'},
-        {icon: '', workpaceName: 'Public'},
-        {icon: '', workpaceName: 'Admin'}
-
-    ]
-
     constructor(
         public authService: AuthService,
         public sheetService: SheetService,
@@ -31,7 +24,8 @@ export class HeaderComponent {
         this.dialog.open(ConfirmationDialogComponent, {
             'data': {
                 'message': `Are you sure you would like to delete ${this.sheetService.currentSheetName}?\n` +
-                  `This will remove all index cards associated sheet.`,
+                  `This will also remove all index cards associated with this sheet.\n` +
+                  `This can't be undone`,
                 'onConfirm': () => {
                     const sheetName = this.sheetService.currentSheetName;
                     const indexOfSheetToSwitchTo = Math.abs(

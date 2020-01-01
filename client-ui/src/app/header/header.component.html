@@ -5,9 +5,9 @@
 >
   <!-- Logo and Workpace Switcher -->
     <span class="cheat-sheet-header-bottom-left-content">
-        <h1 class="header-logo">
+        <h2 class="header-logo">
           CH33T $H33T
-        </h1>
+        </h2>
         <ng-container *ngIf="workspaceService.selectedWorkspace && workspaceService.availableWorkspaces && workspaceService.availableWorkspaces.length > 0">
             <button [ngClass]="testing" mat-button [matMenuTriggerFor]="menu">
                 <mat-icon [className]="workspaceService.selectedWorkspace.displayIconClass">
