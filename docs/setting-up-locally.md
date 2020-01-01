@@ -49,7 +49,7 @@ This guide is for you to have a working version of Cheet Sheet deployed to your 
 
 </details>
 
-## STEP 4: Running the App
+## STEP 4: Running the App :beers:
 
 1. Now you have everything you need to run the app
 1. Run `docker-compose up --build -d`

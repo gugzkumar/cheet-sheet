@@ -1,6 +1,8 @@
 # Gained Learnings
 This is a list of things I've learned, primarily about Serverless, that happened while building this App. Originally coming from a container orchestration background, it's interesting to compare the advantages and disadvantages approaches.
-
+<br/><br/>
+*To Be Written*
+<!--
 https://github.com/awslabs/aws-support-tools/blob/master/Cognito/decode-verify-jwt/decode-verify-jwt.py
 Doesn't break whole API
 Scales without me having to do something
@@ -36,4 +38,4 @@ API Gateway - Per Transaction
 AWS Cognito - Per User
 
 https://github.com/aws-samples/aws-cdk-examples/tree/master/typescript/
-https://lucasfsantos.com/posts/deploy-react-angular-cloudfront/
+https://lucasfsantos.com/posts/deploy-react-angular-cloudfront/ -->
