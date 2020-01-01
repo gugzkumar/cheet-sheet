@@ -2,12 +2,12 @@
 
 Continuous Deployment automates the updating of new code in our Api and UI so that we can focus on building features rather than how t launch them. CircleCI is easy to use, has a free tier, and takes away the hassle of have to set up infrastructure for it.
 
-# STEP 1: Connect CircleCI to your repo
+## STEP 1: Connect CircleCI to your repo
 
 1. Login to CircleCI using your github account
 1. Under add projects set up this repo
 
-# STEP 2: Create the ENVIRONMENT variable out of your remote.env
+## STEP 2: Create the ENVIRONMENT variable out of your remote.env
 
 1. In [Setting Up And Launching The App On AWS](/docs/setting-up-remote.md) you create an `remote.env` file for code deploys
 1. From the .utils folder run `node main.js create-infra-env` generate-base64-env. This will encode all contents of the `.env` file as base64 and spit it out.
@@ -21,7 +21,7 @@ Continuous Deployment automates the updating of new code in our Api and UI so th
 1. Copy the output of the cli command, and set it as the desired Environment Variable.
 
 
-# STEP 3: Update .circleci/config.yml if needed (Optional)
+## STEP 3: Update .circleci/config.yml if needed (Optional)
 
 If you want to add more environments than supported out of the the box, modify the `load-env` command:
 
