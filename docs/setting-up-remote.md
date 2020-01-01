@@ -1,5 +1,5 @@
 # Setting Up And Launching Cheet Sheet on AWS
-
+All commands unless otherwise noted should be ran from the root of the project folder.
 
 ## Create Your infrastructure.env File
 
@@ -51,10 +51,14 @@
 
 ## Build and Deploy The Code
 
+**Note: SITE_DOMAIN and SITE_SUB_DOMAIN are what is defined in infrastructure.env**
+
 1. Run `docker-compose -f docker-compose.deploy.code.yml run --rm serverless-lambda-api sh deploy.sh`
 1. The command above deploys your code for the API
-1.
-1.
+1. Once it ran confirm in AWS Cloudformation you have a new stack called `CheetSheetCodeStack-{ENVIRONMENT}` with the status `CREATE_COMPLETE`
+1. Run `docker-compose -f docker-compose.deploy.code.yml run --rm serverless-angular-client-ui sh -c "node build-env.js && npm run build-prod"`
+1. You should now see a folder called `client-ui/angular-output`. In here is every thing you need for your front end to work.
+1. In S3 find the bucket named `{SITE_SUB_DOMAIN}.{SITE_DOMAIN}`. Upload all those files here with Public Read access. Everything else can be left as default.
 
 <details><summary>What just happened?</summary>
 <p>
@@ -73,7 +77,7 @@
 1. Run `cdk deploy CheetSheetNetworkStack-{ENVIRONMENT}` to begin deployment and say yes to any prompts
 1. Cloud Front takes a long time to provision, it can take anywhere from 30min-1hour to complete. So go grab a coffee while that's happening.
 1. Once it ran confirm in AWS Cloudformation you have a new stack called `CheetSheetNetworkStack-{ENVIRONMENT}` with the status `CREATE_COMPLETE`
-1. Your app should be up and running on the following URLs:
+1. Your app should be up and running on the following URLs :beers::
     - https://cheet-sheet.mydomain.com
     - https://cheet-sheet.api.mydomain.com
 1. Type in exit to leave the infrastructure deploy environment
@@ -84,3 +88,7 @@
     To be written
 </p>
 </details>
+
+
+## What's Next
+It will be a pain in the butt if you have to manually **Build and Deploy The Code** every time you want to make a change to the api or ui. I suggest you set up Continous Deployment of the code via CircleCI.
