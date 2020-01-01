@@ -1,4 +1,4 @@
-# Setup and Preparation
+# Preliminary Setup and Preparation
 
 This is all the preliminary things you will need to do before running the app on your computer or deploying it to AWS.
 
