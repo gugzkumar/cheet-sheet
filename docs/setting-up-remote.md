@@ -10,8 +10,8 @@ All commands unless otherwise noted should be ran from the root of the project f
 3. Confirm you now have a file in your root folder called `infrastructure.env`
 
 <details><summary>What just happened?</summary>
-<p>
-    To be written
+<p styles="margin-left:15px">
+    The first thing we need to do is provision infrastructure for the app. This includes things like S3 Buckets, Cognito Userpools and lambda roles. We do this through docker compose. The file called `infrastructure.env`, is what properly configures how to build the infrastructure. <i>If you want to learn more about what each configuration is, read the ENVIRONMENT variable glossary.</i>
 </p>
 </details>
 
@@ -31,7 +31,7 @@ All commands unless otherwise noted should be ran from the root of the project f
 
 <details><summary>What just happened?</summary>
 <p>
-    To be written
+
 </p>
 </details>
 
