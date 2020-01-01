@@ -78,8 +78,8 @@ All commands unless otherwise noted should be ran from the root of the project f
 1. Cloud Front takes a long time to provision, it can take anywhere from 30min-1hour to complete. So go grab a coffee while that's happening.
 1. Once it ran confirm in AWS Cloudformation you have a new stack called `CheetSheetNetworkStack-{ENVIRONMENT}` with the status `CREATE_COMPLETE`
 1. Your app should be up and running on the following URLs :beers::
-    - https://cheet-sheet.mydomain.com
-    - https://cheet-sheet.api.mydomain.com
+    - UI:  https://`{SITE_SUB_DOMAIN}`.`{SITE_DOMAIN}`
+    - API: https://`{SITE_SUB_DOMAIN}`.api.`{SITE_DOMAIN}`
 1. Type in exit to leave the infrastructure deploy environment
 1. Run `docker-compose -f docker-compose.deploy.infrastructure.yml down -v` to take down the infrastructure deploy environment
 
@@ -91,4 +91,4 @@ All commands unless otherwise noted should be ran from the root of the project f
 
 
 ## What's Next
-It will be a pain in the butt if you have to manually **Build and Deploy The Code** every time you want to make a change to the api or ui. I suggest you set up Continous Deployment of the code via CircleCI.
+It will be a pain in the butt if you have to manually **Build and Deploy The Code** every time you want to make a change to the api or ui. I suggest you set up Continuous Deployment of the code via CircleCI.
