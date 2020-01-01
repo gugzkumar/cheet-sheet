@@ -1,7 +1,8 @@
-# Setting Up And Launching Cheet Sheet on AWS
-All commands unless otherwise noted should be ran from the root of the project folder.
+# Setting Up And Launching The App On AWS
 
-## Create Your infrastructure.env File
+This guide is for you to have a working version of Cheet Sheet deployed to the internet for you or your team to access from anywhere. All commands, unless otherwise noted, should be ran from the root of the project folder.
+
+## STEP 1: Create Your infrastructure.env File
 
 **Warning: if you've already made infrastructure.env before, it will be overridden. So save it if you don't want to lose it.**
 
@@ -15,7 +16,7 @@ All commands unless otherwise noted should be ran from the root of the project f
 
 </details>
 
-## Build AWS Infrastructure
+## STEP 2: Build AWS Infrastructure
 
 **Note: ENVIRONMENT is what is defined in infrastructure.env**
 
@@ -31,13 +32,13 @@ All commands unless otherwise noted should be ran from the root of the project f
 
 <details><summary>What just happened?</summary>
 
-> Infrastructure is provisioned via the AWS CDK. This is an open-source Infrastructure as Code toolkit for AWS that streamlines creating and applying changes to infrastructure. We first use docker compose to create a docker container with the CDK installed and infrastructure templates defined. Next we exec in to the container (this is similar to a vm) to run CDK cli commands inside it that build and deploy our AWS Cloudformation Infrastructure Stack. We user docker for 2 reasons:
+> Infrastructure is provisioned via the AWS CDK. This is an open-source Infrastructure as Code toolkit for AWS that streamlines creating and applying changes to infrastructure. We first use docker compose to create a docker container with the CDK installed and infrastructure templates defined. Next we exec in to the container (this is similar to ssh'ing into a vm) to run CDK cli commands inside it that build and deploy our AWS Cloudformation Infrastructure Stack. We user docker for 2 reasons:
 1. It makes the number of things you have to install less
 2. We can version control dependencies to reduce possibility of breaking changes
 
 </details>
 
-## Create Your remote.env File
+## STEP 3: Create Your remote.env File
 
 **Warning: if you've already made remote.env before, it will be overridden. So save it if you don't want to lose it.**
 
@@ -46,12 +47,12 @@ All commands unless otherwise noted should be ran from the root of the project f
 1. Confirm you now have a file in your root folder called `remote.env`
 
 <details><summary>What just happened?</summary>
-<p>
-    To be written
-</p>
+
+> Now that we have infrastructure that can house our app we need to build and deploy the source code. The file called remote.env, is what properly configures how to and where to deploy things. You could build the `remote.env` file manually by following the [remote.template.env](/.env_templates/remote.template.env). The utility cli provides guided prompts to make it a bit easier. *If you want to learn more about what each configuration is, read the ENVIRONMENT variable glossary.*
+
 </details>
 
-## Build and Deploy The Code
+## STEP 4: Build and Deploy The Code
 
 **Note: SITE_DOMAIN and SITE_SUB_DOMAIN are what is defined in infrastructure.env**
 
@@ -63,12 +64,16 @@ All commands unless otherwise noted should be ran from the root of the project f
 1. In S3 find the bucket named `{SITE_SUB_DOMAIN}.{SITE_DOMAIN}`. Upload all those files here with Public Read access. Everything else can be left as default.
 
 <details><summary>What just happened?</summary>
-<p>
-    To be written
-</p>
+
+> The first thing that happens is the deploy of the API. We run a docker container built with the AWS SAM cli, a configuration template for the REST API, and source code of the Lambda Function. This will produce a separate Cloudformation stack for Code.
+>
+> The second thing that happens is the deploy of the UI source code. We run a docker container built with the Angular that outputs static files for the frontend. Then copy and paste it into our UI bucket which will be the source of truth for our frontend.
+>
+> Again docker is meant to reduce the number of things you have to install. It also makes easy to plug in to CircleCI for Continuous Deployment.
+
 </details>
 
-## Build and Connect the Networking
+## STEP 5: Build and Connect the Networking :beers:
 
 **Note: ENVIRONMENT is what is defined in infrastructure.env**
 
@@ -79,16 +84,16 @@ All commands unless otherwise noted should be ran from the root of the project f
 1. Run `cdk deploy CheetSheetNetworkStack-{ENVIRONMENT}` to begin deployment and say yes to any prompts
 1. Cloud Front takes a long time to provision, it can take anywhere from 30min-1hour to complete. So go grab a coffee while that's happening.
 1. Once it ran confirm in AWS Cloudformation you have a new stack called `CheetSheetNetworkStack-{ENVIRONMENT}` with the status `CREATE_COMPLETE`
-1. Your app should be up and running on the following URLs :beers::
+1. Your app should be up and running on the following URLs :beers:
     - UI:  https://`{SITE_SUB_DOMAIN}`.`{SITE_DOMAIN}`
     - API: https://`{SITE_SUB_DOMAIN}`.api.`{SITE_DOMAIN}`
 1. Type in exit to leave the infrastructure deploy environment
 1. Run `docker-compose -f docker-compose.deploy.infrastructure.yml down -v` to take down the infrastructure deploy environment
 
 <details><summary>What just happened?</summary>
-<p>
-    To be written
-</p>
+
+> The final step is setup the networking so that our API and UI are publicly available on the internet. Similar to how we deployed the Infrastructure we use the AWS CDK to connect everything through Route53. This step will take a very long time because we are setting up a CDN for our S3 bucket via Cloudfront. But one you're done, your app will be up and running. Because it's serverless it should scale automatically whether you have user or a 1000 users.
+
 </details>
 
 

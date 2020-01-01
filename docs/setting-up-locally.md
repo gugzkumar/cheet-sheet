@@ -1,4 +1,4 @@
-# Setting Up And Running Cheet Sheet On Your Local Machine
+# Setting Up And Running The App On Your Local Machine
 
 
 ## Create Your infrastructure.env File
