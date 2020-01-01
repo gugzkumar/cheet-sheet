@@ -7,11 +7,13 @@
 </p>
 <br/>
 
-Cheet Sheet is an open source Content management system for developers and development teams to Create, Edit and Share code snippets. This accelerates development by having a centralized place where one can see how they or teammates have solved common problems in the past.
+Cheet Sheet is an open source Content Management System for developers and development teams to Create, Edit and Share code snippets. This accelerates software engineering by having a centralized place where one can see how they or teammates have solved common problems in the past.
 <br/><br/>
-Setting up Cheet Sheet for you or your organization is simple. All you need is Docker, node and an AWS account. It's 100% Serverless so your costs and infrastructure will scale and grow with minimal effort on your part.
+Setting up Cheet Sheet for you or your organization is simple. All you need is Docker, node and an AWS account. It's 100% Serverless so your costs and infrastructure will scale and grow with minimal effort on your part. ***Read [Getting Started](/docs/getting-started.md)***
 <br/><br/>
 Here is my own instance of the application: https://cheet-sheet.gugz.net/
+<br/><br/>
+If you use the app and like it please leave a star. If you find bugs please submit an issue.
 
 <h1>Features</h1>
 
@@ -33,7 +35,9 @@ Cheet Sheet is fairly simple to understand. Code snippets are are organized as s
     width="700"
   />
 </p>
+
 If you sign up for an account and log in, you will have access to your own Personal Cheet Sheet workspace. AWS Cognito handles authentication for this app. Sheets in your personal workspace are only accessible to you. They are completely separate from the ones in the Public View. As a logged in user you have to ability to Create, Modify and Delete sheets in your personal workspace.
+
 <p align="left">
   <img
     alt="Personal View Edit Mode"
@@ -41,6 +45,7 @@ If you sign up for an account and log in, you will have access to your own Perso
     width="700"
   />
 </p>
+
 You can enter Edit mode by manually toggling it on and off. When on, you can add and modify index cards. All changes to your sheet are transient and won't be permanent unless you save. Refreshing the page, moving between sheets, or workspaces will cause you to loose all progress so be careful.
 
 <h2>Teams</h2>
@@ -51,6 +56,7 @@ You can enter Edit mode by manually toggling it on and off. When on, you can add
     width="450"
   />
 </p>
+
 Team workspaces are also available for logged in users. Everything you can do on a Personal workspace applies here except that this workspace can be viewed and edited by anyone who is on your team. To create a new workspace all you need to do is simply make a group in the Cognito user pool and add users to it. The name of the group is the name of team.
 <br/><br/>
 The sheets and index cards that are viewable by the public, are part of the Public Workspace. For a user to modify the sheets in this workspace they must be added to the `admin` user group in cognito.
