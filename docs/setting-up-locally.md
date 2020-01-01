@@ -3,6 +3,8 @@
 
 ## Create Your infrastructure.env File
 
+**Warning: if you've already made infrastructure.env before, it will be overridden. So save it if you don't want to lose it**
+
 1. From the .utils folder run `node main.js create-infra-env`
 2. Follow the guided prompt to create `infrastructure.env`
 3. Confirm you now have a file in your root folder called `infrastructure.env`
