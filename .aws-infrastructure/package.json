@@ -1,6 +1,8 @@
 {
   "name": "cheet-sheet-infrastructure",
   "version": "0.1.0",
+  "author": "Gagan Kumar Tunuguntla",
+  "license": "MIT",
   "bin": {
     "src": "bin/cdk.js"
   },
