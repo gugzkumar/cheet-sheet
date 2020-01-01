@@ -10,8 +10,8 @@ All commands unless otherwise noted should be ran from the root of the project f
 3. Confirm you now have a file in your root folder called `infrastructure.env`
 
 <details><summary>What just happened?</summary>
-    
-> The first thing we need to do is provision infrastructure for the app. This includes things like S3 Buckets, Cognito Userpools and lambda roles. We do this through docker compose. The file called infrastructure.env, is what properly configures how to build the infrastructure. *If you want to learn more about what each configuration is, read the ENVIRONMENT variable glossary.*
+
+> The first thing we need to do is provision infrastructure for the app. This includes things like S3 Buckets, Cognito Userpools and lambda roles. We do this through docker compose. The file called infrastructure.env, is what properly configures how to build the infrastructure. You could build the `infrastructure.env` file manually by following the [infrastructure.template.env](/.env_templates/infrastructure.template.env). The utility cli provides guided prompts to make it a bit easier. *If you want to learn more about what each configuration is, read the ENVIRONMENT variable glossary.*
 
 </details>
 
@@ -21,7 +21,7 @@ All commands unless otherwise noted should be ran from the root of the project f
 
 1. Run `docker-compose -f docker-compose.deploy.infrastructure.yml up --build -d`
 1. Run `docker container exec -it serverless-aws-cdk sh`
-1. Run `npm run build`
+1. Run `npm run build` and confirm there are 0 errors
 1. Run `cdk bootstrap` (If you've done this before you don't have to do it again)
 1. Run `cdk diff CheetSheetInfrastructureStack-{ENVIRONMENT}` to preview what will be deployed
 1. Run `cdk deploy CheetSheetInfrastructureStack-{ENVIRONMENT}` to begin deployment and say yes to any prompts
@@ -30,9 +30,11 @@ All commands unless otherwise noted should be ran from the root of the project f
 1. Run `docker-compose -f docker-compose.deploy.infrastructure.yml down -v` to take down the infrastructure deploy environment
 
 <details><summary>What just happened?</summary>
-<p>
 
-</p>
+> Infrastructure is provisioned via the AWS CDK. This is an open-source Infrastructure as Code toolkit for AWS that streamlines creating and applying changes to infrastructure. We first use docker compose to create a docker container with the CDK installed and infrastructure templates defined. Next we exec in to the container (this is similar to a vm) to run CDK cli commands inside it that build and deploy our AWS Cloudformation Infrastructure Stack. We user docker for 2 reasons:
+1. It makes the number of things you have to install less
+2. We can version control dependencies to reduce possibility of breaking changes
+
 </details>
 
 ## Create Your remote.env File
