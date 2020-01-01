@@ -2,7 +2,7 @@
 
 This guide is for you to have a working version of Cheet Sheet deployed to your machine. This is useful for testing the app before you use it, and develop new features. All commands, unless otherwise noted, should be ran from the root of the project folder.
 
-## Create Your infrastructure.env File
+## STEP 1: Create Your infrastructure.env File
 
 **Warning: if you've already made infrastructure.env before, it will be overridden. So save it if you don't want to lose it**
 
@@ -16,7 +16,7 @@ This guide is for you to have a working version of Cheet Sheet deployed to your 
 
 </details>
 
-## Build AWS Infrastructure
+## STEP 2: Build AWS Infrastructure
 
 1. Run `docker-compose -f docker-compose.deploy.infrastructure.yml up --build -d`
 1. Run `docker container exec -it serverless-aws-cdk sh`
@@ -38,7 +38,7 @@ This guide is for you to have a working version of Cheet Sheet deployed to your 
 
 </details>
 
-## Create Your .env File
+## STEP 3: Create Your .env File
 1. From the .utils folder run `node main.js create-infra-env`
 1. Follow the guided prompt to create `.env` from `infrastructure.env`
 1. Confirm you now have a file in your root folder called `.env`
@@ -49,7 +49,7 @@ This guide is for you to have a working version of Cheet Sheet deployed to your 
 
 </details>
 
-## Running the App
+## STEP 4: Running the App
 
 1. Now you have everything you need to run the app
 1. Run `docker-compose up --build -d`
