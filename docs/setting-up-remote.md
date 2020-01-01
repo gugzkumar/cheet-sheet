@@ -32,9 +32,15 @@ This guide is for you to have a working version of Cheet Sheet deployed to the i
 
 <details><summary>What just happened?</summary>
 
+<<<<<<< HEAD
 > Infrastructure is provisioned via the AWS CDK. This is an open-source Infrastructure as Code toolkit for AWS that streamlines creating and applying changes to infrastructure. We first use docker compose to create a docker container with the CDK installed and infrastructure templates defined. Next we exec in to the container (this is similar to ssh'ing into a vm) to run CDK cli commands inside it that build and deploy our AWS Cloudformation Infrastructure Stack. We user docker for 2 reasons:
 1. It makes the number of things you have to install less
 2. We can version control dependencies to reduce possibility of breaking changes
+=======
+> Infrastructure is provisioned via the AWS CDK. This is an open-source Infrastructure as Code toolkit for AWS that streamlines creating and applying changes to infrastructure. We first use docker compose to create a docker container with the CDK installed and infrastructure templates defined. Next we exec in to the container (this is similar to a vm) to run CDK cli commands inside it that build and deploy our AWS Cloudformation Infrastructure Stack. We user docker for 2 reasons:
+> 1. It makes the number of things you have to install less
+> 2. We can version control dependencies to reduce possibility of breaking changes
+>>>>>>> eb8de973405f8ae814119bda5d8256388f9a66ed
 
 </details>
 
