@@ -12,7 +12,7 @@ This guide is for you to have a working version of Cheet Sheet deployed to the i
 
 <details><summary>What just happened?</summary>
 
-> The first thing we need to do is provision infrastructure for the app. This includes things like S3 Buckets, Cognito Userpools and lambda roles. We do this through docker compose. The file called infrastructure.env, is what properly configures how to build the infrastructure. You could build the `infrastructure.env` file manually by following the [infrastructure.template.env](/.env_templates/infrastructure.template.env). The utility cli provides guided prompts to make it a bit easier. *If you want to learn more about what each configuration is, read the ENVIRONMENT variable glossary.*
+> The first thing we need to do is provision infrastructure for the app. This includes things like S3 Buckets, Cognito Userpools and lambda roles. We do this through docker compose. The file called infrastructure.env, is what properly configures how to build the infrastructure. You could also build the `infrastructure.env` file manually by following the [infrastructure.template.env](/.env_templates/infrastructure.template.env). It's just that the utility cli provides guided prompts to make it a bit easier. *If you want to learn more about what each configuration is, read the ENVIRONMENT variable glossary.*
 
 </details>
 
@@ -48,7 +48,7 @@ This guide is for you to have a working version of Cheet Sheet deployed to the i
 
 <details><summary>What just happened?</summary>
 
-> Now that we have infrastructure that can house our app we need to build and deploy the source code. The file called remote.env, is what properly configures how to and where to deploy things. You could build the `remote.env` file manually by following the [remote.template.env](/.env_templates/remote.template.env). The utility cli provides guided prompts to make it a bit easier. *If you want to learn more about what each configuration is, read the ENVIRONMENT variable glossary.*
+> Now that we have infrastructure that can house our app we need to build and deploy the source code. The file called remote.env, is what properly configures how to and where to deploy things. You could also build the `remote.env` file manually by following the [remote.template.env](/.env_templates/remote.template.env). It's just that the utility cli provides guided prompts to make it a bit easier. *If you want to learn more about what each configuration is, read the ENVIRONMENT variable glossary.*
 
 </details>
 

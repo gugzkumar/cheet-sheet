@@ -1,4 +1,5 @@
-
+# Gained Learnings
+This is a list of things I've learned, primarily about Serverless, that happened while building this App. Originally coming from a container orchestration background, it's interesting to compare the advantages and disadvantages approaches.
 
 https://github.com/awslabs/aws-support-tools/blob/master/Cognito/decode-verify-jwt/decode-verify-jwt.py
 Doesn't break whole API

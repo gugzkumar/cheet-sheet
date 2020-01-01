@@ -3,16 +3,24 @@
 This document and the following ones will help you set up Cheet Sheet.
 
 ### Preliminary Setup
-Click [here](/docs/setup.md) to read the necessary prep to run the app locally and deploy it AWS.
+Click [here](/docs/setting-up-preliminary-tools.md) to read the necessary prep to run the app locally and deploy it AWS.
 
 ### Set Up and Run Locally
-Click [here](/docs/set-up-locally.md) to learn how to setup and run the app on your local machine. This is good for development and testing.
+Click [here](/docs/setting-up-locally.md) to learn how to setup and run the app on your local machine. This is good for development and testing.
 
 ### Set Up and Deploy to AWS
-Click [here](/docs/set-up-remote.md) to learn how to setup and deploy the app to the cloud so that you and others can use it in real life.
+Click [here](/docs/setting-up-remote.md) to learn how to setup and deploy the app to the cloud so that you and others can use it in real life.
+
+### Set Up Continuous Deployment
+Click [here](/docs/setting-up-ci-cd.md) to learn how to setup continuous deployment through CircleCI. This will automate deployment of changes to the API and UI, so that effort can be focused on designing new features rather than launching them.
+
+### Environment Variable Glossary
+Click [here](/docs/environment-variable-glossary.md) to learn what the different Environment variables in the app are.
+
+<!-- # Other Useful Documents
 
 ### Architecture Overview
 
 ### Environment Variable Glossary
 
-### Questions and Answers
+### Gained Learnings -->
