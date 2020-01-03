@@ -22,7 +22,6 @@ export class CreateSheetDialogComponent {
     ) { }
 
     onClickCreate() {
-        console.log(this.sheetName);
         this.sheetService.createSheet(this.sheetName, this.defaultFileType).subscribe(
             () => {
               // If apiRequest is successfull, refresh sheetMenu, and switch to newly created sheet

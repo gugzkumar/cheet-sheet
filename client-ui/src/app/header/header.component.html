@@ -46,7 +46,7 @@
     <button *ifLoggedOut mat-raised-button (click)="authService.signup()">
       Sign Up
     </button>
-    <button mat-icon-button>
+    <button mat-icon-button (click)="onClickHelp()">
       <mat-icon>help_outline</mat-icon>
     </button>
   </span>
