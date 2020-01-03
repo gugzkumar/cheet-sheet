@@ -1,0 +1,42 @@
+@import 'styles';
+
+.help-dialog-container {
+    width: 540px;
+}
+
+kbd {
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.1em 0.5em;
+    margin: 0 0.2em;
+    box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2), 0 0 0 2px #fff inset;
+    background-color: #ffffff;
+}
+
+.help-dialog-kbs-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    .help-dialog-kbs-buttons {
+        width: 200px;
+        display: inline-block;
+    }
+
+}
+
+.help-dialog-github-button-container {
+    margin-top: 40px;
+}
+
+.help-dialog-kbs-title {
+    margin-bottom: 40px;
+}
+
+.help-dialog-feature-link {
+    color:$link-color;
+    text-decoration: none;
+    &:hover {
+        color:$link-hover-color;
+    }
+}

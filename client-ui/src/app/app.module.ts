@@ -38,6 +38,8 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 import { EditIndexCardDialogComponent } from './edit-index-card-dialog/edit-index-card-dialog.component';
 import { CreateSheetDialogComponent } from './create-sheet-dialog/create-sheet-dialog.component';
 import { CreateIndexCardDialogComponent } from './create-index-card-dialog/create-index-card-dialog.component';
+import { HelpDialogComponent } from './help-dialog/help-dialog.component';
+
 import { LoaderComponent } from './loader/loader.component';
 import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
 
@@ -54,7 +56,8 @@ import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
     EditIndexCardDialogComponent,
     CreateSheetDialogComponent,
     CreateIndexCardDialogComponent,
-    LoaderComponent
+    LoaderComponent,
+    HelpDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +88,8 @@ import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
     ConfirmationDialogComponent,
     EditIndexCardDialogComponent,
     CreateSheetDialogComponent,
-    CreateIndexCardDialogComponent
+    CreateIndexCardDialogComponent,
+    HelpDialogComponent
   ]
 })
 export class AppModule { }

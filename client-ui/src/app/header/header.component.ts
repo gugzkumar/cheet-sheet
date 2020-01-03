@@ -4,6 +4,7 @@ import { SheetService } from '../core/services/sheet.service';
 import { WorkspaceService } from '../core/services/workspace.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { HelpDialogComponent } from '../help-dialog/help-dialog.component';
 
 @Component({
     selector: 'app-header',
@@ -80,6 +81,10 @@ export class HeaderComponent {
         this.snackBar.open(`New blank index card created`, '', {
             duration: 1500,
         });
+    }
+
+    onClickHelp() {
+        this.dialog.open(HelpDialogComponent, { autoFocus: false });
     }
 
 }
