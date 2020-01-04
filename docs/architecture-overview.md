@@ -11,7 +11,13 @@
 
 
 ### Deployment Process
-
+<p align="left">
+  <img
+    alt="Deployment Process"
+    src="/docs/images/architecture/Deployment-Process.png"
+    width="100%"
+  />
+</p>
 
 ### Infrastructure Stack
 <p align="left">
