@@ -21,5 +21,3 @@ Click [here](/docs/architecture-overview.md) to understand how Cheet Sheet is bu
 
 ### Environment Variable Glossary
 Click [here](/docs/environment-variable-glossary.md) to learn what the different Environment variables in the app are.
-
-<!-- ### Gained Learnings -->
