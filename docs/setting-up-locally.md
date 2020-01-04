@@ -60,6 +60,6 @@ This guide is for you to have a working version of Cheet Sheet deployed to your 
 
 <details><summary>What just happened?</summary>
 
-> We now have everything we need to run the app locally. By using docker compose, we set up two running containers, one for the UI, and the other for the API. You can now use the app just as if you were to us it on the internet. The API uses SAM Local and mounted volumes so if you make changes to the API code it will be reflected in real time. The UI uses Angular, Webpack and mounted volumes, so if you make changes to the UI code it will be reflected in real time on the browser.
+> We now have everything we need to run the app locally. By using docker compose, we set up two running containers, one for the UI, and the other for the API. You can now use the app just as if you were to use it on the internet. The API uses SAM Local and mounted volumes so if you make changes to the API code it will be reflected in real time. The UI uses Angular, Webpack and mounted volumes, so if you make changes to the UI code it will be reflected in real time on the browser.
 
 </details>
