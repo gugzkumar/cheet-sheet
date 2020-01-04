@@ -10,6 +10,9 @@
 </p>
 
 
+### Deployment Process
+
+
 ### Infrastructure Stack
 <p align="left">
   <img
@@ -28,15 +31,14 @@
   />
 </p>
 
-## Deployment Process
+## Network Stack
 <p align="left">
   <img
-    alt="Deployment Stack"
-    src="/docs/images/architecture/Deployment-Stack.png"
+    alt="Network Stack"
+    src="/docs/images/architecture/Network-Stack.png"
     width="100%"
   />
 </p>
-
 
 
 ## Local Development
