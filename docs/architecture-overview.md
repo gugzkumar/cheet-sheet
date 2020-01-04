@@ -35,7 +35,7 @@ This Diagram outlines the process of deploying the app to AWS using the tools pr
 
 Scroll down to see which resources each stack makes.
 
-<br/><br/>
+<br/>
 Other things to note:
 - The ACM certificates and the Lambda layer are resources you must provide (are not created for you)
 - While the frontend code is not deployed through the **Code Stack** it is part of the same step
