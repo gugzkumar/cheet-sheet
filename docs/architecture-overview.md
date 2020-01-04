@@ -5,7 +5,7 @@
   <img
     alt="Remote Environment"
     src="/docs/images/architecture/Remote-Environment.png"
-    width="80%"
+    width="100%"
   />
 </p>
 
@@ -15,7 +15,7 @@
   <img
     alt="Infrastructure Stack"
     src="/docs/images/architecture/Infrastructure-Stack.png"
-    width="80%"
+    width="100%"
   />
 </p>
 
@@ -24,7 +24,7 @@
   <img
     alt="Code Stack"
     src="/docs/images/architecture/Code-Stack.png"
-    width="80%"
+    width="100%"
   />
 </p>
 
@@ -33,7 +33,7 @@
   <img
     alt="Deployment Stack"
     src="/docs/images/architecture/Deployment-Stack.png"
-    width="80%"
+    width="100%"
   />
 </p>
 
