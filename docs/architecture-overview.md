@@ -77,3 +77,9 @@ Other things to note:
     width="100%"
   />
 </p>
+
+This repo also supports local development. This is so we can develop and test new features on our own machine before deploying it. To do this the Api and the UI are dockerized. Both services use mounted volumes so code changes can be reflected in real time.
+
+The Api Service uses SAM local. Anytime a request is sent to the Api, SAM will run a temporary Docker container to simulate the Lambda function.
+
+Rather than mocking it, we use real AWS services for our Sheet data bucket and Cognito Userpool. If you have a large team you can share the same Userpool but I suggest giving each developer a different bucket.
