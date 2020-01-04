@@ -25,6 +25,21 @@ The Api Deployment does not play an active role in the Infrastructure. But, it i
     width="100%"
   />
 </p>
+<br/>
+This Diagram outlines the process of deploying the app to AWS using the tools provided in this repo. We divide deployment into three Cloudformation Stacks. This does does two things:
+1. If different people in your organization have different privileges to your cloud account, you can divide the responsonsibilities.
+    - Example 1: You may not have permission to change the DNS records. Instead you can just deploy the first two stacks, and then let a Network Admin handle the routing.
+    - Example 2: You may want to give the development team the ability to update code, but not Cognito. Then give them access to the **Code Stack**.
+1. It properly distributes risk so that we secure our application's integrity. The Code Stack for instance, is something you may want to update continuously through CI/CD. But you do not want give it permissions to be able to delete or change policies on our Bucket's.
+
+<br/>
+Scroll down to see which resources each stack makes.
+
+<br/><br/>
+Other things to note:
+- The ACM certificates and the Lambda layer are resources you must provide (are not created for you)
+- While the frontend code is not deployed through the **Code Stack** it is part of the same step
+- The repo has CircleCi configurations to support continuous deployment of the **Code Stack** (making updates to the api and frontend easy)
 
 ### Infrastructure Stack
 <p align="left">
