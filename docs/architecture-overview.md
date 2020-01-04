@@ -31,7 +31,7 @@
   />
 </p>
 
-## Network Stack
+### Network Stack
 <p align="left">
   <img
     alt="Network Stack"
@@ -42,3 +42,10 @@
 
 
 ## Local Development
+<p align="left">
+  <img
+    alt="Local Environment"
+    src="/docs/images/architecture/Local-Environment.png"
+    width="100%"
+  />
+</p>
