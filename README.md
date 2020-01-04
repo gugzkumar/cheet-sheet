@@ -9,11 +9,11 @@
 
 Cheet Sheet is an open source Content Management System for developers and development teams to Create, Edit and Share code snippets. This accelerates software engineering by having a centralized place where one can see how they or teammates have solved common problems in the past.
 <br/><br/>
-Setting up Cheet Sheet for you or your organization is simple. All you need is Docker, node and an AWS account. It's 100% Serverless so your costs and infrastructure will scale and grow with minimal effort on your part. ***Read [Getting Started](/docs/getting-started.md)***
+Setting up Cheet Sheet for you or your organization is simple. All you need is Docker, node and an AWS account. It's 100% Serverless so your costs and infrastructure will automatically scale and grow automatically with minimal effort on your part. ***Read [Getting Started](/docs/getting-started.md)***
 <br/><br/>
 Here is my own instance of the application: https://cheet-sheet.gugz.net/
 <br/><br/>
-If you use the app and like it please leave a star. If you find bugs please submit an issue.
+If you use the app and like it please leave a star. If you find bugs feel free to submit an issue.
 
 <h1>Features</h1>
 

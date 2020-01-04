@@ -14,13 +14,12 @@ Click [here](/docs/setting-up-remote.md) to learn how to setup and deploy the ap
 ### Set Up Continuous Deployment
 Click [here](/docs/setting-up-ci-cd.md) to learn how to setup continuous deployment through CircleCI. This will automate deployment of changes to the API and UI, so that effort can be focused on designing new features rather than launching them.
 
+# Other Useful Documents
+
+### Architecture Diagrams and Overview
+Click [here](/docs/architecture-overview.md) to understand how Cheet Sheet is built, and designed.
+
 ### Environment Variable Glossary
 Click [here](/docs/environment-variable-glossary.md) to learn what the different Environment variables in the app are.
 
-<!-- # Other Useful Documents
-
-### Architecture Overview
-
-### Environment Variable Glossary
-
-### Gained Learnings -->
+<!-- ### Gained Learnings -->
