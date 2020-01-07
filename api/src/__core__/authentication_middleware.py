@@ -12,18 +12,16 @@ from __core__.utilities import decode_base64_to_json, get_error_response
 from jwt.algorithms import RSAAlgorithm
 
 def apply(event):
-    """
-    """
     headers = event['headers']
 
     if ('Authorization' in headers) and (headers['Authorization']):
         try:
-            # Parse Web Keys and Headers of Access and Id JWT tokens
+            # Parse Web Keys and Headers of Access JWT tokens
             web_keys = { token['kid']: token for token in decode_base64_to_json(COGNITO_JWKS_BASE64)['keys'] }
             access_token = headers['Authorization'].replace('Bearer ', '')
             access_token_header = jwt.get_unverified_header(access_token)
 
-            # Verify Access and Id Token
+            # Verify Access Token
             public_access_key = RSAAlgorithm.from_jwk(json.dumps(web_keys[access_token_header['kid']]))
             decoded_access_token = jwt.decode(access_token, public_access_key, algorithms='RS256', verify=True)
 

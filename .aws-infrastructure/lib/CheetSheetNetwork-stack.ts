@@ -42,7 +42,8 @@ export class CheetSheetNetworkStack extends cdk.Stack {
 
         const apiDomain = new apigateway.DomainName(this, 'ApiGatewayDomain', {
             domainName: apiDomainName,
-            certificate: acmCert
+            certificate: acmCert,
+            endpointType: apigateway.EndpointType.EDGE
         });
         const apiDomainMapping = new apigateway.CfnBasePathMapping(this, 'ApiGatewayDomainMapping',
             {
@@ -80,7 +81,7 @@ export class CheetSheetNetworkStack extends cdk.Stack {
                         allowedMethods: cloudfront.CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
                         defaultTtl: cdk.Duration.seconds(60)
                       },
-                    ]
+                  ],
                 }
             ],
             aliasConfiguration: {
@@ -100,7 +101,8 @@ export class CheetSheetNetworkStack extends cdk.Stack {
                     responseCode: 200,
                     responsePagePath: '/index.html'
                 }
-            ]
+            ],
+            priceClass: cloudfront.PriceClass.PRICE_CLASS_ALL
         });
         const targetResource = new targets.CloudFrontTarget(clientUIWebDistribution);
 

@@ -1,12 +1,12 @@
 # Preliminary Setup and Preparation
 
-This is all the preliminary things you will need to do before running the app on your computer or deploying it to AWS.
+These are all the preliminary things you will need to do before running the app on your computer or deploying it to AWS.
 
 ## Repo
-First fork or clone this repo on your own Github account. I strongly suggest you use Github since it will be easy to automate code deployments through Circle CI.
+First fork or clone this repo on your own Github account. I strongly suggest you use Github since it will be easy to automate code deployments through CircleCI.
 
 ## Docker
-Install Docker for Desktop and Docker Compose for your machine:
+Install Docker and Docker Compose for your computer:
 - https://www.docker.com/
 
 ## AWS
@@ -20,7 +20,7 @@ You will need to have an AWS IAM account, with permissions to the following serv
 - Cloudwatch
 - Cloudfront
 - Route53
-- IAM *create roles and policies for lambda*
+- IAM *to create roles and policies for lambda*
 
 Next you will need to have or create the following resources:
 
@@ -57,6 +57,6 @@ Set up an SSL Certificate throw through AWS' Certificate Manager. You will want 
 
 
 ## Setup Utility CLI
-To streamline the creation of configuration variables and files we have some cli tools built with Node JS. Download Node if you do not have it. Then from the the `.utils` folder run `npm install` to install the cli. Run `node main.js --help` to confirm the utility cli works.
+To streamline the creation of configuration variables and files I've made some cli tools built with Node JS. Download Node if you do not have it. Then from the the `.utils` folder run `npm install` to install the cli. Run `node main.js --help` to confirm the utility cli works.
 <br/><br/>
 https://nodejs.org/en/

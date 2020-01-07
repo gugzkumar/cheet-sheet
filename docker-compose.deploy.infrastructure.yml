@@ -1,19 +1,16 @@
 # ------------------------------------------------------------------------------
 # INFRASTRUCTURE DOCKER COMPOSE
 #
-# This Docker Compose is meant provision the necessary AWS resources
-# for a user. This includes VPC's, Subnets, Roles and Policies.
+# This Docker Compose can deploy the Infrastructure Stack and the Networking Stack
 #
-# What this sets up:
-# - Cognito Userpool
-# - S3 Bucket for UI hosting
-# - S3 Bucket for App Data Storage
-# - S3 Bucket for Code Deployment Artifacts
+# Infrastructure Stack Prerequisites:
+# - None, this is the first stack deployed
 #
-# Prerequisites:
-# - AWS VPC
-# - Route53 Domains
-# - AWS Certificate Manager
+# Networking Stack Prerequisites:
+# - Infrastructure Stack
+# - ACM Certifcate
+# - Route53 Domain
+#
 # ------------------------------------------------------------------------------
 version: '3.7'
 services:
