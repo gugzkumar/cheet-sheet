@@ -1,18 +1,18 @@
 # Setting Up And Launching The App On AWS
 
-This guide is for you to have a working version of Cheet Sheet deployed to the internet for you or your team to access from anywhere. All commands, unless otherwise noted, should be ran from the root of the project folder.
+This guide is for you to have a working version of Cheet Sheet deployed to the internet for you or your team to access from anywhere. All commands, unless otherwise noted, should be ran from the root project folder.
 
 ## STEP 1: Create Your infrastructure.env File
 
-**Warning: if you've already made infrastructure.env before, it will be overridden. So save it if you don't want to lose it.**
+**Warning: if you've already made an infrastructure.env before, it will be overridden. So save it if you don't want to lose it.**
 
-1. From the .utils folder run `node main.js create-infra-env`
+1. From the `.utils` folder run `node main.js create-infra-env`
 2. Follow the guided prompt to create `infrastructure.env`
 3. Confirm you now have a file in your root folder called `infrastructure.env`
 
 <details><summary>What just happened?</summary>
 
-> The first thing we need to do is provision infrastructure for the app. This includes things like S3 Buckets, Cognito Userpools and lambda roles. We do this through docker compose. The file called infrastructure.env, is what properly configures how to build the infrastructure. You could also build the `infrastructure.env` file manually by following the [infrastructure.template.env](/.env_templates/infrastructure.template.env). It's just that the utility cli provides guided prompts to make it a bit easier. *If you want to learn more about what each configuration is, read the ENVIRONMENT variable glossary.*
+> The first thing we need to do is provision infrastructure for the app. This includes things like S3 Buckets, Cognito Userpools and Lambda roles. We do this through docker compose. The file called `infrastructure.env`, is what properly configures how to build the infrastructure. You could also build the `infrastructure.env` file manually by following the [infrastructure.template.env](/.env_templates/infrastructure.template.env). It's just that the utility cli provides guided prompts to make it a bit easier. *If you want to learn more about what each configuration is, read the ENVIRONMENT variable glossary.*
 
 </details>
 
@@ -40,9 +40,9 @@ This guide is for you to have a working version of Cheet Sheet deployed to the i
 
 ## STEP 3: Create Your remote.env File
 
-**Warning: if you've already made remote.env before, it will be overridden. So save it if you don't want to lose it.**
+**Warning: if you've already made an remote.env before, it will be overridden. So save it if you don't want to lose it.**
 
-1. From the .utils folder run `node main.js create-infra-env`
+1. From the .utils folder run `node main.js create-env`
 1. Follow the guided prompt to create `remote.env` from `infrastructure.env`
 1. Confirm you now have a file in your root folder called `remote.env`
 
@@ -54,10 +54,10 @@ This guide is for you to have a working version of Cheet Sheet deployed to the i
 
 ## STEP 4: Build and Deploy The Code
 
-**Note: SITE_DOMAIN and SITE_SUB_DOMAIN are what is defined in infrastructure.env**
+**Note: ENVIRONMENT, SITE_DOMAIN and SITE_SUB_DOMAIN are what is defined in infrastructure.env**
 
 1. Run `docker-compose -f docker-compose.deploy.code.yml run --rm serverless-lambda-api sh deploy.sh`
-1. The command above deploys your code for the API
+1. The command above deploys your code for the Api
 1. Once it ran confirm in AWS Cloudformation you have a new stack called `CheetSheetCodeStack-{ENVIRONMENT}` with the status `CREATE_COMPLETE`
 1. Run `docker-compose -f docker-compose.deploy.code.yml run --rm serverless-angular-client-ui sh -c "node build-env.js && npm run build-prod"`
 1. You should now see a folder called `client-ui/angular-output`. In here is every thing you need for your front end to work.
@@ -65,11 +65,11 @@ This guide is for you to have a working version of Cheet Sheet deployed to the i
 
 <details><summary>What just happened?</summary>
 
-> The first thing that happens is the deploy of the API. We run a docker container built with the AWS SAM cli, a configuration template for the REST API, and source code of the Lambda Function. This will produce a separate Cloudformation stack for Code.
+> The first thing that happens is the deploy of the Api. We run a docker container built with the AWS SAM cli, a configuration template for the REST Api, and source code of the Lambda Function. This will produce a separate Cloudformation stack for Code.
 >
 > The second thing that happens is the deploy of the UI source code. We run a docker container built with the Angular that outputs static files for the frontend. Then copy and paste it into our UI bucket which will be the source of truth for our frontend.
 >
-> Again docker is meant to reduce the number of things you have to install. It also makes easy to plug in to CircleCI for Continuous Deployment.
+> Again docker is meant to reduce the number of things you have to install. It also makes it easy to plug in to CircleCI for Continuous Deployment.
 
 </details>
 
