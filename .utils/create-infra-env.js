@@ -15,11 +15,12 @@ return `` +
 #   run this app locally, not host it to the public.
 ENVIRONMENT=${params.ENVIRONMENT || ''}
 
-# AWS Creds
+# AWS credentials and region
 AWS_DEFAULT_REGION=${params.AWS_DEFAULT_REGION  || ''}
 AWS_ACCESS_KEY_ID=${params.AWS_ACCESS_KEY_ID  || ''}
 AWS_SECRET_ACCESS_KEY=${params.AWS_SECRET_ACCESS_KEY  || ''}
 
+# Route53 Configurations
 AWS_ROUTE53_HOSTED_ZONE_ID=${params.AWS_ROUTE53_HOSTED_ZONE_ID  || ''}
 SITE_SUB_DOMAIN=${params.SITE_SUB_DOMAIN  || ''}
 SITE_DOMAIN=${params.SITE_DOMAIN  || ''}

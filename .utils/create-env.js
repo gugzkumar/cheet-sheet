@@ -7,13 +7,14 @@ const util = require('util');
 var request = require('request-promise-native');
 var AWS = require('aws-sdk');
 
-// Template for the infrastructure.env file generated
+// Template for the remote.env file generated
 const generateRemoteEnvString = (params) => {
 return `` +
 `# What unique environment is this code will be deployed to.
 #   This should match the environment of infrastructure it is going to
 #   be deployed to.
 ENVIRONMENT=${params.ENVIRONMENT || ''}
+
 SITE_SUB_DOMAIN=${params.SITE_SUB_DOMAIN || ''}
 SITE_DOMAIN=${params.SITE_DOMAIN || ''}
 
@@ -21,21 +22,22 @@ SITE_DOMAIN=${params.SITE_DOMAIN || ''}
 CLIENT_UI_URL=${params.CLIENT_UI_URL || ''}
 API_URL=${params.API_URL || ''}
 
-# AWS Credentials and regions
+# AWS credentials and region
 AWS_DEFAULT_REGION=${params.AWS_DEFAULT_REGION || ''}
 AWS_ACCESS_KEY_ID=${params.AWS_ACCESS_KEY_ID || ''}
 AWS_SECRET_ACCESS_KEY=${params.AWS_SECRET_ACCESS_KEY || ''}
 
-# Cognito
+# Cognito configurations
 COGNITO_CLIENT_ID=${params.COGNITO_CLIENT_ID || ''}
 COGNITO_AUTH_URL=${params.COGNITO_AUTH_URL || ''}
 COGNITO_JWKS_BASE64=${params.COGNITO_JWKS_BASE64 || ''}
 
-# Where application data is saved
+# Folder path where application data is saved
 SHEET_DATA_S3_BUCKET=${params.SHEET_DATA_S3_BUCKET || ''}
 
 # AWS IAM Role ARN for Lambda function. The minimum requirement is for:
 # - Read and Write Access to the Sheet Data S3 Bucket
+# - Write logs to Cloud Watch
 # - The ability to invoke itself
 LAMBDA_IAM_ROLE=${params.LAMBDA_IAM_ROLE || ''}
 
@@ -44,13 +46,14 @@ LAMBDA_IAM_ROLE=${params.LAMBDA_IAM_ROLE || ''}
 # - cryptography==2.8
 LAMBDA_LAYER=${params.LAMBDA_LAYER || ''}
 
-#   SHEET_DATA_S3_BUCKET: S3 bucket that stores all sheets
+# Bucket that facilatates SAM deployments of the Api
 API_DEPLOYMENT_S3_BUCKET=${params.API_DEPLOYMENT_S3_BUCKET || ''}
 
-# Comment this out if your okay with SAM sending data
+# Comment this out if you are okay with SAM sending data
 SAM_CLI_TELEMETRY=0
 `}
 
+// Template for the local.env file generated
 const generateLocalEnvString = (params) => {
 return `` +
 `# This env file does not deploy anything. It is only used for local
@@ -61,12 +64,12 @@ ENVIRONMENT=${params.ENVIRONMENT || ''}
 CLIENT_UI_URL=${params.CLIENT_UI_URL || ''}
 API_URL=${params.API_URL || ''}
 
-# AWS Credentials and regions
+# AWS credentials and region
 AWS_DEFAULT_REGION=${params.AWS_DEFAULT_REGION || ''}
 AWS_ACCESS_KEY_ID=${params.AWS_ACCESS_KEY_ID || ''}
 AWS_SECRET_ACCESS_KEY=${params.AWS_SECRET_ACCESS_KEY || ''}
 
-# AWS Cognito configurations
+# Cognito configurations
 COGNITO_CLIENT_ID=${params.COGNITO_CLIENT_ID || ''}
 COGNITO_AUTH_URL=${params.COGNITO_AUTH_URL || ''}
 COGNITO_JWKS_BASE64=${params.COGNITO_JWKS_BASE64 || ''}
@@ -82,28 +85,9 @@ LAMBDA_LAYER=${params.LAMBDA_LAYER || ''}
 # Tell SAM Local the Path of the API, so it can properly mount volumes
 SAM_LOCAL_ABSOLUTE_PATH=${params.SAM_LOCAL_ABSOLUTE_PATH || ''}
 
-# Comment this out if your okay with SAM sending data
+# Comment this out if you are okay with SAM sending data
 SAM_CLI_TELEMETRY=0
 `
-}
-
-
-
-const createEnv = (environment) => {
-    if(environment === 'local') {
-        var params = {
-        };
-        dotenv.config({path: '../infrastructure.env'});
-        AWS.config.region = 'us-east-1'
-        AWS.config.credentials = new AWS.Credentials(process.env.AWS_ACCESS_KEY_ID, process.env.AWS_SECRET_ACCESS_KEY);
-        const cloudformation = new AWS.CloudFormation({
-            apiVersion: '2010-05-15'
-        });
-        cloudformation.listExports(params, function(err, data) {
-          if (err) console.log(err, err.stack); // an error occurred
-          else     console.log(data);           // successful response
-        });
-    }
 }
 
 /**
@@ -123,12 +107,7 @@ const questions = [
 
 ];
 
-
-// const describeStacksPromise = util.promisify(cloudformation.describeStacks);
-
-// - Get Stack outputs
-
-
+// Turn file writer into a promise
 const writeFilePromise = util.promisify(fs.writeFile);
 
 // Export CLI Command
@@ -177,9 +156,6 @@ module.exports = () => {
             AWS.config.region = answers.AWS_DEFAULT_REGION;
             AWS.config.credentials = new AWS.Credentials(answers.AWS_ACCESS_KEY_ID, answers.AWS_SECRET_ACCESS_KEY);
             const cloudformation = new AWS.CloudFormation({ apiVersion: '2010-05-15' });
-
-
-
 
             // Read exports from CloudFormation
             return cloudformation.describeStacks({ StackName: infrastructureStackName }).promise()

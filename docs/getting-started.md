@@ -3,7 +3,7 @@
 This document and the following ones will help you set up Cheet Sheet.
 
 ### Preliminary Setup
-Click [here](/docs/setting-up-preliminary-tools.md) to read the necessary prep to run the app locally and deploy it AWS.
+Click [here](/docs/setting-up-preliminary-tools.md) to read the necessary prep to run the app locally and/or deploy it to AWS.
 
 ### Set Up and Run Locally
 Click [here](/docs/setting-up-locally.md) to learn how to setup and run the app on your local machine. This is good for development and testing.
