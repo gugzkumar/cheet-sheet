@@ -1,7 +1,7 @@
 <p align="center">
   <img
     alt="Cheet Sheet"
-    src="/docs/images/readme_logo.png"
+    src="docs/images/readme_logo.png"
     width="700"
   />
 </p>
