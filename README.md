@@ -21,7 +21,7 @@ If you use the app and like it please leave a star. If you find bugs feel free t
 <p align="left">
   <img
     alt="Public View"
-    src="/docs/images/Public_View.png"
+    src="docs/images/Public_View.png"
     width="700"
   />
 </p>
@@ -31,7 +31,7 @@ Cheet Sheet is fairly simple to understand. Code snippets are are organized as s
 <p align="left">
   <img
     alt="Personal View"
-    src="/docs/images/Personal_View.png"
+    src="docs/images/Personal_View.png"
     width="700"
   />
 </p>
@@ -41,7 +41,7 @@ If you sign up for an account and log in, you will have access to your own Perso
 <p align="left">
   <img
     alt="Personal View Edit Mode"
-    src="/docs/images/Personal_View_Edit_Mode.png"
+    src="docs/images/Personal_View_Edit_Mode.png"
     width="700"
   />
 </p>
@@ -52,7 +52,7 @@ You can enter Edit mode by manually toggling it on and off. When on, you can add
 <p align="left">
   <img
     alt="Personal View Edit Mode"
-    src="/docs/images/Team_Workspaces.png"
+    src="docs/images/Team_Workspaces.png"
     width="450"
   />
 </p>
