@@ -1,9 +1,7 @@
 """
 API methods for /sheet
 """
-import boto3
-import json
-import datetime
+import boto3, json, datetime, re
 from boto3 import client
 s3_client = client('s3')
 from __core__.settings import AVAILABLE_FILE_TYPES, SHEET_DATA_S3_BUCKET
@@ -40,6 +38,11 @@ def post(event, context):
     if event['body']['sheetName'] in all_current_sheet_names:
         # Error if sheet name exists
         return get_error_response(f'Sheet with name {event["body"]["sheetName"]} already exists')
+
+    valid_name_pattern = re.compile("[a-zA-Z0-9!\-_*]+")
+    if valid_name_pattern.fullmatch(event['body']['sheetName']) is None:
+        # Error if sheet name has invalid characters
+        return get_error_response(f'Sheet name must be alphanumeric and may contain the following characters: -, !, _, *')
 
     if 'defaultFileType' not in event['body'] or event['body']['sheetName'] is None:
         # Error if Default File type was not provided
