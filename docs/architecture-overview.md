@@ -4,7 +4,7 @@
 <p align="left">
   <img
     alt="Remote Environment"
-    src="/docs/images/architecture/Remote-Environment.png"
+    src="images/architecture/Remote-Environment.png"
     width="100%"
   />
 </p>
@@ -21,7 +21,7 @@ The Api Deployment bucket does not play an active role in the Infrastructure. Bu
 <p align="left">
   <img
     alt="Deployment Process"
-    src="/docs/images/architecture/Deployment-Process.png"
+    src="images/architecture/Deployment-Process.png"
     width="100%"
   />
 </p>
@@ -45,7 +45,7 @@ Other things to note:
 <p align="left">
   <img
     alt="Infrastructure Stack"
-    src="/docs/images/architecture/Infrastructure-Stack.png"
+    src="images/architecture/Infrastructure-Stack.png"
     width="100%"
   />
 </p>
@@ -54,7 +54,7 @@ Other things to note:
 <p align="left">
   <img
     alt="Code Stack"
-    src="/docs/images/architecture/Code-Stack.png"
+    src="images/architecture/Code-Stack.png"
     width="100%"
   />
 </p>
@@ -63,7 +63,7 @@ Other things to note:
 <p align="left">
   <img
     alt="Network Stack"
-    src="/docs/images/architecture/Network-Stack.png"
+    src="images/architecture/Network-Stack.png"
     width="100%"
   />
 </p>
@@ -73,7 +73,7 @@ Other things to note:
 <p align="left">
   <img
     alt="Local Environment"
-    src="/docs/images/architecture/Local-Environment.png"
+    src="images/architecture/Local-Environment.png"
     width="100%"
   />
 </p>

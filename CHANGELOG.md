@@ -2,8 +2,11 @@
 
 ## (unreleased)
 
+Features:
+- Working Github Pages Link https://gugzkumar.github.io/cheet-sheet/
+
 Bug Fixes:
-  - Prevent Sheet names from unsafe characters (based on safe characters of S3 keys)
+- Prevent Sheet names from unsafe characters (based on safe characters of S3 keys)
 
 ## v1.0
 
